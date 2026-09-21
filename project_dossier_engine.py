@@ -855,10 +855,26 @@ def format_dossier_prompt_context(dossier: Dict[str, Any]) -> str:
 
 def get_default_dossier_path() -> Path:
     """Trả về đường dẫn mặc định của file hồ sơ dự án."""
-    pkg_root = Path(__file__).resolve().parents[3]
+    _this_file = Path(__file__).resolve()
+    pkg_root = _this_file.parents[3] if len(_this_file.parents) > 3 else _this_file.parent
+    candidates = [
+        _this_file.parent / "Data" / "current_project_dossier.json",
+        _this_file.parent / "current_project_dossier.json",
+        pkg_root.parent / "Data" / "current_project_dossier.json",
+        pkg_root / "Data" / "current_project_dossier.json",
+        Path("/app/Data/current_project_dossier.json"),
+        Path("/app/current_project_dossier.json"),
+        Path(r"C:\QS_Hien\Data\current_project_dossier.json"),
+    ]
+    for c in candidates:
+        if c.is_file():
+            return c
+
     data_dir = pkg_root.parent / "Data"
     if not data_dir.exists():
         data_dir = pkg_root / "Data"
+    if not data_dir.exists():
+        data_dir = _this_file.parent / "Data"
     data_dir.mkdir(parents=True, exist_ok=True)
     return data_dir / "current_project_dossier.json"
 
@@ -876,11 +892,16 @@ def load_project_dossier(file_path: Optional[str | Path] = None) -> Optional[Dic
     """Đọc hồ sơ dự án hiện hành từ tệp JSON."""
     target_path = Path(file_path) if file_path else get_default_dossier_path()
     if not target_path.is_file():
-        # Fallback tìm các vị trí khác
-        pkg_root = Path(__file__).resolve().parents[3]
+        _this_file = Path(__file__).resolve()
+        pkg_root = _this_file.parents[3] if len(_this_file.parents) > 3 else _this_file.parent
         candidates = [
+            _this_file.parent / "Data" / "current_project_dossier.json",
+            _this_file.parent / "current_project_dossier.json",
             pkg_root.parent / "Data" / "current_project_dossier.json",
             pkg_root / "Data" / "current_project_dossier.json",
+            Path("/app/Data/current_project_dossier.json"),
+            Path("/app/current_project_dossier.json"),
+            Path(r"C:\QS_Hien\Data\current_project_dossier.json"),
         ]
         for c in candidates:
             if c.is_file():

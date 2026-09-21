@@ -24,16 +24,30 @@ from typing import List, Dict, Any, Optional, Tuple
 import numpy as np
 
 # Thư mục gốc & Dữ liệu
-_PKG_ROOT = Path(__file__).resolve().parents[3]  # .../MenuCadHienpro (repo root)
+_this_file = Path(__file__).resolve()
+_PKG_ROOT = _this_file.parents[3] if len(_this_file.parents) > 3 else _this_file.parent
 _TRITHUC = os.environ.get("QSH_TRITHUC_ROOT", "").strip()
-_CANDIDATE_DATA_DIRS = [
-    *([Path(_TRITHUC)] if _TRITHUC else []),
-    _PKG_ROOT.parent / "Data",
-    _PKG_ROOT / "Data",
-]
-DATA_DIR = next((d for d in _CANDIDATE_DATA_DIRS if d.exists()), _CANDIDATE_DATA_DIRS[0])
+
+def _find_rag_db_path() -> Path:
+    candidates = [
+        *([Path(_TRITHUC) / "susu_vector_kb.db"] if _TRITHUC else []),
+        _this_file.parent / "susu_vector_kb.db",
+        _this_file.parent / "Data" / "susu_vector_kb.db",
+        _PKG_ROOT.parent / "Data" / "susu_vector_kb.db",
+        _PKG_ROOT / "Data" / "susu_vector_kb.db",
+        Path("/app/susu_vector_kb.db"),
+        Path("/app/Data/susu_vector_kb.db"),
+        Path(r"C:\QS_Hien\Data\susu_vector_kb.db"),
+        Path(r"C:\QS_Hien\trithuc\susu\susu_vector_kb.db"),
+    ]
+    for c in candidates:
+        if c.is_file():
+            return c
+    return _this_file.parent / "susu_vector_kb.db"
+
+DB_PATH = _find_rag_db_path()
+DATA_DIR = DB_PATH.parent
 DOCS_DIR = _PKG_ROOT / "docs"
-DB_PATH = DATA_DIR / "susu_vector_kb.db"
 
 
 def strip_accents(text: str) -> str:

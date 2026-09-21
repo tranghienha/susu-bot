@@ -57,6 +57,20 @@ def health_check():
     }
 
 
+def _safe_process_update(update_data: Dict[str, Any]):
+    try:
+        msg = update_data.get("message", {})
+        txt = msg.get("text", "")
+        sender = msg.get("from", {}).get("username") or msg.get("from", {}).get("id")
+        print(f"[Webhook Process] From: {sender} | Text: {txt}", flush=True)
+        bot.process_update(update_data)
+        print(f"[Webhook Success] Handled message: {txt}", flush=True)
+    except Exception as e:
+        import traceback
+        print(f"[Webhook Process Error] {e}", flush=True)
+        traceback.print_exc()
+
+
 @app.post("/webhook")
 async def telegram_webhook(request: Request):
     """
@@ -66,10 +80,9 @@ async def telegram_webhook(request: Request):
     try:
         update_data = await request.json()
         if update_data:
-            # Xử lý trong luồng riêng để phản hồi ngay HTTP 200 cho Telegram
-            threading.Thread(target=bot.process_update, args=(update_data,), daemon=True).start()
+            threading.Thread(target=_safe_process_update, args=(update_data,), daemon=True).start()
     except Exception as e:
-        print(f"[Webhook Error] {e}")
+        print(f"[Webhook Error] {e}", flush=True)
 
     return {"ok": True}
 
@@ -77,3 +90,4 @@ async def telegram_webhook(request: Request):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     uvicorn.run(app, host="0.0.0.0", port=port)
+

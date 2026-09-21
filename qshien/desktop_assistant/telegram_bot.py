@@ -34,8 +34,11 @@ import requests
 
 # Định vị thư mục package và dữ liệu
 CURRENT_DIR = Path(__file__).resolve().parent
-ADDIN_DIR = CURRENT_DIR.parent.parent
-REPO_ROOT = ADDIN_DIR.parent
+ADDIN_DIR = CURRENT_DIR.parent.parent if len(CURRENT_DIR.parents) >= 2 else CURRENT_DIR
+REPO_ROOT = ADDIN_DIR.parent if len(ADDIN_DIR.parents) >= 1 else CURRENT_DIR
+
+DEFAULT_BOT_TOKEN = "8830295571:AAElfoa5UqIB5lG_2KSXfvG5ckMQjNFL3yY"
+
 if str(ADDIN_DIR) not in sys.path:
     sys.path.insert(0, str(ADDIN_DIR))
 if str(REPO_ROOT) not in sys.path:
@@ -44,17 +47,23 @@ if str(REPO_ROOT) not in sys.path:
 # Tìm thư mục Data
 def _get_data_dir() -> Path:
     candidates = [
+        CURRENT_DIR / "Data",
+        CURRENT_DIR,
         REPO_ROOT.parent / "Data",
         REPO_ROOT / "Data",
+        Path("/app/Data"),
+        Path("/app"),
         Path(r"C:\QS_Hien\Data"),
         Path(r"C:\QS_Hien\trithuc\susu"),
     ]
+    # Ưu tiên thư mục chứa file dữ liệu thực
+    for c in candidates:
+        if c.is_dir() and ((c / "tinh_huong_thuc_chien.json").exists() or (c / "susu_vector_kb.db").exists()):
+            return c
     for c in candidates:
         if c.is_dir():
             return c
-    d = REPO_ROOT / "Data"
-    d.mkdir(parents=True, exist_ok=True)
-    return d
+    return CURRENT_DIR
 
 DATA_DIR = _get_data_dir()
 CONFIG_FILE = DATA_DIR / "telegram_config.json"
@@ -63,26 +72,38 @@ CONFIG_FILE = DATA_DIR / "telegram_config.json"
 def load_telegram_config() -> Dict[str, Any]:
     """Nạp cấu hình Telegram Bot từ Data/telegram_config.json hoặc biến môi trường."""
     config: Dict[str, Any] = {
-        "bot_token": os.environ.get("TELEGRAM_BOT_TOKEN", "").strip(),
-        "allowed_chat_ids": [],
+        "bot_token": os.environ.get("TELEGRAM_BOT_TOKEN", "").strip() or DEFAULT_BOT_TOKEN,
+        "allowed_chat_ids": [8249791298],
         "auto_bind_first_user": True,
         "bot_name": "🌸 Su Su - Trợ Lý Chiến Lược QS Hiền",
         "poll_timeout": 30,
-        "is_active": False
+        "is_active": True
     }
 
-    if CONFIG_FILE.exists():
-        try:
-            with open(CONFIG_FILE, "r", encoding="utf-8") as f:
-                saved = json.load(f)
-                if isinstance(saved, dict):
-                    config.update(saved)
-        except Exception:
-            pass
+    # Quét tất cả các vị trí khả dĩ của telegram_config.json
+    cfg_candidates = [
+        CONFIG_FILE,
+        CURRENT_DIR / "telegram_config.json",
+        CURRENT_DIR / "Data" / "telegram_config.json",
+        Path("/app/telegram_config.json"),
+        Path("/app/Data/telegram_config.json"),
+    ]
+    for cfg_path in cfg_candidates:
+        if cfg_path.exists():
+            try:
+                with open(cfg_path, "r", encoding="utf-8") as f:
+                    saved = json.load(f)
+                    if isinstance(saved, dict):
+                        config.update(saved)
+                        break
+            except Exception:
+                pass
 
-    # Nếu token vẫn rỗng, kiểm tra các file .env
-    if not config["bot_token"]:
-        for env_path in [REPO_ROOT / ".env", REPO_ROOT.parent / ".env", Path(r"C:\QS_Hien\.env")]:
+    if not config.get("bot_token"):
+        config["bot_token"] = DEFAULT_BOT_TOKEN
+
+    # Kiểm tra thêm các file .env
+    for env_path in [REPO_ROOT / ".env", REPO_ROOT.parent / ".env", Path(r"C:\QS_Hien\.env"), CURRENT_DIR / ".env", Path("/app/.env")]:
             if env_path.exists():
                 try:
                     for line in env_path.read_text(encoding="utf-8", errors="ignore").splitlines():

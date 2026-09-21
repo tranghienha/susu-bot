@@ -21,19 +21,48 @@ if hasattr(sys.stdout, "reconfigure"):
         pass
 
 # Định vị thư mục dự án
-PROJECT_DIR = Path(__file__).resolve().parent.parent  # .../MenuCadHienpro (repo root)
+_this_file = Path(__file__).resolve()
+PROJECT_DIR = _this_file.parents[1] if len(_this_file.parents) > 1 else _this_file.parent
 _TRITHUC = os.environ.get("QSH_TRITHUC_ROOT", "").strip()
-DATA_DIR = Path(_TRITHUC) if _TRITHUC else (PROJECT_DIR.parent / "Data" if (PROJECT_DIR.parent / "Data").exists() else PROJECT_DIR / "Data")
+
+DEFAULT_GEMINI_KEY = "AQ.Ab8RN6JmWYsU7LOfFbOxajDf4qgx3ISEN-Guu2-6J3EfEBdOfQ"
+
+def _find_consult_data_dir() -> Path:
+    candidates = [
+        *([Path(_TRITHUC)] if _TRITHUC else []),
+        _this_file.parent / "Data",
+        _this_file.parent,
+        PROJECT_DIR.parent / "Data",
+        PROJECT_DIR / "Data",
+        Path("/app/Data"),
+        Path("/app"),
+        Path(r"C:\QS_Hien\Data"),
+        Path(r"C:\QS_Hien\trithuc\susu"),
+    ]
+    for c in candidates:
+        if c.is_dir() and (c / "current_project_dossier.json").exists():
+            return c
+    for c in candidates:
+        if c.is_dir():
+            return c
+    return _this_file.parent
+
+DATA_DIR = _find_consult_data_dir()
 
 # Nạp đường dẫn addin để gọi vector_rag_engine
 ADDIN_DIR = PROJECT_DIR / "addin"
 if str(ADDIN_DIR) not in sys.path:
     sys.path.insert(0, str(ADDIN_DIR))
+if str(_this_file.parent) not in sys.path:
+    sys.path.insert(0, str(_this_file.parent))
 
 try:
     from qshien.desktop_assistant.vector_rag_engine import get_vector_rag
 except Exception:
-    get_vector_rag = None
+    try:
+        from vector_rag_engine import get_vector_rag
+    except Exception:
+        get_vector_rag = None
 
 USER_KEYS_FILE = DATA_DIR / "google_api_keys.json"
 SECRETS_DIR = Path.home() / ".qshien"
@@ -52,10 +81,13 @@ def get_google_ultra_api_key() -> str:
     """Đọc Google Gemini API Key: .env -> env var -> ~/.qshien/secrets.json -> Data/google_api_keys.json -> config.json."""
     # 1. Quét các file .env
     env_candidates = [
+        _this_file.parent / ".env",
+        Path("/app/.env"),
         PROJECT_DIR / ".env",
         PROJECT_DIR.parent / ".env",
         PROJECT_DIR.parent.parent / ".env",
-        Path(r"C:\DU LIEU\MenuCadHienprOMAX\.env")
+        Path(r"C:\DU LIEU\MenuCadHienprOMAX\.env"),
+        Path(r"C:\QS_Hien\.env")
     ]
     for env_file in env_candidates:
         if env_file.exists():
@@ -102,7 +134,7 @@ def get_google_ultra_api_key() -> str:
             except Exception:
                 pass
 
-    return ""
+    return DEFAULT_GEMINI_KEY
 
 
 def save_user_api_key(api_key: str):
