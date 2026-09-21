@@ -1,0 +1,639 @@
+{
+  "title": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar",
+  "created_at": "2026-09-21 13:03:30",
+  "contract": {
+    "file_type": "docx",
+    "file_name": "Mẫu HĐ TCXD - Vietstar.docx",
+    "file_size_kb": 353.1,
+    "total_pages": 42,
+    "is_scanned_pdf": false,
+    "auxiliary_file": "",
+    "note": "",
+    "project_name": "| Nhà máy tích hợp xử lý chất thải rắn Vietstar",
+    "package_name": "Gói thầu phải được thi công theo bản vẽ thiết kế được Chủ đầu tư cung cấp và phê duyệt (kể cả phần sửa đổi được Chủ đầu tư chấp thuận)",
+    "employer": "CÔNG TY CỔ PHẦN VIETSTAR",
+    "contractor": "Tên giao dịch\t:",
+    "contract_value": 344886778999.8,
+    "contract_value_str": "344.886.779.000 VNĐ (Đã gồm 8% VAT - Trích xuất từ hàng Tổng Cộng BOQ)",
+    "price_type": "Hợp đồng theo đơn giá cố định",
+    "duration_days": null,
+    "start_date": "",
+    "end_date": "",
+    "time_bars": [
+      {
+        "days": 7,
+        "clause_text": "Nhà thầu thông báo cho Chủ đầu tư trước 07 ngày để tiến hành nghiệm thu"
+      },
+      {
+        "days": 7,
+        "clause_text": "Sau khi kiểm tra hồ sơ thanh toán của Nhà thầu, nếu có yêu cầu giải trình, bổ sung chứng từ, Chủ đầu tư sẽ thông báo cho Nhà thầu bằng văn bản (không quá 02 lần) nêu rõ các nội dung cần sửa chữa/giải trình/bổ sung trong vòng không quá 07 ngày làm việc kể từ ngày nhận được hồ sơ từ Nhà thầu"
+      },
+      {
+        "days": 7,
+        "clause_text": "Nhà thầu có trách nhiệm hoàn thiện trong thời hạn do Chủ đầu tư ấn định nhưng không vượt quá 07 ngày làm việc kể từ ngày nhận được yêu cầu từ Chủ đầu tư"
+      },
+      {
+        "days": 7,
+        "clause_text": "Nếu Nhà thầu không thực hiện và/hoặc thực hiện không đúng, không đầy đủ các nghĩa vụ theo Hợp đồng, Chủ đầu tư có thể ra Thông báo tạm ngừng công việc của Nhà thầu trước thời điểm ấn định tạm ngừng tối thiểu 07 ngày, yêu cầu Nhà thầu phải thực hiện và sửa chữa các sai sót trong khoảng thời gian do Chủ đầu tư ấn định đồng thời Nhà thầu phải bồi thường thiệt hại cho Chủ đầu tư do tạm ngừng công việc (sau đây gọi là “Thông báo tạm ngừng”)"
+      },
+      {
+        "days": 7,
+        "clause_text": "Chủ đầu tư có thể thông báo cho Nhà thầu trước 07 ngày chấm dứt Hợp đồng và trục xuất Nhà thầu ra khỏi Công trường"
+      }
+    ],
+    "advance_payment": "Trong vòng 07 ngày kể từ ngày Chủ đầu tư nhận được hồ sơ tạm ứng hợp lệ của Nhà thầu theo quy định tại điểm (c) Khoản này, Chủ đầu tư sẽ tạm ứng cho Nhà thầu 30% giá trị Hợp đồng trước thuế.",
+    "performance_bond": "",
+    "warranty": "Trong vòng 45 ngày kể từ ngày Chủ đầu tư phê duyệt hồ sơ quyết toán và nhận được hóa đơn giá trị gia tăng hợp pháp có giá trị bằng 100% giá trị quyết toán của Nhà thầu, Chủ đầu tư sẽ thanh toán cho Nhà thầu đến 100% giá trị quyết toán Hợp đồng được phê duyệt khi Nhà thầu thực hiện biện pháp bảo đảm bảo hành tương ứng 5% tổng giá trị quyết toán Hợp đồng (chưa bao gồm VAT) bằng thư bảo lãnh bảo hành của Ngân hàng; Giá trị",
+    "delay_penalty": "Điều 21. Thưởng, phạt Hợp đồng 37",
+    "payment_terms": "Trong 12 ngày làm việc tính từ thời điểm nhận đầy đủ hồ sơ thanh toán, CĐT kiểm tra và phê duyệt hồ sơ thanh toán cho nhà thầu. Sau 12 ngày nếu Chủ đầu tư không phản hồi hoặc phê duyệt thì mặc định hồ sơ là hợp lệ.",
+    "key_clauses": [
+      "Điều 1. Các định nghĩa và diễn giải 5\nĐiều 2. Hồ sơ Hợp đồng và thứ tự ưu tiên 6\nĐiều 3. Nội dung và khối lượng công việc 7\nĐiều 4. Yêu cầu về chất lượng và nghiệm thu, bàn giao Gói thầu 8\nĐiều 5. Thời gian và tiến độ thực hiện công việc 12\nĐiều 6. Giá trị Hợp đồng, tạm ứng và thanh toán 14\nĐiều 7. Phát sinh và điều chỉnh giá trị Hợp đồng 16\nĐiều 8. Bảo lãnh thực hiện Hợp đồng và Bảo lãnh tiền tạm ứng 17\nĐiều 9. Quyền và nghĩa vụ của Chủ đầu tư 19\nĐiều 10. Quyền và nghĩa vụ của Nhà thầu 20\nĐiều 11. Quyền và nghĩa vụ của TV QLDA và TVGS 28",
+      "Điều 12. Nhà thầu phụ 28\nĐiều 13. An toàn lao động, bảo vệ môi trường và phòng chống cháy nổ 29\nĐiều 14. Điện, nước và an ninh Công trường 30\nĐiều 15. Quy định chống gian lận và hối lộ 30\nĐiều 16. Bất khả kháng: 31\nĐiều 17. Bảo mật thông tin 32\nĐiều 18. Tạm ngừng thực hiện Hợp đồng 33\nĐiều 19. Chấm dứt Hợp đồng 34\nĐiều 20. Bảo hiểm và bảo hành 36\nĐiều 21. Thưởng, phạt Hợp đồng 37\nĐiều 22. Tranh chấp và giải quyết tranh chấp 38",
+      "Điều 23. Quyết toán và thanh lý Hợp đồng 38\nĐiều 24. Trao đổi thông tin 39\nĐiều 25. Điều khoản chung 39\nPHỤ LỤC 01: BẢNG GIÁ HỢP ĐỒNG\nPHỤ LỤC 02: DANH MỤC CÁC VẬT LIỆU CHÍNH PHỤ LỤC 03: MẪU THƯ BẢO LÃNH HỢP ĐỒNG\nPHỤ LỤC 04: DANH MỤC HỒ SƠ, TÀI LIỆU THANH TOÁN\nPHỤ LỤC 05: TIẾN ĐỘ THI CÔNG\nPHỤ LỤC 06: QUY ĐỊNH XỬ PHẠT VI PHẠM PHỤ LỤC 07: THI CÔNG GIAI ĐOẠN 1\nPHẦN 1 - CÁC CĂN CỨ KÝ KẾT HỢP ĐỒNG\n- Luật Xây dựng số 50/2014/QH13 ngày 18/06/2014;\nLuật số 62/2020/QH14 được Quốc hội thông qua ngày 17/6/2020 sửa đổi, bổ sung một số điều của Luật Xây dựng;",
+      "Điều 1. Các định nghĩa và diễn giải\nCác từ, cụm từ trong Hợp đồng được hiểu theo các định nghĩa và diễn giải sau đây:\n“Chủ đầu tư” hoặc “CĐT” là Công ty cổ phần Vietstar và những tổ chức, cá nhân kế thừa hợp pháp của Chủ đầu tư.\n“Nhà thầu” là Tổng công ty Xây dựng Lũng Lô và những tổ chức, cá nhân kế thừa hợp pháp của Nhà thầu.\n“Đại diện Chủ đầu tư” là người được Chủ đầu tư nêu ra trong Hợp đồng hoặc được Chủ đầu tư uỷ quyền bằng văn bản và điều hành công việc thay mặt Chủ đầu tư.\n“Đại diện Nhà thầu” là người được Nhà thầu nêu ra trong Hợp đồng hoặc được Nhà thầu uỷ quyền bằng văn bản và điều hành công việc thay mặt Nhà thầu.\n“Ngày hiệu lực Hợp đồng” là thời điểm Chủ đầu tư nhận được Bảo lãnh thực hiện Hợp đồng, Bảo lãnh Tạm ứng của Nhà thầu và Nhà thầu nhận được tiền tạm ứng của Chủ đầu tư, tùy điều kiện nào đến sau.\n“Tư vấn” là tổ chức, cá nhân do Chủ đầu tư ký hợp đồng thuê để thực hiện một hoặc một số công việc chuyên môn liên quan đến việc thực hiện Hợp đồng.\n“Tư vấn Giám sát” hoặc “TVGS” là tổ chức, cá nhân do Chủ đầu tư ký hợp đồng thuê để thực hiện việc giám sát thi công xây dựng Gói thầu của Dự án.\n“Nhà thầu phụ” là Nhà thầu ký hợp đồng với Nhà thầu để thi công một phần công việc của Nhà thầu (nếu có).\n“Dự án” là Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar tại Khu liên hợp xử lý chất thải rắn Tây Bắc, xã Thái Mỹ, thành phố Hồ Chí Minh.",
+      "Điều 4 [Yêu cầu về chất lượng và nghiệm thu, bàn giao Gói thầu].\n“Ngày” được hiểu là ngày dương lịch bao gồm các ngày nghỉ, ngày lễ, tết theo quy định của pháp luật.\n“Tháng” được hiểu là tháng dương lịch bao gồm các ngày nghỉ, ngày lễ, tết theo quy định của pháp luật.\n“Ngày làm việc” là ngày dương lịch trừ ngày chủ nhật, ngày nghỉ lễ, tết theo quy định của pháp luật.\n“Thiết bị của Nhà thầu” là toàn bộ thiết bị máy móc, phương tiện, xe cộ, các phương tiện, thiết bị khác yêu cầu phải có để Nhà thầu thi công , hoàn thành Gói thầu và sửa chữa bất cứ sai sót nào (nếu có).\n“Gói thầu” là gói thầu “ Thi công xây dựng Nhà máy đốt rác phát điện Vietstar” thuộc Dự án “Nhà máy tích hợp xử lý chất thải rắn Vietstar” mà Nhà thầu thi công theo Hợp đồng và “Hạng mục Gói thầu” là “Hạng mục: Phát sinh Nhà máy mở rộng và Ram dốc ”.\n“Bất khả kháng” được định nghĩa tại Điều 16 [Bất khả kháng] của Hợp đồng.\n“Pháp luật” là toàn bộ hệ thống luật pháp của nước Cộng hoà Xã hội Chủ nghĩa Việt Nam.\n“Ngôn ngữ” Ngôn ngữ sử dụng cho hợp đồng là tiếng Việt.\n“Công trường” là địa điểm mà Chủ đầu tư giao cho Nhà thầu để thi công Gói\nthầu.",
+      "Điều 2. Hồ sơ Hợp đồng và thứ tự ưu tiên\nHồ sơ hợp đồng:\nHồ sơ hợp đồng xây dựng gồm thỏa thuận hợp đồng này và các tài liệu kèm theo hợp đồng. Các tài liệu kèm theo hợp đồng là một bộ phận không tách rời của hợp đồng, bao gồm:\nHợp đồng và các Phụ lục Hợp đồng;\nBản vẽ thiết kế, Chỉ dẫn kỹ thuật;\nBản vẽ biện pháp thi công hố móng theo HSMT;\nBản vẽ tổ chức thi công tổng thể dự án;\nThông báo trúng thầu;\nCác biên bản thương thảo (nếu có);\nCác tài liệu khác có liên quan (cam kết bảo mật thông tin, thỏa thuận liên danh, sơ đồ tổ chức ban chỉ huy công trường...);\nThứ tự ưu tiên:",
+      "Điều 3.Nội dung và khối lượng công việc\nChủ đầu tư đồng ý giao và Nhà thầu đồng ý nhận thực hiện việc thi công xây dựng Hạng mục: “Phát sinh Nhà máy chính mở rộng và Ram dốc” Gói thầu “Thi công xây dựng Nhà máy đốt rác phát điện Vietstar” theo đúng bản vẽ thiết kế được Chủ đầu tư cung cấp và phê duyệt (kể cả phần sửa đổi được Chủ đầu tư chấp thuận), đảm bảo chất lượng, tiến độ, giá cả, an toàn, được nghiệm thu, nhận bàn giao đưa vào sử dụng đúng yêu cầu của Chủ đầu tư và theo quy định của pháp luật hiện hành.\nCác công việc cụ thể Nhà thầu phải thực hiện bao gồm nhưng không giới hạn bởi những công việc sau:\nNhận bàn giao mặt bằng các mốc giới Gói thầu được Chủ đầu tư bàn giao, quản\nlý Công trường xây dựng theo quy định.\nCung cấp vật tư, nhân lực, máy và thiết bị phục vụ thi công xây dựng Gói thầu đúng theo các phụ lục Hợp đồng số 02, 05 hoặc các điều chỉnh (nếu có) được chấp thuận bởi CĐT.\nThi công xây dựng Gói thầu theo đúng hồ sơ thiết kế được phê duyệt và quy chuẩn, tiêu chuẩn xây dựng hiện hành.\nThực hiện quan trắc, trắc đạc Gói thầu theo yêu cầu thiết kế. Thực hiện thí nghiệm, kiểm tra theo kế hoạch trước khi đề nghị nghiệm thu (nếu có).\nKiểm tra, kiểm soát chất lượng công việc xây dựng; giám sát thi công xây dựng với công việc xây dựng do Nhà thầu phụ thực hiện.\nXử lý, khắc phục các sai sót, khiếm khuyết về chất lượng Gói thầu trong quá trình thi công xây dựng (nếu có).\nThí nghiệm kiểm tra chất lượng vật liệu xây dựng, cấu kiện xây dựng.",
+      "Điều 4.Yêu cầu về chất lượng và nghiệm thu, bàn giao Gói thầu\nYêu cầu về chất lượng Gói thầu:\nGói thầu phải được thi công theo bản vẽ thiết kế được Chủ đầu tư cung cấp và phê duyệt (kể cả phần sửa đổi được Chủ đầu tư chấp thuận), chỉ dẫn kỹ thuật được nêu trong Hồ sơ mời thầu phù hợp với hệ thống quy chuẩn, tiêu chuẩn được áp dụng cho Dự án;\nNhà thầu phải có sơ đồ và thuyết minh hệ thống quản lý chất lượng thi công, giám sát chất lượng thi công của mình. Hệ thống quản lý thi công xây dựng phải phù hợp với quy mô, tính chất của Gói thầu, trong đó nêu rõ sơ đồ tổ chức và trách nhiệm của từng cá nhân đối với công tác quản lý thi công xây dựng, bao gồm: chỉ huy trưởng công trường hoặc giám đốc dự án của Nhà thầu; các cá nhân phụ trách kỹ thuật thi công trực tiếp và thực hiện công tác quản lý chất lượng, an toàn trong thi công xây dựng, quản lý khối lượng, tiến độ thi công xây dựng, quản lý hồ sơ thi công xây dựng Gói thầu;\nBảo đảm sự bền vững, chính xác của các kết cấu xây dựng theo quy chuẩn, tiêu chuẩn xây dựng Việt Nam;\nKết quả thí nghiệm, kiểm tra, kiểm định, thử nghiệm, chạy thử của Gói thầu đảm bảo các yêu cầu kỹ thuật theo quy định về thiết kế xây dựng;\nTuân thủ các quy định của pháp luật về phòng cháy, chữa cháy, bảo vệ môi trường và quy định của pháp luật khác có liên quan;\nNhà thầu phải cung cấp cho Chủ đầu tư các kết quả thí nghiệm vật liệu, sản phẩm của công việc hoàn thành. Các kết quả thí nghiệm này phải được thực hiện bởi phòng thí nghiệm hợp chuẩn theo quy định được chỉ định bởi CĐT nhưng vẫn đảm bảo chi phí và thời gian phù hợp với nhà thầu.\nNhà thầu đảm bảo vật tư, thiết bị do Nhà thầu cung cấp tuân thủ đúng quy định về số lượng, chủng loại, nguồn gốc xuất xứ, các tiêu chuẩn kỹ thuật của Gói thầu cũng như các quy định về chất lượng của Hợp đồng và quy định pháp luật có liên quan, phải được Chủ đầu tư kiểm tra, nghiệm thu trước khi đưa vào thi công. Nhà thầu phải lập hồ sơ quản lý chất lượng vật liệu, sản phẩm, cấu kiện, thiết bị sử dụng cho Gói thầu theo quy định của pháp luật. Đồng thời, Nhà thầu phải chịu chi phí và nộp cho Chủ đầu tư xem xét và phê duyệt:\nCác mẫu vật tư tiêu chuẩn của nhà sản xuất và các mẫu được quy định cụ thể tại Hợp đồng và hồ sơ thiết kế\nTrường hợp Chủ đầu tư yêu cầu các mẫu vật tư bổ sung (nếu có). Nhà thầu sẽ nộp cho Chủ đầu tư phê duyệt. Chi phí phát sinh liên quan sẽ được thanh toán cho nhà thầu."
+    ]
+  },
+  "boq": {
+    "file_name": "2026 08 12 BOQ VIETSTAR - NOVACONS.xlsx",
+    "file_size_kb": 1387.1,
+    "sheet_name": "1.Nhà máy chính + HM bổ sung + Pre ",
+    "total_items": 222,
+    "total_amount": 344886778999.8,
+    "total_amount_str": "344.886.779.000 VNĐ",
+    "total_without_vat": null,
+    "total_with_vat": 344886778999.8,
+    "vat_amount": 25547168814.8,
+    "top_cost_items": [
+      {
+        "name": "Lợp mái tole dày 0,75mm, lớp bông cách nhiệt dày 100mm và các phụ kiện khác theo thiết kế. (Mái hố chứa rác-Roof 1)",
+        "unit": "m2",
+        "quantity": 5270.0,
+        "unit_price": 1639575.0,
+        "amount": 19049073750.0,
+        "amount_str": "19.049.073.750 VNĐ",
+        "pct_of_total": 5.52
+      },
+      {
+        "name": "Bê tông khối móng B30(M400) phụ gia chống thấm W12",
+        "unit": "m3",
+        "quantity": 4777.9068,
+        "unit_price": 616358.0,
+        "amount": 15874815127.0,
+        "amount_str": "15.874.815.127 VNĐ",
+        "pct_of_total": 4.6
+      },
+      {
+        "name": "Chống ăn mòn nặng (Cấp 1) (Chi tiết theo bản vẽ thiết kế)\n- Sơn chủ chống ăn mòn vảy thủy tinh Epoxy, dạng lăn độ dày 0,2mm\n- Keo dán vảy thủy tinh Epoxy deo dày 0,8mm\n- Lăn phủ vảy thủy tinh Epoxy thànhi 2 lớp, trải lớp 2 vải sọi thủy tinh dày 0,3mm (2 lớp và 2 tấm vải sọi, tổng độ dày của lớp Epoxy và vải sọi thủy tinh)\n- Cạo và phủ 1 lớp vảy thủy tinh Epooxy (Trải thủ công 3 tấm vảy sọi thủy sinh\n- Chám vá, sửa lại các vị trí bị rỗ bằng epoxy\n- Lớp Epoxy thẩm thấu dày 1mm",
+        "unit": "m2",
+        "quantity": 6554.75,
+        "unit_price": 540225.0,
+        "amount": 15024129366.0,
+        "amount_str": "15.024.129.366 VNĐ",
+        "pct_of_total": 4.36
+      },
+      {
+        "name": "Gia công và lắp đặt Kết cấu dầm thép, dầm cẩu thép (bao gồm bu lông, bản mã,…)",
+        "unit": "kg",
+        "quantity": 224640.0,
+        "unit_price": 39170.0,
+        "amount": 14763790080.0,
+        "amount_str": "14.763.790.080 VNĐ",
+        "pct_of_total": 4.28
+      },
+      {
+        "name": "Gia công lắp dựng cốt thép móng đường kính cốt thép >18mm",
+        "unit": "kg",
+        "quantity": 452998.3,
+        "unit_price": 7466.0,
+        "amount": 11845452547.0,
+        "amount_str": "11.845.452.547 VNĐ",
+        "pct_of_total": 3.43
+      },
+      {
+        "name": "Gia công và lắp dựng tấm lưới thép không rỉ chắn rác (DC02-14)",
+        "unit": "kg",
+        "quantity": 46240.0,
+        "unit_price": 96689.0,
+        "amount": 10527275840.0,
+        "amount_str": "10.527.275.840 VNĐ",
+        "pct_of_total": 3.05
+      },
+      {
+        "name": "Đắp cát, độ chặt phù hợp yêu cầu thiết kế",
+        "unit": "m3",
+        "quantity": 15000.0,
+        "unit_price": 127496.0,
+        "amount": 9816180000.0,
+        "amount_str": "9.816.180.000 VNĐ",
+        "pct_of_total": 2.85
+      },
+      {
+        "name": "Gia công và lắp dựng ván khuôn vách hố rác, hố rỉ, ván phủ phim",
+        "unit": "m2",
+        "quantity": 13575.0,
+        "unit_price": 358313.0,
+        "amount": 9713224725.0,
+        "amount_str": "9.713.224.725 VNĐ",
+        "pct_of_total": 2.82
+      },
+      {
+        "name": "Gia công lắp đặt cấu kiện cốt thép chờ sẵn",
+        "unit": "kg",
+        "quantity": 90370.0,
+        "unit_price": 73422.0,
+        "amount": 9555814170.0,
+        "amount_str": "9.555.814.170 VNĐ",
+        "pct_of_total": 2.77
+      },
+      {
+        "name": "Bê tông vách hố rác, hố rỉ, B30(M400) phụ gia chống thấm W12",
+        "unit": "m3",
+        "quantity": 3167.8378,
+        "unit_price": 722259.0,
+        "amount": 9194804439.0,
+        "amount_str": "9.194.804.439 VNĐ",
+        "pct_of_total": 2.67
+      },
+      {
+        "name": "Bơm vữa lần 2 cho móng thiết bị",
+        "unit": "m3",
+        "quantity": 193.0,
+        "unit_price": 17323059.0,
+        "amount": 8266982265.0,
+        "amount_str": "8.266.982.265 VNĐ",
+        "pct_of_total": 2.4
+      },
+      {
+        "name": "Sơn chống cháy Kết Cấu Thép ( kết câu chính)-120 phút",
+        "unit": "m2",
+        "quantity": 7128.0,
+        "unit_price": 177374.0,
+        "amount": 7527959208.0,
+        "amount_str": "7.527.959.208 VNĐ",
+        "pct_of_total": 2.18
+      },
+      {
+        "name": "Gia công lắp dựng cốt thép móng đường kính cốt thép <= 18mm",
+        "unit": "kg",
+        "quantity": 271799.0,
+        "unit_price": 7466.0,
+        "amount": 7107272051.0,
+        "amount_str": "7.107.272.051 VNĐ",
+        "pct_of_total": 2.06
+      },
+      {
+        "name": "Gia công và lắp dựng ván khuôn tường",
+        "unit": "m2",
+        "quantity": 9389.86,
+        "unit_price": 358313.0,
+        "amount": 6718660797.0,
+        "amount_str": "6.718.660.797 VNĐ",
+        "pct_of_total": 1.95
+      },
+      {
+        "name": "Gia công và lắp dựng ván khuôn sàn, ván phủ phim",
+        "unit": "m2",
+        "quantity": 9515.0,
+        "unit_price": 352359.0,
+        "amount": 6139753565.0,
+        "amount_str": "6.139.753.565 VNĐ",
+        "pct_of_total": 1.78
+      },
+      {
+        "name": "Bê tông khối móng B30(M400)",
+        "unit": "m3",
+        "quantity": 2268.18,
+        "unit_price": 616358.0,
+        "amount": 6034340922.0,
+        "amount_str": "6.034.340.922 VNĐ",
+        "pct_of_total": 1.75
+      },
+      {
+        "name": "Gia công và lắp đặt nắp các cấu kiện bằng thép mạ kẽm",
+        "unit": "kg",
+        "quantity": 50600.0,
+        "unit_price": 75962.0,
+        "amount": 5892167600.0,
+        "amount_str": "5.892.167.600 VNĐ",
+        "pct_of_total": 1.71
+      },
+      {
+        "name": "Gia công và lắp đặt xà gồ thép, phù hợp yêu cầu thiết kế",
+        "unit": "kg",
+        "quantity": 72436.1,
+        "unit_price": 39170.0,
+        "amount": 4760645364.0,
+        "amount_str": "4.760.645.364 VNĐ",
+        "pct_of_total": 1.38
+      },
+      {
+        "name": "Gia công lắp dựng cốt thép móng đường kính cốt thép <= 10mm",
+        "unit": "kg",
+        "quantity": 181199.3,
+        "unit_price": 7466.0,
+        "amount": 4738180496.0,
+        "amount_str": "4.738.180.496 VNĐ",
+        "pct_of_total": 1.37
+      },
+      {
+        "name": "Gia công và lắp dựng ván khuôn dầm, ván phủ phim",
+        "unit": "m2",
+        "quantity": 7197.7893,
+        "unit_price": 352359.0,
+        "amount": 4644524699.0,
+        "amount_str": "4.644.524.699 VNĐ",
+        "pct_of_total": 1.35
+      }
+    ],
+    "work_categories": {
+      "Cọc & Địa kỹ thuật": {
+        "amount": 2677257072.0,
+        "amount_str": "2.677.257.072 VNĐ",
+        "pct": 0.8
+      },
+      "Đất & Hố móng": {
+        "amount": 7539812945.0,
+        "amount_str": "7.539.812.945 VNĐ",
+        "pct": 2.2
+      },
+      "Bê tông & Vữa": {
+        "amount": 75501119553.0,
+        "amount_str": "75.501.119.553 VNĐ",
+        "pct": 21.9
+      },
+      "Cốt thép": {
+        "amount": 80594686391.0,
+        "amount_str": "80.594.686.391 VNĐ",
+        "pct": 23.4
+      },
+      "Ván khuôn (Cốp pha)": {
+        "amount": 44554881501.0,
+        "amount_str": "44.554.881.501 VNĐ",
+        "pct": 12.9
+      },
+      "Kết cấu thép & Mái": {
+        "amount": 46340553402.0,
+        "amount_str": "46.340.553.402 VNĐ",
+        "pct": 13.4
+      },
+      "Chống thấm & Hoàn thiện": {
+        "amount": 107485391019.0,
+        "amount_str": "107.485.391.019 VNĐ",
+        "pct": 31.2
+      },
+      "Cơ điện (MEP)": {
+        "amount": 4898861268.0,
+        "amount_str": "4.898.861.268 VNĐ",
+        "pct": 1.4
+      }
+    },
+    "anomalies": []
+  },
+  "schedule": {
+    "file_name": "2026 08 09 TIẾN ĐỘ NHÀ MÁY VIETSTAR.mpp",
+    "file_size_kb": 703.0,
+    "total_tasks": 74,
+    "project_start": "2011-08-17",
+    "project_finish": "2027-03-30",
+    "milestones": [],
+    "critical_tasks": [
+      {
+        "id": 18,
+        "name": "Chống thấm đáy hố móng bằng màng HDPE",
+        "start": "2026-08-23",
+        "finish": "2026-09-26",
+        "duration_days": 35.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 19,
+        "name": "Thi công ván khuôn, cốt thép, bê tông đáy móng",
+        "start": "2026-08-28",
+        "finish": "2026-10-01",
+        "duration_days": 35.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 20,
+        "name": "Thi công ván khuôn, cốt thép, bê tông vách đến cote -4.000 đến đáy hệ shoring",
+        "start": "2026-10-02",
+        "finish": "2026-10-09",
+        "duration_days": 8.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 21,
+        "name": "Chống thấm thành móng & vách",
+        "start": "2026-10-06",
+        "finish": "2026-10-13",
+        "duration_days": 8.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 23,
+        "name": "Thi công ván khuôn, cốt thép, bê tông vách đến cote +0.000",
+        "start": "2026-10-14",
+        "finish": "2026-10-20",
+        "duration_days": 7.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 24,
+        "name": "Chống thấm thành móng & vách + Lấp đất hố rác",
+        "start": "2026-10-21",
+        "finish": "2026-10-29",
+        "duration_days": 9.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 30,
+        "name": "Thi công ván khuôn, cốt thép, bê tông đáy móng + Cổ cột",
+        "start": "2026-10-19",
+        "finish": "2026-10-28",
+        "duration_days": 10.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 35,
+        "name": "Thi công ván khuôn, cốt thép, bê tông vách + cột cote 0.000 đến +4.200",
+        "start": "2026-10-30",
+        "finish": "2026-11-05",
+        "duration_days": 7.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 36,
+        "name": "Thi công ván khuôn, cốt thép, bê tông dầm sàn +4.200",
+        "start": "2026-11-06",
+        "finish": "2026-11-09",
+        "duration_days": 4.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 37,
+        "name": "Thi công ván khuôn, cốt thép, bê tông vách + cột cote +4.200 đến +8.000",
+        "start": "2026-11-10",
+        "finish": "2026-11-16",
+        "duration_days": 7.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 38,
+        "name": "Thi công ván khuôn, cốt thép, bê tông dầm sàn +8.000",
+        "start": "2026-11-17",
+        "finish": "2026-11-20",
+        "duration_days": 4.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 39,
+        "name": "Thi công ván khuôn, cốt thép, bê tông vách + cột cote +8.000 đến +11.770",
+        "start": "2026-11-21",
+        "finish": "2026-11-27",
+        "duration_days": 7.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 40,
+        "name": "Thi công ván khuôn, cốt thép, bê tông dầm sàn +11.770",
+        "start": "2026-11-28",
+        "finish": "2026-12-01",
+        "duration_days": 4.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 41,
+        "name": "Thi công ván khuôn, cốt thép, bê tông vách + côt cote +11.770 đến +13.100 ( 14.700)",
+        "start": "2026-12-02",
+        "finish": "2026-12-08",
+        "duration_days": 7.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 42,
+        "name": "Thi công ván khuôn, cốt thép, bê tông dầm sàn +13.100 (+14.700)",
+        "start": "2026-12-09",
+        "finish": "2026-12-12",
+        "duration_days": 4.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 43,
+        "name": "Thi công ván khuôn, cốt thép, bê tông vách + cột cote +14.700 đến +18.270",
+        "start": "2026-12-13",
+        "finish": "2026-12-19",
+        "duration_days": 7.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 44,
+        "name": "Thi công ván khuôn, cốt thép, bê tông dầm sàn +18.270",
+        "start": "2026-12-20",
+        "finish": "2026-12-22",
+        "duration_days": 3.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 45,
+        "name": "Thi công ván khuôn, cốt thép, bê tông vách đến cote +18.270 đến +22.000",
+        "start": "2026-12-23",
+        "finish": "2026-12-28",
+        "duration_days": 6.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 46,
+        "name": "Thi công ván khuôn, cốt thép, bê tông dầm sàn +22.000",
+        "start": "2026-12-29",
+        "finish": "2026-12-31",
+        "duration_days": 3.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 47,
+        "name": "Thi công ván khuôn, cốt thép, bê tông cột cote +22.000 đến +26.500",
+        "start": "2027-01-01",
+        "finish": "2027-01-05",
+        "duration_days": 5.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 48,
+        "name": "Thi công ván khuôn, cốt thép, bê tông dầm sàn +26.500",
+        "start": "2027-01-06",
+        "finish": "2027-01-12",
+        "duration_days": 7.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 49,
+        "name": "Thi công ván khuôn, cốt thép, bê tông cột cote +26.500 đến +30.600",
+        "start": "2027-01-13",
+        "finish": "2027-01-17",
+        "duration_days": 5.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 50,
+        "name": "Thi công ván khuôn, cốt thép, bê tông dầm sàn +30.600",
+        "start": "2027-01-18",
+        "finish": "2027-01-24",
+        "duration_days": 7.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 51,
+        "name": "Thi công ván khuôn, cốt thép, bê tông cột cote +30.600 đến +35.000",
+        "start": "2027-01-25",
+        "finish": "2027-01-29",
+        "duration_days": 5.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 52,
+        "name": "Thi công ván khuôn, cốt thép, bê tông dầm sàn +35.000",
+        "start": "2027-01-30",
+        "finish": "2027-02-04",
+        "duration_days": 6.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 53,
+        "name": "Thi công ván khuôn, cốt thép, bê tông cột cote +35.000 đến +39.050 (+37.450)",
+        "start": "2027-02-05",
+        "finish": "2027-02-08",
+        "duration_days": 4.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 54,
+        "name": "Thi công ván khuôn, cốt thép, bê tông dầm sàn  +39.050 (+37.450)",
+        "start": "2027-02-09",
+        "finish": "2027-02-13",
+        "duration_days": 5.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 67,
+        "name": "Thi công đổ bê tông dải đổ sau code +39.50m",
+        "start": "2027-03-28",
+        "finish": "2027-03-29",
+        "duration_days": 2.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 73,
+        "name": "Thi công chống ăn mòn",
+        "start": "2027-01-13",
+        "finish": "2027-03-29",
+        "duration_days": 76.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      },
+      {
+        "id": 74,
+        "name": "V. VỆ SINH BÀN GIAO CÔNG TRÌNH",
+        "start": "2027-03-30",
+        "finish": "2027-03-30",
+        "duration_days": 1.0,
+        "pct_complete": 0,
+        "is_milestone": false,
+        "is_critical": true,
+        "slack": 0
+      }
+    ],
+    "delayed_tasks": [],
+    "overall_progress_pct": 0
+  },
+  "executive_summary": "📌 TÊN DỰ ÁN: Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar\n• Giá trị HĐ: 344.886.779.000 VNĐ (Đã gồm 8% VAT - Trích xuất từ hàng Tổng Cộng BOQ) (Hợp đồng theo đơn giá cố định)\n• Thời gian thi công: Theo bảng tiến độ chi tiết (Phụ lục 05) (2011-08-17 -> 2027-03-30)\n• THỜI HẠN KHIẾU NẠI (TIME-BAR): 7 ngày (Nhà thầu thông báo cho Chủ đầu tư trước 07 ngày để tiến hành...); 7 ngày (Sau khi kiểm tra hồ sơ thanh toán của Nhà thầu, nếu có yêu c...); 7 ngày (Nhà thầu có trách nhiệm hoàn thiện trong thời hạn do Chủ đầu...); 7 ngày (Nếu Nhà thầu không thực hiện và/hoặc thực hiện không đúng, k...); 7 ngày (Chủ đầu tư có thể thông báo cho Nhà thầu trước 07 ngày chấm ...)\n• Phạt vi phạm tiến độ: Điều 21. Thưởng, phạt Hợp đồng 37\n• Điều khoản tạm ứng: Trong vòng 07 ngày kể từ ngày Chủ đầu tư nhận được hồ sơ tạm ứng hợp lệ của Nhà thầu theo quy định tại điểm (c) Khoản này, Chủ đầu tư sẽ tạm ứng cho Nhà thầu 30% giá trị Hợp đồng trước thuế.\n• Bảng BOQ Chi tiết: 222 đầu việc thực tế\n• Top 5 hạng mục chi phí lớn nhất (Pareto 80/20): Lợp mái tole dày 0,75mm, lớp bông cách nhiệt dày 100mm và các phụ kiện khác theo thiết kế. (Mái hố chứa rác-Roof 1) (5.52%); Bê tông khối móng B30(M400) phụ gia chống thấm W12 (4.6%); Chống ăn mòn nặng (Cấp 1) (Chi tiết theo bản vẽ thiết kế)\n- Sơn chủ chống ăn mòn vảy thủy tinh Epoxy, dạng lăn độ dày 0,2mm\n- Keo dán vảy thủy tinh Epoxy deo dày 0,8mm\n- Lăn phủ vảy thủy tinh Epoxy thànhi 2 lớp, trải lớp 2 vải sọi thủy tinh dày 0,3mm (2 lớp và 2 tấm vải sọi, tổng độ dày của lớp Epoxy và vải sọi thủy tinh)\n- Cạo và phủ 1 lớp vảy thủy tinh Epooxy (Trải thủ công 3 tấm vảy sọi thủy sinh\n- Chám vá, sửa lại các vị trí bị rỗ bằng epoxy\n- Lớp Epoxy thẩm thấu dày 1mm (4.36%); Gia công và lắp đặt Kết cấu dầm thép, dầm cẩu thép (bao gồm bu lông, bản mã,…) (4.28%); Gia công lắp dựng cốt thép móng đường kính cốt thép >18mm (3.43%)\n• Tiến độ tổng thể: 0% hoàn thành\n• Số công việc trên Đường Găng (Critical Path): 30 công việc"
+}

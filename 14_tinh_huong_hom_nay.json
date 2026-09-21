@@ -1,0 +1,156 @@
+[
+  {
+    "TruCot": "KY_THUAT_HIEN_TRUONG",
+    "TieuDe": "Xử lý tỷ lệ hư hỏng sản phẩm và vật tư thừa",
+    "BoiCanh": "Tỷ lệ hư hỏng <0.5% và vật tư thừa <2.0% là chỉ tiêu cực khó. Công trường thường xảy ra tình trạng vật tư hao hụt vô lý hoặc chất lượng thi công không đạt ngay từ đầu.",
+    "RuiRo": "Vật tư thất thoát (thất thoát ngầm) và chi phí làm lại (rework) sẽ bào mòn lợi nhuận định mức, khiến dự án rơi vào tình trạng 'càng làm càng lỗ'.",
+    "ChienLuocXuLy": "1. Áp dụng cơ chế kho bãi chặt chẽ cho vật tư dư thừa (tái sử dụng cho hạng mục khác). 2. Kiểm soát chất lượng ngay tại đầu vào (nghiệm thu vật liệu) để tránh làm lại. 3. Phạt trực tiếp vào giá trị hợp đồng của các tổ đội để sai phạm.",
+    "CauThoaiMau": "Chất lượng là danh dự của anh em mình, làm sai phải sửa bằng tiền của các anh, làm tốt thì anh em mình cùng hưởng lợi.",
+    "BaiHocXuongMau": "Kiểm soát vật tư thừa không chỉ là tiết kiệm, mà là kiểm soát hành vi gian lận ngay tại chân công trình.",
+    "ID": "TH_1165",
+    "Nguon": "Chi tieu danh gia BSC.pdf (Trang 1-2)"
+  },
+  {
+    "TruCot": "KY_THUAT_HIEN_TRUONG",
+    "TieuDe": "Kiểm soát an toàn lao động và vệ sinh môi trường tại công trường cao tầng",
+    "BoiCanh": "Công trường xây dựng diễn ra ồn ào, bụi bẩn, công nhân làm việc trên cao không thắt dây an toàn.",
+    "RuiRo": "Xảy ra tai nạn lao động chết người, đình chỉ thi công từ cơ quan nhà nước, mất uy tín thương hiệu.",
+    "ChienLuocXuLy": "Thường xuyên kiểm tra, giám sát biện pháp an toàn lao động, phổ biến nội qui, trang bị bảo hộ, kiểm tra công nhân học an toàn trước khi vào công trường và phối hợp giải quyết tai nạn sự cố.",
+    "CauThoaiMau": "Không có dây đai an toàn và giầy bảo hộ thì dừng ngay lập tức công việc trên giáo cao cho tôi!",
+    "BaiHocXuongMau": "An toàn lao động không phải là chi phí mà là mạng sống của anh em thợ và sự tồn vong của doanh nghiệp.",
+    "ID": "TH_0784",
+    "Nguon": "Presentation_Chatluong_09_06_2009.pdf (Trang 11-30)"
+  },
+  {
+    "TruCot": "PHAP_LY_BAN_GIAY",
+    "TieuDe": "Xử lý đứt gãy quan hệ hợp đồng qua trung gian chuỗi phụ thầu (Privity)",
+    "BoiCanh": "Giám đốc dự án (Công ty A) trực tiếp ra lệnh tại công trường bắt thầu phụ của thầu phụ (Công ty C) dừng công việc ngay lập tức do không đạt yêu cầu kỹ thuật.",
+    "RuiRo": "Vi phạm nguyên tắc pháp lý 'Privity' (không có quan hệ hợp đồng trực tiếp). Công ty C không phải chịu lệnh của A; hành động này làm phát sinh trách nhiệm bồi thường thiệt hại và chi phí chờ việc cho bên thứ ba, rủi ro kiện ngược công ty A.",
+    "ChienLuocXuLy": "Tuyệt đối không ra lệnh trực tiếp cho thầu phụ cấp dưới (C). Mọi yêu cầu kỹ thuật, đình chỉ hay thay đổi phải thông qua nhà thầu chính (B) - đơn vị ký hợp đồng trực tiếp với chủ đầu tư/công ty A, để họ tự xử lý cấp dưới của mình.",
+    "CauThoaiMau": "Công ty A và Công ty C không có quan hệ hợp đồng. Đề nghị anh làm việc với Công ty B, sau đó Công ty B sẽ có trách nhiệm chuyển tải lại yêu cầu cho Công ty C.",
+    "BaiHocXuongMau": "Đừng bao giờ vượt cấp chỉ đạo thầu phụ của nhà thầu chính nếu không muốn tự vẽ dây buộc mình vào các rủi ro pháp lý và chi phí phạt chậm tiến độ oan ức.",
+    "ID": "TH_0938",
+    "Nguon": "PMP® Exam Prep, Tenth Edition by Rita Mulcahy (z-lib.org).pdf (Trang 431-450)"
+  },
+  {
+    "TruCot": "PHAP_LY_BAN_GIAY",
+    "TieuDe": "Kiểm soát phương án phân bổ và sử dụng Quỹ Dự Phòng (Management Reserve)",
+    "BoiCanh": "Đứng trước rủi ro phân bổ quỹ dự phòng quản lý, các trưởng bộ phận hoặc quản lý dự án có xu hướng muốn giữ quỹ làm 'quỹ đen' hoặc phân bổ sai mục đích ban đầu.",
+    "RuiRo": "Thất thoát tài chính, thiếu hụt ngân sách khi phát sinh rủi ro thực sự, sai lệch nghiêm trọng trong báo cáo tài chính dự án trước Chủ đầu tư.",
+    "ChienLuocXuLy": "Xác định rõ ràng nguồn gốc quỹ dự phòng trong ngân sách phân bổ, kiểm soát chặt chẽ các khoản chi từ quỹ dự phòng theo đúng tỷ lệ WBS và chỉ giải ngân khi có căn cứ pháp lý, khối lượng hoàn thành rõ ràng.",
+    "CauThoaiMau": "Quỹ dự phòng không phải là khoản tiền nhàn rỗi để tùy nghi sử dụng, mọi khoản trích xuất đều phải gắn liền với rủi ro kỹ thuật hoặc thay đổi phạm vi đã được phê duyệt.",
+    "BaiHocXuongMau": "Quản lý dòng tiền dự án mà buông lỏng quỹ dự phòng thì khác nào cầm dao đứt tay.",
+    "ID": "TH_0999",
+    "Nguon": "project management  a systems approach to planning, scheduling, and controlling (h kerzner) - 10th edition.pdf (Trang 711-730)"
+  },
+  {
+    "TruCot": "NGOAI_GIAO_BAN_TIEC",
+    "TieuDe": "Nguyên tắc lựa chọn và sử dụng người tác động bên thứ ba",
+    "BoiCanh": "Sử dụng người trung gian để tác động vào CĐT hoặc đối tác đàm phán.",
+    "RuiRo": "Chọn nhầm người tác động không phù hợp, mang tính tiêu cực ('ăn chia', 'hồng lợi'), gây phản tác dụng và làm mất uy tín nhà thầu.",
+    "ChienLuocXuLy": "Sử dụng người tác động phi linh hoạt, khéo léo, tùy từng trường hợp mà lựa chọn người nào tác động cho phù hợp. Tuyệt đối không để cho khách hàng thấy rằng người tác động xấu, dính cấu 'ăn chia' hay 'hồng lợi' từ việc tác động.",
+    "CauThoaiMau": "Việc sử dụng người tác động không phù hợp, không những không có hiệu quả mà còn có tác động ngược -> Càng khó đi thu hồi.",
+    "BaiHocXuongMau": "Người trung gian phải giữ được sự trong sáng và uy tín, nếu không sẽ phá hủy toàn bộ tiến trình đàm phán.",
+    "ID": "TH_1101",
+    "Nguon": "INCIP-THU-HOI-CONG-NO-BANG-DAM-PHAN.pdf (Trang 71-90)"
+  },
+  {
+    "TruCot": "NGOAI_GIAO_BAN_TIEC",
+    "TieuDe": "Thuyết trình và ứng phó khi gặp sự cố mất điện, hỏng máy chiếu trước đông đảo đối tác",
+    "BoiCanh": "Trong các buổi hội thảo, bảo vệ biện pháp thi công hoặc họp tổng kết dự án diễn ra sự cố kỹ thuật bất ngờ (mất điện, hỏng máy chiếu).",
+    "RuiRo": "Buổi họp bị phá sản, đối tác đánh giá kém chuyên nghiệp, không đạt được mục tiêu thuyết phục.",
+    "ChienLuocXuLy": "Giữ bình tĩnh, xem sự cố là thử thách. Có thể cho nghỉ giải lao sớm để khắc phục, chuyển sang dùng bảng viết/tài liệu tham khảo, hoặc pha chút trò đùa chuyên nghiệp để giải tỏa không khí.",
+    "CauThoaiMau": "Đội ngũ kỹ thuật tranh thủ xử lý nhanh trong giờ giải lao, còn anh em chúng ta có thể chuyển qua trao đổi trực tiếp trên tài liệu phát tay hoặc bảng trắng.",
+    "BaiHocXuongMau": "Bản lĩnh của Chỉ huy trưởng thể hiện rõ nhất khi gặp khủng hoảng bất ngờ. Luôn chủ động tài liệu giấy và linh hoạt ứng phó.",
+    "ID": "TH_1068",
+    "Nguon": "KY NANG TRINH BAY.docx"
+  },
+  {
+    "TruCot": "DONG_TIEN_TAI_CHINH",
+    "TieuDe": "Cạnh tranh không chỉ bằng giá thấp mà phải chiếm trọn cảm xúc khách hàng và dòng tiền",
+    "BoiCanh": "Khi đấu thầu hoặc đàm phán hợp đồng thi công với CĐT, các nhà thầu thường rơi vào cuộc chiến hạ giá (giành phần trong chiếc bánh) dẫn đến nát giá, nợ đọng, không có biên độ lợi nhuận.",
+    "RuiRo": "Nhắm đến lý trí (giá rẻ) sẽ dễ bị CĐT thay thế ngay khi có đối thủ chào giá thấp hơn, làm mất uy tín và triệt tiêu biên lợi nhuận của công ty thầu.",
+    "ChienLuocXuLy": "Thay vì chỉ cạnh tranh bằng giá, hãy kết nối đến cảm xúc và lòng tin của CĐT: cung cấp dịch vụ xuất sắc, làm họ cảm thấy đặc biệt, an tâm tuyệt đối với tiến độ và chất lượng thi công. Khách hàng yêu mến nhà thầu sẽ gắn bó lâu dài và sẵn sàng chấp nhận các đề xuất tài chính hợp lý.",
+    "CauThoaiMau": "Nhắm đến lý trí của khách hàng thì dịch vụ chỉ là một mặt hàng; kết nối được đến trái tim của họ, bạn sẽ giữ họ lâu dài.",
+    "BaiHocXuongMau": "Những công ty vượt trội không có những khách hàng thích họ, mà là những khách hàng yêu họ.",
+    "ID": "TH_0577",
+    "Nguon": "Taisachmoi.com_Doi-ngan-dung-ngu-dai.pdf (Trang 71-90)"
+  },
+  {
+    "TruCot": "DONG_TIEN_TAI_CHINH",
+    "TieuDe": "Chiến thuật thu hồi vốn tạm ứng qua các lần thanh toán không để bị phạt hay giữ tiền oan",
+    "BoiCanh": "Quá trình thanh toán khối lượng hoàn thành, Chủ đầu tư sẽ tiến hành khấu trừ dần vốn tạm ứng (Slide 18).",
+    "RuiRo": "Nếu không kiểm soát chặt tiến độ khấu trừ, dòng tiền cuối dự án sẽ bị bóp nghẹt, gây âm vốn lưu động cho nhà thầu.",
+    "ChienLuocXuLy": "Thống nhất rõ nguyên tắc: Việc thu hồi vốn tạm ứng bắt đầu ngay từ lần thanh toán đầu tiên và kết thúc khi khối lượng thanh toán đạt 80% giá trị hợp đồng. Riêng với công tác giải phóng mặt bằng, thu hồi khi hoàn thành nhiệm vụ.",
+    "CauThoaiMau": "Chúng tôi yêu cầu áp dụng đúng điều kiện: Chấm dứt khấu trừ tạm ứng khi giá trị thanh toán đạt mốc 80% giá trị hợp đồng để đảm bảo thanh khoản cuối dự án.",
+    "BaiHocXuongMau": "Kiểm soát mốc 80% khấu trừ tạm ứng là chìa khóa giữ dòng tiền thở đến ngày bàn giao.",
+    "ID": "TH_0805",
+    "Nguon": "5. Quan ly hop dong trong hoat dong XD 13-9-2009.pdf (Trang 71-90)"
+  },
+  {
+    "TruCot": "TO_DOI_CAI_THAU",
+    "TieuDe": "Đào tạo thực chiến và quy tắc 'chìm hay nổi' cho nhân sự mới",
+    "BoiCanh": "Áp lực bố trí nhân sự nhanh vào các vị trí trống tại công trường/dự án mà không có đủ thời gian kèm cặp kỹ lưỡng.",
+    "RuiRo": "Nhân sự mới bị ngợp, không thích nghi được với áp lực hiện trường, gây đình trệ công việc và lãng phí chi phí đào tạo.",
+    "ChienLuocXuLy": "Xây dựng mô hình kèm cặp thực tế (1 kèm 1 với nhân sự cũ), đánh giá định kỳ sau 1-2 tuần để giữ hoặc loại bỏ.",
+    "CauThoaiMau": "Chúng ta giao việc ngay khu vực và đánh giá khắt khe để loại bỏ những người không có khả năng thực hiện.",
+    "BaiHocXuongMau": "Đào tạo thực chiến kiểu 'chìm hay nổi' chỉ áp dụng khi đã sàng lọc kỹ đầu vào, tránh ném tiền qua cửa sổ.",
+    "ID": "TH_1065",
+    "Nguon": "Tuyen_dung_dao_tao_NV.pdf (Trang 11-26)"
+  },
+  {
+    "TruCot": "TO_DOI_CAI_THAU",
+    "TieuDe": "Quản lý năng suất thợ xây theo chiều cao giàn giáo và cao độ công trình",
+    "BoiCanh": "Năng suất thợ xây giảm sút nghiêm trọng khi chiều cao tường tăng lên (ở độ cao 1,5m năng suất chỉ đạt 17% so với chiều cao tối ưu 0,6m).",
+    "RuiRo": "Chủ quan áp định mức nhân công như nhau cho mọi cao độ xây dựng dẫn đến thợ kêu ca, đình công hoặc thi công ẩu để bù tiến độ.",
+    "ChienLuocXuLy": "Phải bố trí nâng dần giàn giáo (giáo Hòa Phát hoặc Minh Khai) để chỗ đứng và vật liệu luôn được nâng lên theo quá trình xây, đảm bảo công nhân luôn đứng ở tầm thao tác tối ưu.",
+    "CauThoaiMau": "Bọn em không thể với tay xây cao thế này được đâu Chỉ huy trưởng ơi, vừa mệt vừa không chuẩn được mạch vữa. Phải bắc giàn giáo lên ngay.",
+    "BaiHocXuongMau": "Muốn thợ làm năng suất cao và chất lượng chuẩn, bắt buộc phải cung cấp đủ điều kiện làm việc an toàn và công ergonomic (giàn giáo phù hợp).",
+    "ID": "TH_0539",
+    "Nguon": "Giao trinh ky thuat thi cong T2.pdf (Trang 131-150)"
+  },
+  {
+    "TruCot": "CHINH_QUYEN_LANG_GIENG",
+    "TieuDe": "Kinh doanh có trách nhiệm với cộng đồng để gia tăng vị thế đàm phán",
+    "BoiCanh": "Ben & Jerry's đối mặt với sự phản đối từ dư luận về việc xây dựng nhà máy năng lượng hạt nhân tại Seabrook. Áp lực từ các nhóm vận động môi trường và khách hàng là rất lớn.",
+    "RuiRo": "Bị công chúng tẩy chay, mất thị trường trọng điểm, bị các tổ chức xã hội gây khó dễ trong hoạt động kinh doanh.",
+    "ChienLuocXuLy": "1. Công khai lập trường ngay cả khi điều đó gây tranh cãi (tuyên bố 'Hãy để khách hàng của chúng tôi sống và phản đối'). 2. Chủ động trích lợi nhuận cho các quỹ cộng đồng (7,5% lợi nhuận trước thuế). 3. Chứng minh trách nhiệm thông qua hành động thực tế (từ chối hợp tác với đơn vị gây ô nhiễm/thuốc lá).",
+    "CauThoaiMau": "Khi đối thoại với đối tác hoặc chính quyền: 'Chúng tôi không chỉ bán kem, chúng tôi đang xây dựng một cộng đồng bền vững, nơi lợi nhuận phải đi đôi với đạo đức kinh doanh'.",
+    "BaiHocXuongMau": "Khi doanh nghiệp trở thành một phần của cộng đồng, sự ủng hộ của cộng đồng chính là lá chắn thép bảo vệ bạn trước mọi sóng gió thương trường.",
+    "ID": "TH_1215",
+    "Nguon": "20.1.16. Bí quyết thành công 100 thương hiệu hàng đầu thế giới.pdf (Trang 271-290)"
+  },
+  {
+    "TruCot": "PHONG_THU_PHAP_LY",
+    "TieuDe": "Báo cáo leo thang (Escalation) khi phát hiện sự cố an toàn/kết cấu có nguy cơ bị đè nén",
+    "BoiCanh": "Chỉ huy trưởng phát hiện hệ thống hố móng sâu có dấu hiệu chuyển vị vượt ngưỡng cho phép, nguy cơ sạt lở ảnh hưởng nhà dân xung quanh. Giám đốc dự án phía CĐT lại ra lệnh miệng: 'Tiếp tục đào, không được dừng làm trễ tiến độ, có gì tôi chịu trách nhiệm'.",
+    "RuiRo": "Sạt lở xảy ra gây chết người hoặc sập nhà dân. Lệnh miệng của Giám đốc dự án sẽ bị chối bỏ, Chỉ huy trưởng thi công trực tiếp sẽ phải chịu trách nhiệm hình sự.",
+    "ChienLuocXuLy": "1. Từ chối thực hiện lệnh miệng trái quy chuẩn an toàn thi công; 2. Lập ngay Báo cáo rủi ro khẩn cấp (Risk Report) bằng văn bản, mô tả chi tiết trạng thái chuyển vị hố móng và kịch bản thảm họa; 3. Tiến hành leo thang (Escalate) gửi văn bản báo cáo trực tiếp lên Ban Tổng Giám đốc, Trưởng Ban Kiểm soát và Bộ phận Quản lý Rủi ro của CĐT lẫn Nhà thầu; 4. Cho dừng ngay việc đào đất tại khu vực nguy hiểm, triển khai hệ giằng chống phụ trợ (Kingpost/Strut) khẩn cấp.",
+    "CauThoaiMau": "Sự cố chuyển vị hố móng này vượt ngưỡng an toàn cho phép, nguy cơ sập hố móng là rất cao. Em không thể tiếp tục cho đào đất theo lệnh miệng được. Em đã phát hành Báo cáo rủi ro khẩn cấp gửi Ban Tổng Giám đốc để phê duyệt phương án gia cố ngay lập tức.",
+    "BaiHocXuongMau": "Đứng trước nguy cơ thảm họa kỹ thuật và pháp lý, báo cáo bằng văn bản lên cấp có thẩm quyền cao nhất là cách duy nhất cứu sống dự án và bảo vệ bản thân.",
+    "ID": "TH_0330",
+    "Nguon": "9. 200 PMP Sample Questions.pdf (Trang 71-90)"
+  },
+  {
+    "TruCot": "PHONG_THU_PHAP_LY",
+    "TieuDe": "Xác lập văn bản để tự bảo vệ trước quyết định rủi ro",
+    "BoiCanh": "Người làm dự án thường xuyên chịu áp lực từ cấp trên hoặc CĐT yêu cầu làm những việc thiếu căn cứ hoặc trái quy định, gây tâm lý lo âu.",
+    "RuiRo": "Bị đổ lỗi khi xảy ra sự cố, chịu trách nhiệm cá nhân về sai phạm nếu không có bằng chứng chứng minh mình đã cảnh báo hoặc làm đúng quy trình.",
+    "ChienLuocXuLy": "Phải ghi chép mọi thứ vào nhật ký hoặc văn bản; không tin vào lệnh miệng; cần tách bạch công việc cá nhân và công việc dự án; xác lập hệ thống lưu trữ thông tin minh bạch.",
+    "CauThoaiMau": "Để đảm bảo tiến độ và tuân thủ đúng hồ sơ mời thầu, tôi xin phép xác nhận lại nội dung chỉ đạo bằng văn bản (hoặc email) để các bộ phận cùng phối hợp thực hiện.",
+    "BaiHocXuongMau": "Đừng bao giờ tin vào trí nhớ của bản thân và lời nói miệng của người khác trên công trường, hãy để văn bản thay bạn nói chuyện.",
+    "ID": "TH_0623",
+    "Nguon": "Taisachmoi.com_Quan-ly-thoi-gian.pdf (Trang 11-30)"
+  },
+  {
+    "TruCot": "TO_DOI_CAI_THAU",
+    "TieuDe": "Đảm bảo niềm tin và thái độ của nhân viên tuyến đầu",
+    "BoiCanh": "Wal-Mart đối mặt với áp lực duy trì giá rẻ nhưng vẫn phải đảm bảo sự hài lòng của khách hàng từ những nhân viên 'chào đón' tại cửa.",
+    "RuiRo": "Dịch vụ tồi, mất khách hàng trung thành, thương hiệu bị xem là rẻ tiền và thiếu tôn trọng.",
+    "ChienLuocXuLy": "Áp dụng triết lý 'Hãy cho khách hàng biết bạn xem trọng họ' thông qua hành động cụ thể của nhân viên. Đầu tư công nghệ giám sát nhưng không thay thế sự tương tác nhân văn.",
+    "CauThoaiMau": "Người chào đón tại cửa không chỉ là bảo vệ, họ là gương mặt của công ty. Hãy làm cho khách hàng cảm thấy họ được chào đón như trong một gia đình.",
+    "BaiHocXuongMau": "Dù quy mô có lớn đến đâu, khâu 'đối nhân xử thế' của nhân viên hiện trường vẫn là rào cản ngăn chặn khủng hoảng PR hiệu quả nhất.",
+    "ID": "TH_1196",
+    "Nguon": "20.1.16. Bí quyết thành công 100 thương hiệu hàng đầu thế giới.pdf (Trang 151-170)"
+  }
+]

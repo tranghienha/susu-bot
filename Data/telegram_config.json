@@ -1,0 +1,10 @@
+{
+  "bot_token": "8830295571:AAElfoa5UqIB5lG_2KSXfvG5ckMQjNFL3yY",
+  "allowed_chat_ids": [
+    8249791298
+  ],
+  "auto_bind_first_user": true,
+  "bot_name": "🌸 Su Su - Trợ Lý Chiến Lược QS Hiền",
+  "poll_timeout": 30,
+  "is_active": true
+}
