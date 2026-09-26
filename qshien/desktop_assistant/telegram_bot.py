@@ -1066,11 +1066,11 @@ class SuSuTelegramBot:
         t_lower = t_clean.lower()
 
         # 0. Tham Mưu Giám Đốc Dự Án (GĐDA)
-        if t_lower in ("/thammuu", "thammuu", "tham mưu", "tham muu", "📊 tham mưu gdda", "gdda", "cố vấn", "bản tin gdda"):
+        if any(kw in t_lower for kw in ("tham mưu", "tham muu", "thammuu", "gđda", "gdda", "cố vấn", "bản tin gdda")) or t_lower.startswith("/thammuu"):
             self.handle_executive_briefing(chat_id)
             return
 
-        if t_lower in ("/baolanh", "baolanh", "bảo lãnh", "dòng tiền", "dong tien", "tiền về", "cashflow"):
+        if any(kw in t_lower for kw in ("bảo lãnh", "baolanh", "dòng tiền", "dong tien", "tiền về", "cashflow")) or t_lower.startswith("/baolanh"):
             self.handle_executive_cashflow(chat_id)
             return
 
@@ -1140,22 +1140,22 @@ class SuSuTelegramBot:
             return
 
         # 4. 14 bài học hôm nay
-        if t_lower in ("/14bai", "14bai", "/daily", "daily", "14 bài", "14 bai", "🌟 14 bài học hôm nay"):
+        if any(kw in t_lower for kw in ("14 bài", "14 bai", "14bai", "bài học hôm nay", "bai hoc hom nay")) or t_lower.startswith("/14bai") or t_lower.startswith("/daily"):
             self.handle_14_scenarios(chat_id)
             return
 
         # 5. Hồ sơ dự án Vietstar
-        if t_lower in ("/duan", "duan", "dự án", "du an", "/vietstar", "vietstar", "🏢 hồ sơ dự án vietstar"):
+        if any(kw in t_lower for kw in ("vietstar", "hồ sơ dự án", "ho so du an")) or t_lower in ("/duan", "duan", "dự án", "du an", "/vietstar"):
             self.handle_project_dossier(chat_id)
             return
 
         # 6. Nhịp sinh học & Tử vi
-        if t_lower in ("/tuvi", "tuvi", "tử vi", "/nhipsinhhoc", "nhip sinh hoc", "nhịp sinh học", "📈 nhịp sinh học & tử vi", "📈 lịch & nhịp tử vi", "lịch & nhịp"):
+        if any(kw in t_lower for kw in ("tử vi", "tuvi", "nhịp sinh học", "nhip sinh hoc", "lịch & nhịp", "ngày hoàng đạo")) or t_lower.startswith("/tuvi") or t_lower.startswith("/nhipsinhhoc"):
             self.handle_biorhythm_tuvi(chat_id)
             return
 
         # 7. Danh sách task công việc
-        if t_lower in ("/tasks", "tasks", "/tasklist", "tasklist", "📋 danh sách g-tasks", "g-tasks", "gtasks", "sổ tay", "so tay"):
+        if any(kw in t_lower for kw in ("g-tasks", "gtasks", "sổ tay", "so tay", "danh sách g-tasks")) or t_lower in ("/tasks", "tasks", "/tasklist", "tasklist"):
             self.handle_tasks(chat_id)
             return
 

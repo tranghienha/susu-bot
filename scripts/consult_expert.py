@@ -290,6 +290,42 @@ YÊU CẦU PHẢN HỒI THEO ĐÚNG CẤU TRÚC 5 PHẦN (Thực chiến, đanh 
             last_err = str(e)
             continue
 
+    # 4. Fallback thông minh: Nếu Gemini lỗi (key hết hạn hoặc lỗi mạng), trích xuất trực tiếp từ Vector RAG 5.449 tình huống
+    if get_vector_rag is not None:
+        try:
+            rag = get_vector_rag()
+            top_cases = rag.query(user_question, top_k=2)
+            if top_cases:
+                sc = top_cases[0]
+                pillar = sc.get("TruCot", "CHUYÊN SÂU")
+                title = sc.get("TieuDe") or sc.get("TenTinhHuong") or "Tình huống thực tế"
+                context = sc.get("BoiCanh", "")
+                risk = sc.get("RuiRo", "")
+                solution = sc.get("ChienLuocXuLy", "")
+                dialogue = sc.get("CauThoaiMau", "")
+                lesson = sc.get("BaiHocXuongMau", "")
+
+                fb_lines = [
+                    f"🤖 *TRI THỨC THỰC CHIẾN TỪ NÃO BỘ SU SU (VECTOR RAG - 5.449 TÌNH HUỐNG):*",
+                    f"_(Kết nối Gemini AI trực tuyến tạm gián đoạn; Su Su trích xuất tình huống tương đồng nhất)_\n",
+                    f"🏷️ *Trụ cột:* `{pillar}`",
+                    f"📌 *{title}*\n"
+                ]
+                if context:
+                    fb_lines.append(f"📍 *BỐI CẢNH CÔNG TRƯỜNG:*\n{context}\n")
+                if risk:
+                    fb_lines.append(f"⚠️ *RỦI RO & CẠM BẪY:*\n{risk}\n")
+                if solution:
+                    fb_lines.append(f"🛠️ *CHIẾN LƯỢC XỬ LÝ:*\n{solution}\n")
+                if dialogue:
+                    fb_lines.append(f"💬 *CÂU THOẠI / CÔNG VĂN MẪU:*\n_{dialogue}_\n")
+                if lesson:
+                    fb_lines.append(f"💎 *ĐÚC KẾT XƯƠNG MÁU:*\n👉 *{lesson}*")
+
+                return "\n".join(fb_lines)
+        except Exception:
+            pass
+
     return f"⚠️ Không thể kết nối với dịch vụ Google Gemini AI ({last_err}). Vui lòng kiểm tra lại kết nối mạng hoặc API Key."
 
 
