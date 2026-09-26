@@ -1,5 +1,19 @@
 [
   {
+    "id": "MOM-05",
+    "meeting_title": "Họp kỹ thuật phối hợp 3 Nhà thầu (Novacons - Minh Khanh - Lũng Lô)",
+    "meeting_date": "2026-09-23",
+    "location": "Văn phòng Ban QLDA Vietstar tại công trường",
+    "item_no": "MOM-KT.05",
+    "commitment": "Phân chia ranh giới thi công, đường công vụ dùng chung và cam kết tiến độ cừ/cọc Minh Khanh không cản trở đào móng lò đốt Novacons",
+    "responsible_party": "Chủ đầu tư Vietstar, Nhà thầu Minh Khanh & Nhà thầu Lũng Lô",
+    "deadline": "2026-09-28",
+    "status": "ĐANG THEO DÕI",
+    "is_overdue": false,
+    "overdue_days": 0,
+    "pd_negotiation_weapon": "Nếu Minh Khanh chậm cừ chắn tải hoặc Lũng Lô chiếm dụng đường công vụ, GĐDA kích hoạt ngay vũ khí EOT dựa trên biên bản họp kỹ thuật ngày 23/09."
+  },
+  {
     "id": "MOM-01",
     "meeting_title": "Cuộc họp Giao ban Tuần số 12 - Dự án Vietstar",
     "meeting_date": "2026-09-18",

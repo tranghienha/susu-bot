@@ -292,13 +292,13 @@ class SuSuTelegramBot:
 
 
     def get_main_keyboard(self) -> Dict[str, Any]:
-        """Bàn phím tương tác nhanh (Reply Keyboard) chuẩn 5 tab Desktop + Tham Mưu GĐDA."""
+        """Bàn phím tương tác nhanh (Reply Keyboard) chuẩn 5 tab Desktop + Tham Mưu GĐDA + Outlook."""
         return {
             "keyboard": [
                 [{"text": "📊 THAM MƯU GĐDA"}, {"text": "🏢 Hồ Sơ Dự Án Vietstar"}],
-                [{"text": "🌟 14 Bài Học Hôm Nay"}, {"text": "📈 Lịch & Nhịp Tử Vi"}],
-                [{"text": "📋 Danh Sách G-Tasks"}, {"text": "🔍 Tra Cứu Tình Huống"}],
-                [{"text": "❓ Hướng Dẫn & Trợ Giúp"}]
+                [{"text": "📧 Hộp Thư Outlook"}, {"text": "🌟 14 Bài Học Hôm Nay"}],
+                [{"text": "📈 Lịch & Nhịp Tử Vi"}, {"text": "📋 Danh Sách G-Tasks"}],
+                [{"text": "🔍 Tra Cứu Tình Huống"}, {"text": "❓ Hướng Dẫn & Trợ Giúp"}]
             ],
             "resize_keyboard": True,
             "is_persistent": True
@@ -372,7 +372,9 @@ class SuSuTelegramBot:
             "• `/risk <nội dung>` : Ghi nhanh rủi ro hiện trường vào Sổ đăng ký rủi ro.\n"
             "• `/subcon <nội dung>` : Ghi nhanh đánh giá & đơn giá thầu phụ, tổ đội.\n"
             "• `/mom <nội dung>` : Ghi nhanh cam kết biên bản họp làm vũ khí đàm phán.\n"
-            "• `/baolanh` : Báo cáo dòng tiền, tiến độ duyệt IPC 01 & bảo lãnh ngân hàng.\n\n"
+            "• `/baolanh` : Báo cáo dòng tiền, tiến độ duyệt IPC 01 & bảo lãnh ngân hàng.\n"
+            "• `/outlook` : Bản tin tình báo thư từ Outlook (Báo giá 657tr, họp 3 bên, đệ trình).\n"
+            "• `/sync_mail` : Quét & đồng bộ ngay hộp thư Outlook Desktop vào Su Su.\n\n"
             "🌟 *3. Các lệnh tra cứu nhanh tác nghiệp:*\n"
             "• `/14bai` : Xem chi tiết 14 bài học hôm nay (kèm nút lật thẻ).\n"
             "• `/tuvi` : Xem lịch vạn niên, giờ hoàng đạo đổ bê tông & tử vi.\n"
@@ -985,6 +987,66 @@ class SuSuTelegramBot:
                 f"👉 Bấm `/thammuu` để cập nhật vũ khí đàm phán."
             )
 
+    def handle_outlook_briefing(self, chat_id: int):
+        """Báo cáo tình báo thư từ Outlook Dự án Vietstar."""
+        eng = self._get_exec_engine()
+        msg = ""
+        if eng:
+            msg = eng.get_outlook_briefing(days_back=10)
+        if not msg:
+            try:
+                from qshien.desktop_assistant.outlook_sync_engine import get_outlook_engine
+                msg = get_outlook_engine().get_executive_outlook_briefing(days_back=10)
+            except Exception as e:
+                msg = f"⚠️ Không thể đọc dữ liệu Outlook: {e}"
+
+        keyboard = {
+            "inline_keyboard": [
+                [
+                    {"text": "🔄 Quét Lại Outlook", "callback_data": "outlook_sync"},
+                    {"text": "💰 Xem Chi Tiết Báo Giá (657 tr)", "callback_data": "exec_claims"}
+                ],
+                [
+                    {"text": "📝 Biên Bản Họp (MOM)", "callback_data": "exec_mom"},
+                    {"text": "📊 Bản Tin GĐDA", "callback_data": "exec_summary"}
+                ]
+            ]
+        }
+        self.client.send_message(chat_id, msg, reply_markup=keyboard)
+
+    def handle_sync_outlook(self, chat_id: int):
+        """Kích hoạt quét đồng bộ Outlook tức thì."""
+        self.client.send_message(chat_id, "⏳ *Đang kết nối Microsoft Outlook Desktop để quét thư từ mới...* Vui lòng chờ vài giây...")
+        try:
+            from qshien.desktop_assistant.outlook_sync_engine import get_outlook_engine
+            engine = get_outlook_engine()
+            res = engine.sync_outlook_data(limit_per_folder=30, download_attachments=True)
+            if res.get("success"):
+                new_cnt = res.get("new_emails", 0)
+                tot_cnt = res.get("total_cached", 0)
+                file_cnt = res.get("downloaded_files", 0)
+                msg = (
+                    f"✅ *ĐỒNG BỘ OUTLOOK THÀNH CÔNG!*\n\n"
+                    f"• 📩 Email mới phát hiện: `{new_cnt}` thư\n"
+                    f"• 📚 Tổng số email trong kho: `{tot_cnt}` thư\n"
+                    f"• 📎 File đính kèm đã tải về: `{file_cnt}` files (PDF, DOCX, XLSX)\n"
+                    f"• 🎯 Đã cập nhật tự động vào: *Hồ sơ Claim EOT* & *Biên bản họp MOM*.\n\n"
+                    f"👉 Bấm nút bên dưới để xem báo cáo chi tiết."
+                )
+            else:
+                msg = f"⚠️ Kết nối Outlook thất bại: {res.get('error', 'Lỗi không xác định')}"
+        except Exception as e:
+            msg = f"⚠️ Lỗi trong quá trình đồng bộ: {e}"
+
+        markup = {
+            "inline_keyboard": [
+                [{"text": "📧 Xem Báo Cáo Hộp Thư", "callback_data": "outlook_briefing"}],
+                [{"text": "📊 Về Bản Tin GĐDA", "callback_data": "exec_summary"}]
+            ]
+        }
+        self.client.send_message(chat_id, msg, reply_markup=markup)
+
+
     # =========================================================================
     # VÒNG LẶP POLLING CHÍNH
     # =========================================================================
@@ -1036,6 +1098,10 @@ class SuSuTelegramBot:
                 self.handle_executive_mom(chat_id)
             elif cb_data == "exec_subcon":
                 self.handle_executive_subcon(chat_id)
+            elif cb_data == "outlook_briefing":
+                self.handle_outlook_briefing(chat_id)
+            elif cb_data == "outlook_sync":
+                self.handle_sync_outlook(chat_id)
             return
 
         # 2. Xử lý tin nhắn văn bản thông thường
@@ -1108,6 +1174,15 @@ class SuSuTelegramBot:
         if t_lower.startswith("/mom ") or t_lower.startswith("mom "):
             content = t_clean.split(" ", 1)[1]
             self.handle_add_mom(chat_id, content)
+            return
+
+        # 0.6 Hộp thư Outlook & Đồng bộ thư từ
+        if any(kw in t_lower for kw in ("outlook", "hộp thư", "hop thu", "email", "mail dự án", "thư từ", "thu tu")) or t_lower in ("/outlook", "/mail", "/email"):
+            self.handle_outlook_briefing(chat_id)
+            return
+
+        if any(kw in t_lower for kw in ("quét outlook", "quet outlook", "đồng bộ outlook", "dong bo outlook", "sync outlook", "sync mail")) or t_lower in ("/sync_outlook", "/sync_mail"):
+            self.handle_sync_outlook(chat_id)
             return
 
         # 1. Lệnh tra cứu tình huống: /tk, tk, Tk, tim, tìm, tra cứu (không phân biệt hoa/thường)

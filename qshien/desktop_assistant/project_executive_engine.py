@@ -528,9 +528,18 @@ class ProjectExecutiveEngine:
             "- Sự kiện Claim bảo lưu: Chậm bàn giao mốc Ram dốc (14 ngày, CĐT), TVGS chậm duyệt Shop móng (6 ngày), Mưa bão ngập đáy hố móng (6 ngày). Tổng EOT đề xuất: 26 ngày.",
             "- Cam kết biên bản họp (MOM) quá hạn: Ban QLDA Vietstar chưa bàn giao tim mốc trắc đạc Ram dốc (quá hạn 4 ngày từ 22/09) -> Vũ khí phản biện của nhà thầu.",
             "- Thầu phụ chủ chốt: Đội thép Đại Việt (32 thợ, 2.950-3.100 đ/kg, 20T/ngày); Đội coppha/bê tông Sông Đà 9 (45 thợ, 155k/m2 cốp pha, 165k/m3 BT); Sơn Epoxy Bách Khoa (480k/m2); Bê tông Lê Phan (1.420.000 đ/m3 M400 W12).",
-            "- Rủi ro lớn nhất: Bục đáy hố móng sâu -7.5m (đang chạy 8 giếng hạ nước ngầm 24/7) và tiến độ đường găng ID 18/ID 19 đáy hố rác."
+            "- Hồ sơ Outlook mới nhất (24-26/09/2026): Novacons đã gửi CĐT 02 Báo giá phát sinh tổng trị giá 656,9 triệu VNĐ (Coupler nối thép lò đốt PK1 + vách hố rác: 227,7 tr; Chèn khe hệ Shoring cừ Larsen: 429,3 tr). Cuộc họp kỹ thuật 3 bên (Novacons, Minh Khanh ép cọc/cừ, Lũng Lô thi công sảnh) ngày 23/09 về phối hợp giao thoa mặt bằng thi công hố rác - lò đốt.",
+            "- Rủi ro lớn nhất: Bục đáy hố móng sâu -7.5m (đang chạy 8 giếng hạ nước ngầm 24/7), tiến độ đường găng ID 18/ID 19 đáy hố rác và chồng lấn mặt bằng với nhà thầu Minh Khanh."
         ]
         return "\n".join(c_lines)
+
+    def get_outlook_briefing(self, days_back: int = 7) -> str:
+        """Tổng hợp nhanh tình báo email Outlook phục vụ tham mưu GĐDA."""
+        try:
+            from qshien.desktop_assistant.outlook_sync_engine import get_outlook_engine
+            return get_outlook_engine().get_executive_outlook_briefing(days_back=days_back)
+        except Exception as e:
+            return f"⚠️ Chưa thể tải dữ liệu Outlook: {e}"
 
 
 # Singleton
