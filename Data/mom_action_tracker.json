@@ -1,17 +1,17 @@
 [
   {
-    "id": "MOM-05",
-    "meeting_title": "Họp kỹ thuật phối hợp 3 Nhà thầu (Novacons - Minh Khanh - Lũng Lô)",
+    "id": "MOM-VST-05",
     "meeting_date": "2026-09-23",
-    "location": "Văn phòng Ban QLDA Vietstar tại công trường",
-    "item_no": "MOM-KT.05",
-    "commitment": "Phân chia ranh giới thi công, đường công vụ dùng chung và cam kết tiến độ cừ/cọc Minh Khanh không cản trở đào móng lò đốt Novacons",
-    "responsible_party": "Chủ đầu tư Vietstar, Nhà thầu Minh Khanh & Nhà thầu Lũng Lô",
-    "deadline": "2026-09-28",
-    "status": "ĐANG THEO DÕI",
-    "is_overdue": false,
-    "overdue_days": 0,
-    "pd_negotiation_weapon": "Nếu Minh Khanh chậm cừ chắn tải hoặc Lũng Lô chiếm dụng đường công vụ, GĐDA kích hoạt ngay vũ khí EOT dựa trên biên bản họp kỹ thuật ngày 23/09."
+    "meeting_title": "Cuộc họp kỹ thuật giao thoa mặt bằng thi công khu vực Hố rác, Lò đốt & Sảnh mở rộng",
+    "party": "Chủ đầu tư Vietstar, Novacons, Minh Khanh (Cọc/Cừ), Lũng Lô (Sảnh), Tư vấn VNCC-VCC",
+    "commitments": [
+      "Novacons là Nhà thầu chính kết cấu Hố rác & Lò đốt.",
+      "Thống nhất ranh giới bàn giao mặt bằng và tuyến đường công vụ dùng chung giữa 3 nhà thầu.",
+      "Minh Khanh cam kết mốc hoàn thành cừ chắn tải bãi rác và cọc hố rác để không làm cản trở tiến độ đào đất móng lò đốt của Novacons.",
+      "Nếu các nhà thầu khác làm tắc nghẽn mặt bằng hoặc cản trở đường công vụ, Novacons sẽ lập biên bản hiện trường làm căn cứ bảo lưu quyền đòi EOT."
+    ],
+    "status": "Đang theo dõi thực hiện tại hiện trường",
+    "action_for_pd": "Cử Chỉ huy trưởng và Trưởng ban An ninh công trường chốt ngay mốc ranh giới, chụp ảnh hiện trạng lập biên bản 3 bên làm bằng chứng phòng thủ pháp lý."
   },
   {
     "id": "MOM-01",

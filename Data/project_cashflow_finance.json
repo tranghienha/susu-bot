@@ -82,5 +82,17 @@
     "total_outflow_str": "13.100.000.000 VNĐ",
     "net_cash_surplus": 737500000.0,
     "net_cash_surplus_str": "+737.500.000 VNĐ (Dòng tiền dương an toàn)"
-  }
+  },
+  "site_advances_log": [
+    {
+      "advance_no": "VST-DNTU-05",
+      "date": "2026-09-24",
+      "amount": 82000000.0,
+      "amount_str": "82.000.000 VNĐ",
+      "requester": "Phạm Văn Hiền (Senior QS Lead)",
+      "purpose": "Tạm ứng chi phí công trường Đợt 5 (Hạ tải khu hố rỉ theo YC CĐT: 20tr; Tiếp khách TVGS: 10tr; Nhà ở BCH: 10tr; Công nhật: 5tr; VPP: 7tr; Vận chuyển: 10tr)",
+      "special_claimable_item": "20.000.000 VNĐ (Công tác hạ tải khu hố rỉ theo yêu cầu Chủ đầu tư ngày 24/09)",
+      "status": "Đã trình Ban Giám Đốc & Kế toán"
+    }
+  ]
 }

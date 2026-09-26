@@ -1,5 +1,25 @@
 [
   {
+    "id": "CLM-VST-09",
+    "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar",
+    "title": "CĐT chậm phê duyệt màu sơn tole mái hố rác 5 ngày",
+    "event_date": "2026-09-26",
+    "notice_date": "2026-09-26",
+    "delay_days": 7,
+    "caused_by": "Chủ đầu tư / Hiện trường",
+    "contract_clauses": [
+      "Điều 5: Tiến độ thực hiện",
+      "Điều 7: Phát sinh & Điều chỉnh"
+    ],
+    "impact_cost_vnd": 0,
+    "impact_cost_str": "Đang tính toán",
+    "impact_description": "CĐT chậm phê duyệt màu sơn tole mái hố rác 5 ngày",
+    "eot_requested_days": 7,
+    "status": "Mới ghi nhận từ lệnh nhanh Telegram; cần hoàn thiện văn bản thông báo Notice of Delay.",
+    "ref_document": "Nhật ký hiện trường ngày 26/09/2026",
+    "action_for_pd": "Trưởng phòng QS gửi văn bản Notice of Delay trong hạn 07 ngày để bảo lưu quyền Claim."
+  },
+  {
     "id": "CLM-VST-08",
     "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar",
     "title": "CĐT chậm phê duyệt màu sơn tole mái hố rác 5 ngày",
@@ -22,22 +42,22 @@
   {
     "id": "CLM-VST-07",
     "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar (344,89 tỷ)",
-    "title": "Báo giá phát sinh Coupler nối thép lò đốt PK1 + vách hố rác & Bê tông chèn Shoring",
+    "title": "Báo giá phát sinh sử dụng Coupler nối thép móng lò đốt PK1 & vách hố rác",
     "event_date": "2026-09-24",
     "notice_date": "2026-09-24",
     "delay_days": 0,
-    "caused_by": "Chủ đầu tư / Thiết kế điều chỉnh biện pháp nối thép và bổ sung chèn Shoring cừ Larsen",
+    "caused_by": "Chủ đầu tư / Thiết kế yêu cầu đổi biện pháp nối thép bằng Coupler",
     "contract_clauses": [
       "Điều 7: Phát sinh và Điều chỉnh giá hợp đồng",
       "Điều 4: Tiêu chuẩn kỹ thuật thi công và nghiệm thu"
     ],
-    "impact_cost_vnd": 656954073,
-    "impact_cost_str": "656.954.073 VNĐ (Coupler: 227,7 tr + Shoring: 429,3 tr)",
-    "impact_description": "Novacons đã phát hành 02 Báo giá phát sinh chính thức gửi CĐT ngày 24/09/2026: (1) Cung cấp & gia công Coupler nối thép Zone 1 & vách hố rác (227.697.914 đ); (2) Copha và chèn bê tông M250R3 gia cố hệ Shoring cừ Larsen (429.256.159 đ).",
+    "impact_cost_vnd": 0,
+    "impact_cost_str": "Đang chờ CĐT phê duyệt dự toán chi tiết",
+    "impact_description": "Novacons đã phát hành Báo giá phát sinh Coupler móng lò đốt PK1 + vách hố rác và Bê tông chèn Shoring cừ Larsen gửi CĐT ngày 24/09/2026.",
     "eot_requested_days": 0,
     "status": "Đã gửi Email & Tờ trình báo giá phát sinh; đang theo dõi phản hồi phê duyệt từ CĐT Vietstar.",
-    "ref_document": "Email BCHVIETSTAR gửi CĐT ngày 24/09/2026 kèm 02 file PDF báo giá chi tiết",
-    "action_for_pd": "Đôn đốc Đại diện CĐT (Anh Hạnh Lê / Anh Tuấn) phê duyệt văn bản 656,9 triệu trước khi nghiệm thu thanh toán đợt tiếp theo."
+    "ref_document": "Email gửi CĐT ngày 2026-09-24 kèm file Báo giá PDF",
+    "action_for_pd": "Đôn đốc Đại diện CĐT (Anh Hạnh Lê / Anh Tuấn) phê duyệt văn bản trước khi đổ bê tông lót và gia công thép đại trà."
   },
   {
     "id": "CLM-VST-06",

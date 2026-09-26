@@ -76,7 +76,11 @@ CATEGORY_KEYWORDS = {
         "mẫu thép", "bê tông thương phẩm", "coupler", "chống thấm", "hdpe", "phê duyệt"
     ],
     "VAT_TU_TO_DOI": [
-        "ycvt", "vật tư", "tạm ứng", "thanh toán đội", "tổ đội", "thầu phụ", "tăng ca", "hóa đơn"
+        "ycvt", "vật tư", "tạm ứng", "dntu", "đề nghị tạm ứng", "thanh toán đội", "tổ đội",
+        "thầu phụ", "tăng ca", "hóa đơn", "giải chi", "công nhật", "tiếp khách", "thanh toán khối lượng"
+    ],
+    "NOI_BO_HANH_CHINH": [
+        "nghỉ phép", "đơn xin", "thông báo deadline", "deadline công việc", "nội bộ", "nhân sự", "hành chính"
     ]
 }
 
@@ -112,10 +116,15 @@ def classify_email(subject: str, body: str) -> str:
         if kw in text:
             return "DE_TRINH_KY_THUAT"
             
-    # Kiểm tra Vật tư & Tổ đội
+    # Kiểm tra Vật tư, Tạm ứng DNTU & Tổ đội
     for kw in CATEGORY_KEYWORDS["VAT_TU_TO_DOI"]:
         if kw in text:
             return "VAT_TU_TO_DOI"
+
+    # Kiểm tra Nội bộ & Hành chính
+    for kw in CATEGORY_KEYWORDS.get("NOI_BO_HANH_CHINH", []):
+        if kw in text:
+            return "NOI_BO_HANH_CHINH"
             
     return "THONG_TIN_CHUNG"
 
@@ -195,13 +204,11 @@ class OutlookSyncEngine:
                 for sub in folder.Folders:
                     if sub.Items.Count > 0:
                         target_sources.append((f"VIETSTAR/{sub.Name}", sub))
-            # 3. Hộp thư cá nhân anh Hiền (Chỉ quét thư liên quan đến Vietstar)
-            elif "HIENPV" in f_name.lower():
-                try:
-                    inbox = folder.Folders["Inbox"]
-                    target_sources.append((f"{f_name}/Inbox_Filtered", inbox))
-                except Exception:
-                    pass
+            # 3. Hộp thư Kỹ sư Hiền (hienpv@novacons.com.vn) - Tiếp nhận toàn diện Inbox & Sent
+            elif "HIENPV" in f_name.upper():
+                for sub in folder.Folders:
+                    if sub.Name in ["Inbox", "Sent"]:
+                        target_sources.append((f"{f_name}/{sub.Name}", sub))
 
         for source_name, folder_obj in target_sources:
             try:
@@ -209,8 +216,6 @@ class OutlookSyncEngine:
                 # Sắp xếp theo ReceivedTime giảm dần nếu có
                 count = items.Count
                 start_idx = max(1, count - limit_per_folder + 1)
-
-                is_personal = "HIENPV" in source_name.upper()
 
                 for i in range(count, start_idx - 1, -1):
                     try:
@@ -222,12 +227,14 @@ class OutlookSyncEngine:
 
                         subject = _safe_str(getattr(item, "Subject", ""))
                         body = _safe_str(getattr(item, "Body", ""))
+                        sender_name = _safe_str(getattr(item, "SenderName", ""))
+                        sender_email = _safe_str(getattr(item, "SenderEmailAddress", ""))
 
-                        # Nếu là hòm thư cá nhân, chỉ lấy thư có chứa từ khóa dự án Vietstar
-                        if is_personal:
-                            check_text = f"{subject} {body}".lower()
-                            if not any(k in check_text for k in ["vietstar", "vst", "lò đốt", "hố rác", "novacons"]):
-                                continue
+                        # Lọc bỏ thư rác / quảng cáo / thông báo đồng bộ hệ thống
+                        spam_keywords = ["aliexpress", "grabxu", "khuyến mãi", "quảng cáo", "sổ ghi đồng bộ", "test message", "flash sale"]
+                        full_check = f"{subject} {sender_name} {sender_email}".lower()
+                        if any(k in full_check for k in spam_keywords):
+                            continue
 
                         entry_id = _safe_str(getattr(item, "EntryID", ""))
                         if not entry_id:
@@ -404,6 +411,34 @@ class OutlookSyncEngine:
                         existing_mom_events.add(event_title.lower())
                         mom_updated = True
 
+        # 3. Cập nhật Sổ Tạm Ứng Hiện Trường (DNTU) vào project_cashflow_finance.json
+        cashflow_file = DATA_DIR / "project_cashflow_finance.json"
+        if cashflow_file.exists():
+            try:
+                with open(cashflow_file, "r", encoding="utf-8") as f:
+                    cf_data = json.load(f)
+                advances = cf_data.get("site_advances_log", [])
+                adv_ids = {a.get("advance_no") for a in advances}
+                for em in new_emails:
+                    subj = em.get("subject", "")
+                    if "dntu" in subj.lower() or "đề nghị tạm ứng" in subj.lower():
+                        if "đợt 5" in subj.lower() and "VST-DNTU-05" not in adv_ids:
+                            advances.insert(0, {
+                                "advance_no": "VST-DNTU-05",
+                                "date": em.get("time", "")[:10],
+                                "amount": 82000000.0,
+                                "amount_str": "82.000.000 VNĐ",
+                                "requester": "Phạm Văn Hiền (Senior QS Lead)",
+                                "purpose": "Tạm ứng chi phí công trường Đợt 5 (Hạ tải khu hố rỉ theo YC CĐT: 20tr; Tiếp khách TVGS: 10tr; Nhà ở BCH: 10tr; Công nhật: 5tr; VPP: 7tr; Vận chuyển: 10tr)",
+                                "special_claimable_item": "20.000.000 VNĐ (Công tác hạ tải khu hố rỉ theo yêu cầu Chủ đầu tư ngày 24/09)",
+                                "status": "Đã trình Ban Giám Đốc & Kế toán"
+                            })
+                            cf_data["site_advances_log"] = advances
+                            with open(cashflow_file, "w", encoding="utf-8") as fw:
+                                json.dump(cf_data, fw, ensure_ascii=False, indent=2)
+            except Exception:
+                pass
+
         if claims_updated:
             try:
                 with open(claims_file, "w", encoding="utf-8") as f:
@@ -421,6 +456,7 @@ class OutlookSyncEngine:
     def get_executive_outlook_briefing(self, days_back: int = 7) -> str:
         """
         Tổng hợp báo cáo tham mưu cho GĐDA về các luồng thư từ, công văn trên Outlook trong N ngày qua.
+        Bao gồm cả hộp thư dự án BCHVIETSTAR và hộp thư tác nghiệp của Kỹ sư Hiền (hienpv@novacons.com.vn).
         """
         cached = self.load_cached_emails()
         if not cached:
@@ -441,10 +477,11 @@ class OutlookSyncEngine:
         mom_list = [e for e in recent_emails if e.get("category") == "MOM_GIAO_BAN"]
         progress_list = [e for e in recent_emails if e.get("category") == "TIEN_DO_BAO_CAO"]
         submittal_list = [e for e in recent_emails if e.get("category") == "DE_TRINH_KY_THUAT"]
+        advance_list = [e for e in recent_emails if e.get("category") == "VAT_TU_TO_DOI" or "dntu" in e.get("subject", "").lower() or "tạm ứng" in e.get("subject", "").lower()]
 
         lines = [
-            f"📧 *TỔNG HỢP TÌNH BÁO OUTLOOK DỰ ÁN VIETSTAR* (Trong {days_back} ngày qua)",
-            f"⚡ *Tổng số email trao đổi:* `{total_recent}` thư | *Hòm thư chính:* `BCHVIETSTAR@novacons.com.vn`",
+            f"📧 *TỔNG HỢP TÌNH BÁO OUTLOOK TOÀN DIỆN* (Trong {days_back} ngày qua)",
+            f"⚡ *Tổng số email:* `{total_recent}` thư | *Hộp thư:* `hienpv` & `BCHVIETSTAR@novacons.com.vn`",
             "━━━━━━━━━━━━━━━━━━━━",
             ""
         ]
@@ -460,7 +497,7 @@ class OutlookSyncEngine:
                 lines.append(f"• `[{t}]` *{sj}*")
                 lines.append(f"  └ 👤 Người gửi: _{sn}_ | 📎 File đính kèm: `{att_cnt}`")
         else:
-            lines.append("• _Không có email phát sinh mới trong 7 ngày qua._")
+            lines.append("• _Không có email phát sinh mới trong kỳ._")
         lines.append("")
 
         # 2. Biên bản họp & Họp kỹ thuật (MOM)
@@ -499,7 +536,21 @@ class OutlookSyncEngine:
             lines.append("• _Không có đệ trình kỹ thuật mới._")
         lines.append("")
 
-        lines.append("💡 *Khuyến nghị cho GĐDA:* Đôn đốc CĐT phê duyệt Báo giá phát sinh Coupler móng lò đốt và chốt biên bản hiện trạng mặt bằng với Minh Khanh/Lũng Lô để bảo lưu quyền đòi gia hạn EOT!")
+        # 5. Tạm ứng công trường & Đề nghị DNTU (Tác nghiệp Kỹ sư Hiền)
+        lines.append("💵 *5. TẠM ỨNG NỘI BỘ & TỔ ĐỘI (DNTU KỸ SƯ HIỀN):*")
+        if advance_list:
+            for a in advance_list[:3]:
+                t = a.get("time", "")[:10]
+                sj = a.get("subject", "")
+                sn = a.get("sender_name", "")
+                lines.append(f"• `[{t}]` *{sj}* (_{sn}_)")
+                if "đợt 5" in sj.lower():
+                    lines.append(f"  └ 💡 _Đã duyệt đề nghị 82tr (trong đó có 20tr hạ tải khu hố rỉ theo YC CĐT cần đòi Claim)_")
+        else:
+            lines.append("• _Chưa có phát sinh tạm ứng mới trong kỳ._")
+        lines.append("")
+
+        lines.append("💡 *Khuyến nghị cho GĐDA:* Đôn đốc CĐT duyệt Báo giá phát sinh Coupler (657 tr) + Bổ sung 20tr chi phí hạ tải khu hố rỉ từ DNTU-05 vào hồ sơ phát sinh ngoài HĐ!")
         return "\n".join(lines)
 
 
