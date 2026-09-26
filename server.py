@@ -44,6 +44,30 @@ if bot_token:
 bot = SuSuTelegramBot(cfg)
 
 
+@app.on_event("startup")
+def on_startup():
+    """Tự động đăng ký danh mục lệnh Menu với Telegram API khi khởi động."""
+    try:
+        commands = [
+            {"command": "start", "description": "🌸 Khởi động & Menu chính"},
+            {"command": "thammuu", "description": "📊 Bản tin Tham mưu GĐDA"},
+            {"command": "duan", "description": "🏢 Hồ sơ dự án Vietstar (344 Tỷ)"},
+            {"command": "14bai", "description": "🌟 14 bài học hôm nay (Lật thẻ)"},
+            {"command": "tuvi", "description": "📈 Lịch vạn niên & Nhịp Tử Vi"},
+            {"command": "tasks", "description": "📋 Danh sách G-Tasks VST"},
+            {"command": "tk", "description": "🔍 Tra cứu 5.449 tình huống"},
+            {"command": "claim", "description": "📄 Ghi nhanh Claim & EOT"},
+            {"command": "risk", "description": "🚨 Ghi nhanh rủi ro hiện trường"},
+            {"command": "help", "description": "❓ Hướng dẫn sử dụng"}
+        ]
+        import requests
+        url = f"{bot.client.api_url}/setMyCommands"
+        requests.post(url, json={"commands": commands}, timeout=5)
+        print("[Startup] setMyCommands updated successfully.")
+    except Exception as e:
+        print(f"[Startup setMyCommands Error] {e}")
+
+
 @app.get("/")
 @app.get("/health")
 def health_check():
