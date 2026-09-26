@@ -195,9 +195,13 @@ class OutlookSyncEngine:
         """
         if not self._is_connected:
             if not self.connect():
+                # Tự động chuyển đổi sang quét IMAP nếu có cấu hình mật khẩu (Cloud 24/7 hoặc khi máy tính tắt)
+                imap_res = self.sync_imap_data(limit=limit_per_folder, download_attachments=download_attachments)
+                if imap_res.get("success"):
+                    return imap_res
                 return {
                     "success": False,
-                    "error": "Không thể kết nối với Microsoft Outlook trên máy tính.",
+                    "error": f"Không thể kết nối Outlook Desktop và IMAP Cloud: {imap_res.get('error', 'Chưa kết nối')}",
                     "new_emails": 0,
                     "downloaded_files": 0
                 }
@@ -335,6 +339,192 @@ class OutlookSyncEngine:
             "total_cached": len(all_emails),
             "downloaded_files": downloaded_count
         }
+
+    def sync_imap_data(
+        self,
+        host: Optional[str] = None,
+        port: Optional[int] = None,
+        user: Optional[str] = None,
+        password: Optional[str] = None,
+        limit: int = 30,
+        download_attachments: bool = True
+    ) -> Dict[str, Any]:
+        """
+        Đồng bộ email trực tiếp qua IMAP SSL (Dành cho Cloud Render 24/7 hoặc khi máy tính tắt).
+        Hỗ trợ đọc từ mail.novacons.com.vn (Dovecot IMAP SSL cổng 993).
+        """
+        import imaplib
+        import email
+        from email.header import decode_header
+        from email.utils import parsedate_to_datetime
+
+        host = host or os.environ.get("IMAP_HOST", "mail.novacons.com.vn")
+        port = int(port or os.environ.get("IMAP_PORT", 993))
+        user = user or os.environ.get("IMAP_USER", "hienpv@novacons.com.vn")
+        password = password or os.environ.get("NOVACONS_MAIL_PASSWORD") or os.environ.get("IMAP_PASSWORD", "")
+
+        if not password:
+            cred_file = DATA_DIR / "mail_credentials.json"
+            if cred_file.exists():
+                try:
+                    with open(cred_file, "r", encoding="utf-8") as f:
+                        c_data = json.load(f)
+                        password = c_data.get("password", "")
+                        user = c_data.get("user", user)
+                        host = c_data.get("host", host)
+                except Exception:
+                    pass
+
+        if not password:
+            return {
+                "success": False,
+                "error": "Chưa cấu hình mật khẩu email IMAP (biến môi trường NOVACONS_MAIL_PASSWORD hoặc file Data/mail_credentials.json).",
+                "new_emails": 0,
+                "downloaded_files": 0
+            }
+
+        cached_emails = self.load_cached_emails()
+        existing_ids = {em.get("entry_id") for em in cached_emails if em.get("entry_id")}
+
+        new_records = []
+        downloaded_count = 0
+
+        try:
+            client = imaplib.IMAP4_SSL(host, port)
+            client.login(user, password)
+            client.select("INBOX", readonly=True)
+
+            status, data = client.search(None, "ALL")
+            if status != "OK" or not data or not data[0]:
+                client.logout()
+                return {"success": True, "new_emails": 0, "total_cached": len(cached_emails), "downloaded_files": 0}
+
+            msg_ids = data[0].split()
+            target_ids = msg_ids[-limit:] if len(msg_ids) > limit else msg_ids
+            target_ids.reverse()
+
+            for mid in target_ids:
+                try:
+                    res, mdata = client.fetch(mid, "(RFC822)")
+                    if res != "OK" or not mdata or not mdata[0]:
+                        continue
+                    raw_bytes = mdata[0][1]
+                    msg = email.message_from_bytes(raw_bytes)
+
+                    def _dec_hdr(h_val):
+                        if not h_val:
+                            return ""
+                        res_parts = []
+                        for frag, enc in decode_header(h_val):
+                            if isinstance(frag, bytes):
+                                res_parts.append(frag.decode(enc or "utf-8", errors="replace"))
+                            else:
+                                res_parts.append(str(frag))
+                        return "".join(res_parts)
+
+                    subject = _dec_hdr(msg.get("Subject", ""))
+                    sender_full = _dec_hdr(msg.get("From", ""))
+                    to_str = _dec_hdr(msg.get("To", ""))
+                    cc_str = _dec_hdr(msg.get("Cc", ""))
+                    date_raw = msg.get("Date", "")
+                    msg_id_hdr = msg.get("Message-ID", "") or f"IMAP_{mid.decode('ascii', errors='ignore')}"
+
+                    entry_id = msg_id_hdr.strip("<>")
+                    if entry_id in existing_ids:
+                        continue
+
+                    try:
+                        dt = parsedate_to_datetime(date_raw)
+                        recv_time_str = dt.strftime("%Y-%m-%d %H:%M:%S")
+                    except Exception:
+                        recv_time_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+                    body = ""
+                    attachments_meta = []
+
+                    if msg.is_multipart():
+                        for part in msg.walk():
+                            ctype = part.get_content_type()
+                            cdisp = str(part.get("Content-Disposition", ""))
+                            fname = part.get_filename()
+                            if fname:
+                                fname = _dec_hdr(fname)
+                                ext = Path(fname).suffix.lower()
+                                save_path_str = ""
+                                payload = part.get_payload(decode=True)
+                                size = len(payload) if payload else 0
+                                if download_attachments and ext in [".pdf", ".docx", ".doc", ".xlsx", ".xls", ".dwg"] and payload:
+                                    safe_name = re.sub(r'[\\/*?:"<>|]', "_", fname)
+                                    target_file = ATTACHMENTS_DIR / f"{recv_time_str[:10]}_{safe_name}"
+                                    try:
+                                        target_file.write_bytes(payload)
+                                        save_path_str = str(target_file)
+                                        downloaded_count += 1
+                                    except Exception:
+                                        pass
+                                attachments_meta.append({
+                                    "filename": fname,
+                                    "size": size,
+                                    "local_path": save_path_str
+                                })
+                            elif ctype == "text/plain" and "attachment" not in cdisp:
+                                payload = part.get_payload(decode=True)
+                                if payload:
+                                    cset = part.get_content_charset() or "utf-8"
+                                    try:
+                                        body += payload.decode(cset, errors="replace") + "\n"
+                                    except Exception:
+                                        body += payload.decode("utf-8", errors="replace") + "\n"
+                    else:
+                        payload = msg.get_payload(decode=True)
+                        if payload:
+                            cset = msg.get_content_charset() or "utf-8"
+                            try:
+                                body = payload.decode(cset, errors="replace")
+                            except Exception:
+                                body = payload.decode("utf-8", errors="replace")
+
+                    if is_spam_or_irrelevant(subject, sender_full, body):
+                        continue
+
+                    category = classify_email(subject, body)
+                    record = {
+                        "entry_id": entry_id,
+                        "source_folder": f"IMAP_{user}_INBOX",
+                        "subject": subject,
+                        "sender_name": sender_full,
+                        "sender_email": sender_full,
+                        "to": to_str,
+                        "cc": cc_str,
+                        "time": recv_time_str,
+                        "category": category,
+                        "body_preview": body[:1500].strip(),
+                        "attachments": attachments_meta,
+                        "synced_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    }
+                    new_records.append(record)
+                    existing_ids.add(entry_id)
+
+                except Exception:
+                    continue
+
+            client.logout()
+
+            all_emails = new_records + cached_emails
+            all_emails.sort(key=lambda x: x.get("time", ""), reverse=True)
+            self.save_cached_emails(all_emails)
+            self._auto_update_project_dossiers(new_records)
+
+            return {
+                "success": True,
+                "new_emails": len(new_records),
+                "new_records": new_records,
+                "total_cached": len(all_emails),
+                "downloaded_files": downloaded_count
+            }
+
+        except Exception as e:
+            return {"success": False, "error": f"Lỗi kết nối IMAP: {e}", "new_emails": 0, "downloaded_files": 0}
 
     def _auto_update_project_dossiers(self, new_emails: List[Dict[str, Any]]):
         """Tự động phân tích các email mới để bổ sung vào project_claims_log.json, mom_action_tracker.json & project_cashflow_finance.json."""

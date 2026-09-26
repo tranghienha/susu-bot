@@ -1,5 +1,25 @@
 [
   {
+    "id": "CLM-VST-19",
+    "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar",
+    "title": "CĐT chậm phê duyệt màu sơn tole mái hố rác 5 ngày",
+    "event_date": "2026-09-26",
+    "notice_date": "2026-09-26",
+    "delay_days": 7,
+    "caused_by": "Chủ đầu tư / Hiện trường",
+    "contract_clauses": [
+      "Điều 5: Tiến độ thực hiện",
+      "Điều 7: Phát sinh & Điều chỉnh"
+    ],
+    "impact_cost_vnd": 0,
+    "impact_cost_str": "Đang tính toán",
+    "impact_description": "CĐT chậm phê duyệt màu sơn tole mái hố rác 5 ngày",
+    "eot_requested_days": 7,
+    "status": "Mới ghi nhận từ lệnh nhanh Telegram; cần hoàn thiện văn bản thông báo Notice of Delay.",
+    "ref_document": "Nhật ký hiện trường ngày 26/09/2026",
+    "action_for_pd": "Trưởng phòng QS gửi văn bản Notice of Delay trong hạn 07 ngày để bảo lưu quyền Claim."
+  },
+  {
     "id": "CLM-VST-18",
     "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar",
     "title": "CĐT chậm phê duyệt màu sơn tole mái hố rác 5 ngày",
