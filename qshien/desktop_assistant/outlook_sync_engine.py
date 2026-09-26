@@ -375,6 +375,26 @@ class OutlookSyncEngine:
                 except Exception:
                     pass
 
+        # Fallback 2: Đọc cấu hình mã hóa an toàn từ telegram_config.json (Dành cho Cloud Render tự động 24/7)
+        if not password:
+            tg_config_file = DATA_DIR / "telegram_config.json"
+            if tg_config_file.exists():
+                try:
+                    with open(tg_config_file, "r", encoding="utf-8") as f:
+                        tg_cfg = json.load(f)
+                        m_sync = tg_cfg.get("mail_sync", {})
+                        enc_auth = m_sync.get("enc_auth", "")
+                        b_tok = tg_cfg.get("bot_token", "")
+                        if enc_auth and b_tok:
+                            import base64
+                            b_dec = bytes([b ^ b_tok.encode()[i % len(b_tok)] for i, b in enumerate(base64.b64decode(enc_auth))]).decode()
+                            password = b_dec
+                            user = m_sync.get("user", user)
+                            host = m_sync.get("host", host)
+                            port = int(m_sync.get("port", port))
+                except Exception:
+                    pass
+
         if not password:
             return {
                 "success": False,

@@ -4,5 +4,7 @@
 *credential*
 *secret*
 mail_credentials.json
+outlook_attachments/
+Data/outlook_attachments/
 __pycache__/
 *.pyc

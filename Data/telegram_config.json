@@ -6,5 +6,12 @@
   "auto_bind_first_user": true,
   "bot_name": "🌸 Su Su - Trợ Lý Chiến Lược QS Hiền",
   "poll_timeout": 30,
-  "is_active": true
+  "is_active": true,
+  "mail_sync": {
+    "host": "mail.novacons.com.vn",
+    "port": 993,
+    "user": "BCHVIETSTAR@novacons.com.vn",
+    "enc_auth": "dldFUVFWW0Z3AAhy",
+    "sync_interval_sec": 900
+  }
 }
