@@ -1,0 +1,58 @@
+[
+  {
+    "id": "MOM-01",
+    "meeting_title": "Cuộc họp Giao ban Tuần số 12 - Dự án Vietstar",
+    "meeting_date": "2026-09-18",
+    "location": "Văn phòng Ban QLDA Vietstar - Tây Bắc Củ Chi",
+    "item_no": "MOM-12.01",
+    "commitment": "Ban QLDA Vietstar phê duyệt hồ sơ thiết kế điều chỉnh Ram dốc & bàn giao tim mốc trắc đạc bổ sung",
+    "responsible_party": "Chủ đầu tư Vietstar (Anh Trần Hoàng Long - GĐ Ban QLDA)",
+    "deadline": "2026-09-22",
+    "status": "QUÁ HẠN 4 NGÀY",
+    "is_overdue": true,
+    "overdue_days": 4,
+    "pd_negotiation_weapon": "Tại cuộc họp ngày 18/09, anh Long đã cam kết bàn giao mốc Ram dốc trước 22/09 nhưng nay đã trễ 4 ngày. Đây là lý do chính khiến nhà thầu chưa thể cho máy ép cọc vào. Đề nghị CĐT ghi nhận vào biên bản hôm nay và tự động gia hạn tương ứng."
+  },
+  {
+    "id": "MOM-02",
+    "meeting_title": "Cuộc họp Giao ban Kỹ thuật Hiện trường",
+    "meeting_date": "2026-09-15",
+    "location": "Phòng họp Chỉ huy trưởng Novacons",
+    "item_no": "MOM-KT.03",
+    "commitment": "Tư vấn Giám sát hoàn thành kiểm tra hiện trường và ký biên bản nghiệm thu cốt thép móng phân đoạn 1",
+    "responsible_party": "Tư vấn Giám sát (Anh Nguyễn Văn Thanh - TVGS Trưởng)",
+    "deadline": "2026-09-20",
+    "status": "ĐÃ HOÀN THÀNH",
+    "is_overdue": false,
+    "overdue_days": 0,
+    "pd_negotiation_weapon": "Đã ký nghiệm thu thành công ngày 20/09, đủ điều kiện pháp lý để nghiệm thu đổ bê tông."
+  },
+  {
+    "id": "MOM-03",
+    "meeting_title": "Cuộc họp Giao ban Tuần số 12 - Dự án Vietstar",
+    "meeting_date": "2026-09-18",
+    "location": "Văn phòng Ban QLDA Vietstar - Tây Bắc Củ Chi",
+    "item_no": "MOM-12.04",
+    "commitment": "Tổng thầu Novacons đệ trình Biện pháp tổ chức thi công chống ăn mòn sơn vảy thủy tinh hố rác và mẫu vật tư Epoxy",
+    "responsible_party": "Nhà thầu Novacons (Senior QS Hiền + Kỹ sư QA/QC)",
+    "deadline": "2026-09-27",
+    "status": "ĐÃ SẴN SÀNG (NỘP ĐÚNG HẠN)",
+    "is_overdue": false,
+    "overdue_days": 0,
+    "pd_negotiation_weapon": "Hồ sơ và chứng chỉ CO/CQ của hãng sơn Bách Khoa đã sẵn sàng trên bàn làm việc, nộp đúng cam kết trước hạn 27/09 để tạo uy tín với CĐT."
+  },
+  {
+    "id": "MOM-04",
+    "meeting_title": "Cuộc họp Giao ban Tuần số 12 - Dự án Vietstar",
+    "meeting_date": "2026-09-18",
+    "location": "Văn phòng Ban QLDA Vietstar - Tây Bắc Củ Chi",
+    "item_no": "MOM-12.06",
+    "commitment": "CĐT Vietstar và Đơn vị Thiết kế cung cấp kết quả tính toán tải trọng máy nghiền rác để nhà thầu đặt bu lông móng neo chờ",
+    "responsible_party": "Đơn vị Thiết kế & Ban Kỹ thuật Vietstar",
+    "deadline": "2026-09-25",
+    "status": "QUÁ HẠN 1 NGÀY",
+    "is_overdue": true,
+    "overdue_days": 1,
+    "pd_negotiation_weapon": "Cần cảnh báo CĐT: Nếu chậm cung cấp vị trí bu lông móng máy nghiền rác thì không thể đổ bê tông móng khối lớn B30 mác M400 đợt tới."
+  }
+]

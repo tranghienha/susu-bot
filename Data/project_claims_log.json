@@ -1,0 +1,84 @@
+[
+  {
+    "id": "CLM-VST-04",
+    "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar",
+    "title": "CĐT chậm phê duyệt màu sơn tole mái hố rác 5 ngày",
+    "event_date": "2026-09-26",
+    "notice_date": "2026-09-26",
+    "delay_days": 7,
+    "caused_by": "Chủ đầu tư / Hiện trường",
+    "contract_clauses": [
+      "Điều 5: Tiến độ thực hiện",
+      "Điều 7: Phát sinh & Điều chỉnh"
+    ],
+    "impact_cost_vnd": 0,
+    "impact_cost_str": "Đang tính toán",
+    "impact_description": "CĐT chậm phê duyệt màu sơn tole mái hố rác 5 ngày",
+    "eot_requested_days": 7,
+    "status": "Mới ghi nhận từ lệnh nhanh Telegram; cần hoàn thiện văn bản thông báo Notice of Delay.",
+    "ref_document": "Nhật ký hiện trường ngày 26/09/2026",
+    "action_for_pd": "Trưởng phòng QS gửi văn bản Notice of Delay trong hạn 07 ngày để bảo lưu quyền Claim."
+  },
+  {
+    "id": "CLM-VST-01",
+    "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar (344,89 tỷ)",
+    "title": "Chậm bàn giao mốc cao độ & mặt bằng khu vực Ram dốc Trục 1-8",
+    "event_date": "2026-08-20",
+    "notice_date": "2026-08-25",
+    "delay_days": 14,
+    "caused_by": "Chủ đầu tư Vietstar (vướng di dời tuyến ống cấp nước kỹ thuật hiện hữu)",
+    "contract_clauses": [
+      "Điều 3: Nội dung và khối lượng công việc",
+      "Điều 5.2: Tiến độ thực hiện công việc và gia hạn thời gian",
+      "Điều 9.1: Trách nhiệm CĐT bàn giao mặt bằng và mốc giới định vị"
+    ],
+    "impact_cost_vnd": 245000000,
+    "impact_cost_str": "245.000.000 VNĐ",
+    "impact_description": "Chi phí dừng chờ thiết bị xe cẩu xích 50T, máy lu rung 25T và chi phí duy trì nhân lực lán trại gián tiếp 14 ngày.",
+    "eot_requested_days": 14,
+    "status": "CĐT & TVGS đã ký biên bản xác nhận vướng mặt bằng; đang chờ văn bản phê duyệt gia hạn EOT chính thức.",
+    "ref_document": "Công văn số 12/2026/CV-NC gửi Ban QLDA Vietstar ngày 25/08/2026",
+    "action_for_pd": "Nhắc Sếp đề cập trực tiếp với GĐ Ban QLDA Vietstar trong cuộc họp giao ban tuần: Chốt mốc EOT 14 ngày trước khi ký nghiệm thu đợt 1."
+  },
+  {
+    "id": "CLM-VST-02",
+    "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar (344,89 tỷ)",
+    "title": "Chậm phê duyệt bản vẽ Shopdrawing kết cấu dầm sàn đáy hố rác (-7.5m)",
+    "event_date": "2026-09-05",
+    "notice_date": "2026-09-08",
+    "delay_days": 6,
+    "caused_by": "Tư vấn Giám sát (Quá thời hạn xem xét 05 ngày làm việc theo Điều 11 HĐ)",
+    "contract_clauses": [
+      "Điều 4: Yêu cầu chất lượng & phê duyệt bản vẽ thi công",
+      "Điều 11: Quyền và nghĩa vụ của TVGS",
+      "Điều 21: Thưởng phạt và trách nhiệm kéo dài tiến độ"
+    ],
+    "impact_cost_vnd": 98000000,
+    "impact_cost_str": "98.000.000 VNĐ",
+    "impact_description": "Đội cốt thép 32 người phải chờ mặt bằng gia công lắp dựng, nguy cơ ảnh hưởng trực tiếp đến công tác găng ID 19.",
+    "eot_requested_days": 6,
+    "status": "Đã gửi công văn bảo lưu quyền Claim EOT và chi phí chờ việc (CV số 18/2026/CV-NC). TVGS đã phê duyệt bản vẽ ngày 11/09.",
+    "ref_document": "Công văn số 18/2026/CV-NC & Email trao đổi với TVGS Trưởng",
+    "action_for_pd": "Dùng làm lá chắn phản biện nếu CĐT phê bình tiến độ thi công đáy hố rác: Lỗi chậm do TVGS ngâm bản vẽ 6 ngày."
+  },
+  {
+    "id": "CLM-VST-03",
+    "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar (344,89 tỷ)",
+    "title": "Mưa bão lớn bất thường ngập úng đáy hố móng sâu do thời tiết Củ Chi",
+    "event_date": "2026-09-15",
+    "notice_date": "2026-09-16",
+    "delay_days": 6,
+    "caused_by": "Thời tiết bất khả kháng (Lượng mưa đo được 185mm/24h vượt tiêu chuẩn thiết kế trạm khí tượng)",
+    "contract_clauses": [
+      "Điều 16: Sự kiện Bất khả kháng (Force Majeure)",
+      "Điều 5.3: Gia hạn thời gian hoàn thành do thiên tai"
+    ],
+    "impact_cost_vnd": 115000000,
+    "impact_cost_str": "115.000.000 VNĐ",
+    "impact_description": "Vận hành 3 máy bơm chìm 15kW liên tục 72h để tiêu thoát nước; xúc dọn bùn lắng đáy hố móng trước khi trải màng HDPE.",
+    "eot_requested_days": 6,
+    "status": "Đã lập Biên bản hiện trường xác nhận 3 bên ngày 18/09/2026. Đang tổng hợp hóa đơn nhiên liệu máy bơm để trình phát sinh.",
+    "ref_document": "Biên bản hiện trường số 09/BB-HT ngày 18/09/2026 kèm số liệu trạm Khí tượng Thủy văn Nam Bộ",
+    "action_for_pd": "Đưa vào danh mục sự kiện bất khả kháng được bảo lưu, không tính vào số ngày chậm trễ bị phạt hợp đồng."
+  }
+]

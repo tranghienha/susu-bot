@@ -1,0 +1,86 @@
+{
+  "project_title": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar",
+  "contract_value": 344886778999.8,
+  "contract_value_str": "344.886.779.000 VNĐ (Đã gồm 8% VAT)",
+  "advance_payment": {
+    "rate_percent": 30.0,
+    "total_amount": 103466033700.0,
+    "total_amount_str": "103.466.033.700 VNĐ",
+    "disbursed_phase_1": 50000000000.0,
+    "disbursed_phase_1_str": "50.000.000.000 VNĐ (Đã giải ngân ngày 25/08/2026)",
+    "pending_phase_2": 53466033700.0,
+    "pending_phase_2_str": "53.466.033.700 VNĐ (Đang hoàn thiện hồ sơ nghiệm thu cọc thí nghiệm)",
+    "recovery_mechanism": "Khấu trừ dần 20% trên giá trị trước thuế của từng đợt thanh toán IPC, bắt đầu từ IPC 01 cho đến khi thu hồi đủ 100% tạm ứng khi dự án đạt 80% giá trị hợp đồng."
+  },
+  "bank_guarantees": [
+    {
+      "type": "Bảo lãnh hoàn trả tiền tạm ứng (Advance Payment Bond)",
+      "bank": "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam (BIDV) - CN TP.HCM",
+      "amount": 103466033700.0,
+      "amount_str": "103.466.033.700 VNĐ",
+      "issue_date": "2026-08-15",
+      "expiry_date": "2027-03-31",
+      "days_left": 186,
+      "status": "HIỆU LỰC TỐT",
+      "reduction_note": "Cần nộp công văn đề nghị ngân hàng giảm trừ giá trị bảo lãnh tương ứng số tiền tạm ứng đã được CĐT khấu trừ sau mỗi đợt IPC để giảm chi phí phí bảo lãnh."
+    },
+    {
+      "type": "Bảo lãnh thực hiện hợp đồng (Performance Bond)",
+      "bank": "Ngân hàng TMCP Công Thương Việt Nam (Vietinbank) - CN Tây Sài Gòn",
+      "amount": 17244338950.0,
+      "amount_str": "17.244.338.950 VNĐ (5% giá trị HĐ)",
+      "issue_date": "2026-08-10",
+      "expiry_date": "2027-04-30",
+      "days_left": 216,
+      "status": "HIỆU LỰC TỐT",
+      "reduction_note": "Có hiệu lực đến khi công trình hoàn thành, nghiệm thu bàn giao và nhà thầu nộp Bảo lãnh bảo hành."
+    }
+  ],
+  "ipc_records": [
+    {
+      "ipc_no": "IPC 01",
+      "period": "Giai đoạn thi công cọc đại trà, đào đất hố móng & lót cát đệm (Tháng 09/2026)",
+      "submitted_date": "2026-09-20",
+      "review_deadline": "2026-10-02 (12 ngày làm việc theo Điều 6 HĐ)",
+      "claimed_amount_gross": 18450000000.0,
+      "claimed_amount_gross_str": "18.450.000.000 VNĐ",
+      "advance_recovery_deduction": 3690000000.0,
+      "advance_recovery_deduction_str": "-3.690.000.000 VNĐ (20% hoàn ứng)",
+      "retention_5pct": 922500000.0,
+      "retention_5pct_str": "-922.500.000 VNĐ (5% giữ lại bảo hành tạm thời)",
+      "net_cash_expected": 13837500000.0,
+      "net_cash_expected_str": "13.837.500.000 VNĐ",
+      "status": "Đang trong hạn xem xét của CĐT & TVGS (Ngày 5/12)"
+    }
+  ],
+  "cashflow_forecast_month_10": {
+    "inflow_expected": 13837500000.0,
+    "inflow_expected_str": "13.837.500.000 VNĐ (Thu từ IPC 01 dự kiến về tài khoản trước 05/10)",
+    "outflow_planned": [
+      {
+        "category": "Vật tư chính (Thép móng Đại Việt + Bê tông Lê Phan)",
+        "amount": 8500000000.0,
+        "amount_str": "8.500.000.000 VNĐ"
+      },
+      {
+        "category": "Nhân công thầu phụ (Đội thép Hùng + Đội coppha Tuấn + Đội chống thấm Bách Khoa)",
+        "amount": 3200000000.0,
+        "amount_str": "3.200.000.000 VNĐ"
+      },
+      {
+        "category": "Máy móc & Nhiên liệu (Bơm chìm hạ nước ngầm, máy phát, xe cẩu, lu rung)",
+        "amount": 950000000.0,
+        "amount_str": "950.000.000 VNĐ"
+      },
+      {
+        "category": "Chi phí gián tiếp lán trại & quản lý công trường",
+        "amount": 450000000.0,
+        "amount_str": "450.000.000 VNĐ"
+      }
+    ],
+    "total_outflow": 13100000000.0,
+    "total_outflow_str": "13.100.000.000 VNĐ",
+    "net_cash_surplus": 737500000.0,
+    "net_cash_surplus_str": "+737.500.000 VNĐ (Dòng tiền dương an toàn)"
+  }
+}

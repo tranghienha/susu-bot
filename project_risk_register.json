@@ -1,0 +1,62 @@
+[
+  {
+    "id": "RSK-01",
+    "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar",
+    "title": "Mực nước ngầm cao & nguy cơ bục bùng đáy hố móng sâu -7.5m",
+    "category": "KỸ THUẬT & ĐỊA KỸ THUẬT MÓNG SÂU",
+    "probability": "Cao (4/5)",
+    "impact": "Nghiêm trọng (5/5)",
+    "risk_level": "ĐỎ (RẤT NGUY HIỂM)",
+    "cause": "Địa chất Tây Bắc Củ Chi tầng đất yếu bão hòa nước; mùa mưa kéo dài đẩy áp lực nước lỗ rỗng lên cao.",
+    "consequence": "Bục đáy móng, sụt lún thành vách hố đào, đe dọa an toàn thợ thi công và gãy đổ hệ chống shoring.",
+    "mitigation_plan": "1. Bố trí 8 giếng hạ mực nước ngầm sâu -12m hoạt động 24/7 có máy phát điện dự phòng 150kVA.\n2. Quan trắc chuyển vị thành vách (Inclinometer) và đo lún mốc chuẩn 12h/lần.\n3. Chuẩn bị sẵn 300 bao tải cát và máy phun vữa chống xói lở chân vách.",
+    "owner": "Chỉ huy phó Kỹ thuật + Kỹ sư Địa kỹ thuật",
+    "status": "Đang kiểm soát (Mực nước ngầm duy trì ở -8.2m, chuyển vị thành vách trong giới hạn an toàn 12mm)",
+    "brief_for_pd": "Nhắc Sếp yêu cầu tư vấn địa kỹ thuật ký xác nhận báo cáo quan trắc hàng tuần để chốt trách nhiệm pháp lý."
+  },
+  {
+    "id": "RSK-02",
+    "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar",
+    "title": "Tiến độ đường găng ID 19 (Bê tông đáy móng) bị gãy do chậm chống thấm HDPE (ID 18)",
+    "category": "TIẾN ĐỘ & ĐƯỜNG GĂNG (CRITICAL PATH)",
+    "probability": "Cao (4/5)",
+    "impact": "Lớn (4/5)",
+    "risk_level": "CAM (CẦN HÀNH ĐỘNG GẤP)",
+    "cause": "Thời tiết mưa ngập ngày 15-18/09 làm ứ đọng nước đáy hố móng, thợ chưa thể hàn màng HDPE đúng tiến độ hoàn thành 26/09.",
+    "consequence": "Làm trễ công tác kế tiếp ID 19 (Lắp dựng cốt thép và đổ bê tông đáy móng) dự kiến bắt đầu 28/08 - kết thúc 01/10.",
+    "mitigation_plan": "1. Huy động thêm 2 máy hàn nhiệt tự hành Leister và 6 thợ hàn chuyên nghiệp làm ca đêm.\n2. Làm mái che di động bằng bạt dù khung thép nhẹ trên các line hàn đáy móng.\n3. Đàm phán với TVGS nghiệm thu cuốn chiếu theo từng ô móng (Grid A-C xong bàn giao ngay cho thợ sắt buộc cốt thép).",
+    "owner": "Kỹ sư Đội trưởng Hiện trường + Đội trưởng Thầu phụ Bách Khoa",
+    "status": "Đang triển khai cuốn chiếu (Đã nghiệm thu được 65% diện tích đáy móng)",
+    "brief_for_pd": "Báo cáo Sếp: Đã giải tỏa nút thắt đường găng bằng giải pháp nghiệm thu cuốn chiếu ô móng A-C, thợ sắt đã vào việc từ hôm nay."
+  },
+  {
+    "id": "RSK-03",
+    "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar",
+    "title": "CĐT Vietstar chậm phê duyệt hồ sơ thanh toán IPC 01 (18,45 tỷ)",
+    "category": "DÒNG TIỀN & PHÁP LÝ HỢP ĐỒNG",
+    "probability": "Trung bình (3/5)",
+    "impact": "Lớn (4/5)",
+    "risk_level": "VÀNG (CẢNH BÁO THEO DÕI)",
+    "cause": "Hồ sơ nghiệm thu đợt 1 nhiều đầu mối (biên bản nghiệm thu cọc, thí nghiệm nén tĩnh, khối lượng đào đất), CĐT hay soi xét thủ tục.",
+    "consequence": "Ảnh hưởng đến dòng tiền thanh toán cho nhà cung cấp thép Đại Việt và Bê tông Lê Phan đầu tháng 10.",
+    "mitigation_plan": "1. QS Hiền đã rà soát trước 100% hồ sơ chất lượng và phụ lục khối lượng theo đúng Phụ lục 04 HĐ.\n2. Áp dụng Điều 6 HĐ: Thời hạn CĐT phê duyệt tối đa 12 ngày làm việc (Hạn chót: 02/10/2026). Nếu quá hạn, tự động coi là hồ sơ hợp lệ.\n3. Chuẩn bị sẵn thư nhắc tiến độ vào ngày thứ 8 (29/09).",
+    "owner": "Senior QS Lead (Hiền) + Giám đốc Dự án",
+    "status": "Đang trong hạn xem xét (Ngày thứ 5 / 12 ngày làm việc)",
+    "brief_for_pd": "Sếp chuẩn bị sẵn cuộc gọi thân mật cho Giám đốc Tài chính Vietstar vào ngày thứ Hai (28/09) để đẩy nhanh phê duyệt chuyển khoản."
+  },
+  {
+    "id": "RSK-04",
+    "project": "Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar",
+    "title": "Rủi ro an toàn lao động hố sâu và chống phình ván khuôn khi đổ bê tông vách -7.5m",
+    "category": "AN TOÀN LAO ĐỘNG (HSE) & CHẤT LƯỢNG",
+    "probability": "Thấp (2/5)",
+    "impact": "Rất lớn (5/5)",
+    "risk_level": "CAM (KIỂM SOÁT NGHIÊM NGẶT)",
+    "cause": "Vách hố rác cao và sâu, áp lực thủy tĩnh của bê tông tươi khi bơm cần 42m rất lớn.",
+    "consequence": "Nguy cơ bục ván khuôn, lệch tim vách, tai nạn rơi ngã từ trên cao của công nhân lắp dựng cốt thép.",
+    "mitigation_plan": "1. 100% thợ làm trên sàn thao tác vách phải cài dây an toàn 2 móc vào cáp cứu sinh.\n2. Bắt buộc nghiệm thu siết ti ren D14 đôi khoảng cách @400x400 và chống xiên hộp 50x100 trước khi bơm.\n3. Tốc độ dâng bê tông khống chế tối đa 1.5m/giờ, chia làm nhiều lớp đầm dùi kỹ.",
+    "owner": "Kỹ sư Trưởng An toàn HSE + Chỉ huy phó QA/QC",
+    "status": "Đã phê duyệt biện pháp an toàn và kiểm tra cấp thẻ an toàn cho 45 công nhân đội Anh Tuấn",
+    "brief_for_pd": "HSE đã kiểm soát chặt chẽ, biên bản kiểm định giàn giáo và bảo hộ lao động đầy đủ 100%."
+  }
+]

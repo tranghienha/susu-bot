@@ -1,0 +1,92 @@
+[
+  {
+    "id": "SUB-01",
+    "name": "Công ty TNHH Xây Dựng & Thương Mại Đại Việt (Đội Anh Hùng)",
+    "trade": "Gia công & Lắp dựng Cốt thép móng, vách hố rác",
+    "scope_items": [
+      "Cốt thép móng >18mm (BOQ: 452.998 kg)",
+      "Cốt thép móng <=18mm (BOQ: 271.799 kg)",
+      "Cốt thép móng <=10mm (BOQ: 181.199 kg)"
+    ],
+    "unit_price_deal": {
+      "thep_lon_18": "2.950 đ/kg",
+      "thep_nho_18": "3.100 đ/kg",
+      "thep_nho_10": "3.250 đ/kg"
+    },
+    "market_benchmark": "Đơn giá thị trường TP.HCM hiện nay: 2.900 - 3.400 đ/kg (đã gồm vận chuyển nội bộ & uốn buộc)",
+    "manpower": 32,
+    "productivity_actual": "18 - 22 tấn thép/ngày",
+    "quality_rating": 4.5,
+    "reliability_rating": 4.0,
+    "pros": "Tay nghề thợ đều, đọc bản vẽ uốn thép tốt, ít hao hụt thép mẩu, tuân thủ an toàn đeo dây khi lắp dựng thép vách cao.",
+    "cons_risks": "Thường xuyên đề nghị ứng tiền sớm trước chu kỳ thanh toán; nếu không đáp ứng dễ bị giảm quân số sang công trình khác.",
+    "management_strategy": "Khống chế tỷ lệ tạm ứng tối đa 70% giá trị nghiệm thu nội bộ hàng tuần; giữ lại 10% đến khi đổ xong bê tông và bàn giao."
+  },
+  {
+    "id": "SUB-02",
+    "name": "Hợp tác xã Xây dựng Sông Đà 9 (Đội Anh Tuấn)",
+    "trade": "Ván khuôn phủ phim & Đổ bê tông vách hố rác, đáy móng",
+    "scope_items": [
+      "Ván khuôn vách hố rác phủ phim (BOQ: 13.575 m2)",
+      "Ván khuôn sàn móng (BOQ: 9.515 m2)",
+      "Bê tông móng B30 W12 (BOQ: 4.778 m3)",
+      "Bê tông vách hố rác B30 W12 (BOQ: 3.168 m3)"
+    ],
+    "unit_price_deal": {
+      "coppha_vach": "155.000 đ/m2 (gồm gông ti D14, giáo cup-lock, nhân công lắp tháo)",
+      "coppha_san_dam": "135.000 đ/m2",
+      "do_be_tong": "165.000 đ/m3 (đầm dùi, cán mặt, dưỡng hộ bảo dưỡng)"
+    },
+    "market_benchmark": "Đơn giá giao khoán thị trường: 145.000 - 170.000 đ/m2 coppha; 150.000 - 180.000 đ/m3 bê tông",
+    "manpower": 45,
+    "productivity_actual": "250 - 300 m2 ván khuôn/ngày; 450 m3 bê tông/ca đêm",
+    "quality_rating": 4.2,
+    "reliability_rating": 4.5,
+    "pros": "Lực lượng đông, thiết bị giàn giáo và cốp pha mới, có khả năng huy động tăng ca xuyên đêm để đón các đợt đổ bê tông lớn.",
+    "cons_risks": "Áp lực vách bê tông hố rác cao độ -7.5m rất lớn, cần giám sát kỹ khoảng cách ti ren và chêm chống đáy chân vách để tránh bục cốp pha.",
+    "management_strategy": "Bắt buộc nghiệm thu độ căng ti xuyên và gông thép hộp đôi trước khi cấp lệnh bơm bê tông."
+  },
+  {
+    "id": "SUB-03",
+    "name": "Công ty TNHH Kỹ thuật Hóa chất & Chống thấm Bách Khoa",
+    "trade": "Chống ăn mòn nặng vảy thủy tinh Epoxy Cấp 1 & Chống thấm đáy hố rác HDPE",
+    "scope_items": [
+      "Chống ăn mòn vảy thủy tinh Epoxy 6 lớp (BOQ: 6.554 m2 - Giá trị 15,02 tỷ)",
+      "Chống thấm đáy hố móng màng HDPE dày 2.0mm (Công tác găng ID 18)"
+    ],
+    "unit_price_deal": {
+      "son_epoxy_vay_thuy_tinh": "480.000 đ/m2 (trọn gói vật tư nhập khẩu + nhân công phun lăn chuyên dụng)",
+      "mang_hdpe": "115.000 đ/m2 (vật tư HDPE + hàn nhiệt kép thử áp lực khí)"
+    },
+    "market_benchmark": "Đơn giá BOQ hợp đồng CĐT: 540.225 đ/m2 sơn chống ăn mòn -> Chênh lệch an toàn +60.225 đ/m2 (Lãi gộp ~11.1%)",
+    "manpower": 18,
+    "productivity_actual": "120 - 150 m2/ngày (yêu cầu nghiêm ngặt độ ẩm và thời gian lưu hóa)",
+    "quality_rating": 4.8,
+    "reliability_rating": 4.7,
+    "pros": "Chuyên gia kỹ thuật tay nghề cao, có máy đo độ dày màng sơn Elcometer và máy dò tia lửa điện khuyết tật sơn (Spark tester).",
+    "cons_risks": "Rất nhạy cảm với độ ẩm và nước mưa mùa ngập Củ Chi; yêu cầu bề mặt bê tông phải mài phẳng và độ ẩm <6%.",
+    "management_strategy": "Phối hợp nhịp nhàng với đội bê tông để xoa mặt thật phẳng và dùng máy sấy công nghiệp khi trời ẩm ướt."
+  },
+  {
+    "id": "SUB-04",
+    "name": "Công ty Cổ phần Bê tông Thương phẩm Lê Phan (Trạm Củ Chi)",
+    "trade": "Cung cấp bê tông thương phẩm M400 (B30) phụ gia chống thấm W12 & đông kết nhanh R7",
+    "scope_items": [
+      "Bê tông móng M400 B30 W12 (BOQ: 4.778 m3)",
+      "Bê tông vách M400 B30 W12 (BOQ: 3.168 m3)"
+    ],
+    "unit_price_deal": {
+      "don_gia_m400_w12": "1.420.000 đ/m3 (chưa VAT, gồm phụ gia chống thấm W12 và đông kết nhanh R7)",
+      "bom_can_42m": "95.000 đ/m3",
+      "bom_ngang_tinh_theo_ca": "4.500.000 đ/ca"
+    },
+    "market_benchmark": "Mặt bằng giá thị trường khu vực Củ Chi: 1.400.000 - 1.460.000 đ/m3",
+    "manpower": "Đội xe bồn 14 xe",
+    "productivity_actual": "Cung ứng tối đa 110 m3/giờ",
+    "quality_rating": 4.6,
+    "reliability_rating": 4.4,
+    "pros": "Trạm trộn cách công trường 14km (chạy xe mất 25 phút), độ sụt duy trì ổn định 14±2 cm, tỷ lệ nén mẫu R28 luôn vượt mác 115%.",
+    "cons_risks": "Đường Tỉnh lộ 8 hay bị ùn ứ vào giờ cao điểm 16h - 18h30; cần tránh điều xe vào khung giờ này.",
+    "management_strategy": "Ưu tiên ký lịch đổ bê tông vào ban đêm từ 20h00 đến 04h00 sáng hôm sau để xe bồn quay vòng liên tục."
+  }
+]
