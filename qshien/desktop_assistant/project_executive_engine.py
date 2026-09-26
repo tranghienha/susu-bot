@@ -402,12 +402,17 @@ class ProjectExecutiveEngine:
         for idx, m in enumerate(self.mom_commitments, 1):
             m_id = m.get("id", f"MOM-{idx}")
             comm = m.get("commitment", "")
-            party = m.get("responsible_party", "")
+            if not comm and "commitments" in m:
+                comm = "; ".join(m.get("commitments", []))
+            if not comm:
+                comm = m.get("meeting_title", "Cam kết cuộc họp")
+
+            party = m.get("responsible_party") or m.get("party", "")
             deadline = m.get("deadline", "")
             status = m.get("status", "")
             is_overdue = m.get("is_overdue", False)
             overdue_days = m.get("overdue_days", 0)
-            weapon = m.get("pd_negotiation_weapon", "")
+            weapon = m.get("pd_negotiation_weapon") or m.get("action_for_pd", "")
 
             status_icon = "❌" if is_overdue else "✅"
             if is_overdue:
@@ -415,7 +420,10 @@ class ProjectExecutiveEngine:
 
             lines.append(f"{status_icon} *{idx}. [{m_id}] {comm}*")
             lines.append(f"   👤 Bên chịu trách nhiệm: *{party}*")
-            lines.append(f"   🕒 Hạn chót: `{deadline}` | Trạng thái: *{status}*")
+            if deadline:
+                lines.append(f"   🕒 Hạn chót: `{deadline}` | Trạng thái: *{status}*")
+            else:
+                lines.append(f"   🏷️ Trạng thái: *{status}*")
             if is_overdue:
                 lines.append(f"   ⚠️ *ĐÃ QUÁ HẠN:* `{overdue_days} ngày`")
             if weapon:
@@ -425,6 +433,35 @@ class ProjectExecutiveEngine:
         lines.append("━━━━━━━━━━━━━━━━━━━━")
         lines.append(f"📊 *TỔNG KẾT:* Đang có *{overdue_count} mục cam kết QUÁ HẠN* từ phía CĐT / TVGS.")
         lines.append("💡 *Thêm cam kết MOM mới:* Gõ `/mom <nội dung>`")
+        return "\n".join(lines)
+
+    def get_task_delegation_report(self) -> str:
+        """Xuất báo cáo Tham mưu & Ma trận Phân công Giao việc, Phối hợp cho GĐDA."""
+        self._refresh()
+        today_str = datetime.date.today().strftime("%d/%m/%Y")
+        lines = [
+            "📋 *MA TRẬN GIAO VIỆC & ĐIỀU PHỐI HIỆN TRƯỜNG CHO GĐDA*",
+            f"_(Dự án Vietstar 344,89 Tỷ • Cập nhật tự động: {today_str})_",
+            "━━━━━━━━━━━━━━━━━━━━\n",
+            "🚨 *1. MỐC KHẨN CẤP CẦN CHỈ ĐẠO NGAY:*",
+            "• ⏰ *14h00 Chủ Nhật (27/09/2026 - Chiều mai):* Nghiệm thu đào đất & cắt đầu cọc hố móng Lò đốt MM-03 với TVGS VNCC-VCC (Theo KHNTCV-T.01).",
+            "  👉 *Chỉ đạo:* Yêu cầu Chỉ huy trưởng và Đội trắc đạc hoàn tất san gạt đáy móng, cắt tỉa cọc và lắp lan can thang trước 11h00 ngày mai.\n",
+            "⚠️ *2. ĐIỂM NGHẼN KỸ THUẬT & PHÁP LÝ CẦN THÁO GỠ:*",
+            "• ❌ *TVGS bác BPTC Chống thấm đầu cọc (MSS-005):* Phản hồi chiều 25/09: 'Khác bản vẽ thiết kế'. Đang làm nghẽn đổ bê tông lót hố rác/hố rỉ.",
+            "  👉 *Giao việc:* Team QA/QC đối chiếu thiết kế vs màng chống thấm thực tế, gửi văn bản giải trình hoặc RFI ngay sáng 28/09.",
+            "• 🚧 *Vướng tuyến cừ Larsen cắt ngang móng Lò đốt:* Thầu phụ Minh Khanh chưa nhổ cừ -> Novacons đã trình RFA-001 xin chia 2 đợt đổ.",
+            "  👉 *Giao việc:* Bám sát TVTK/TVGS lấy phê duyệt RFA-001 để triển khai đợt 1 ngay.",
+            "• 📑 *Hoàn thiện BPTC Đào đất MSS-003.R02:* Bổ sung 7 ý kiến công văn 171 (luồng xe, thoát nước, an toàn mép hố).\n",
+            "👷 *3. BẢNG PHÂN CÔNG GIAO VIỆC CHO CÁC BỘ PHẬN:*",
+            "• 🎖️ *Chỉ huy trưởng (Mr. Long):* Trực tiếp chỉ huy đón TVGS nghiệm thu hố móng MM-03 chiều mai 27/09; nộp hồ sơ chứng minh năng lực CHT.",
+            "• 🔬 *Kỹ sư QA/QC & KT:* Giải trình chống thấm MSS-005; nộp BPTC đào đất MSS-003.R02 trước 30/09; đôn đốc duyệt RFA-001.",
+            "• 🦺 *Kỹ sư HSE:* Kiểm tra lan can hố sâu MM-03; thiết lập còi cảnh báo bán kính cẩu tháp 608241 giao thoa Minh Khanh & Lũng Lô.",
+            "• 📊 *Senior QS (Kỹ sư Hiền):* Lập biên bản khối lượng Claim 20tr hạ tải đất 1m hố rác (DNTU-05); hoàn tất đệ trình giá Coupler 657tr.\n",
+            "⚔️ *4. ĐỐI SÁCH VỚI CĐT VIETSTAR & MINH KHANH:*",
+            "• GĐDA yêu cầu chốt văn bản MOM cuộc họp ngày 25/09: Buộc Minh Khanh cam kết ngày nhổ cừ bàn giao mặt bằng; bảo lưu quyền đòi Claim EOT và chi phí dừng chờ nếu bị chậm trễ.",
+            "━━━━━━━━━━━━━━━━━━━━",
+            "💡 *Su Su đang tự động giám sát các mốc trên và nhắc nhở định kỳ!*"
+        ]
         return "\n".join(lines)
 
     def add_mom(self, commitment: str, responsible_party: str, deadline: str = "", weapon: str = "") -> Dict[str, Any]:

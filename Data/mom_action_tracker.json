@@ -1,17 +1,71 @@
 [
   {
     "id": "MOM-VST-05",
-    "meeting_date": "2026-09-23",
-    "meeting_title": "Cuộc họp kỹ thuật giao thoa mặt bằng thi công khu vực Hố rác, Lò đốt & Sảnh mở rộng",
-    "party": "Chủ đầu tư Vietstar, Novacons, Minh Khanh (Cọc/Cừ), Lũng Lô (Sảnh), Tư vấn VNCC-VCC",
+    "meeting_date": "2026-09-25",
+    "meeting_title": "Cuộc họp kỹ thuật phối hợp thi công giao thoa khu vực Hố rác - Lò đốt - Sảnh mở rộng",
+    "party": "Chủ đầu tư Vietstar (Mai Anh Tuấn), Novacons, Minh Khanh (Cọc/Cừ), Lũng Lô (Sảnh mở rộng), Tư vấn VNCC-VCC",
     "commitments": [
       "Novacons là Nhà thầu chính kết cấu Hố rác & Lò đốt.",
-      "Thống nhất ranh giới bàn giao mặt bằng và tuyến đường công vụ dùng chung giữa 3 nhà thầu.",
-      "Minh Khanh cam kết mốc hoàn thành cừ chắn tải bãi rác và cọc hố rác để không làm cản trở tiến độ đào đất móng lò đốt của Novacons.",
-      "Nếu các nhà thầu khác làm tắc nghẽn mặt bằng hoặc cản trở đường công vụ, Novacons sẽ lập biên bản hiện trường làm căn cứ bảo lưu quyền đòi EOT."
+      "Thống nhất ranh giới phân chia mặt bằng và quy chế dùng chung đường công vụ giữa 3 nhà thầu.",
+      "Minh Khanh cam kết mốc tiến độ thi công cừ chắn tải bãi rác và cọc hố rác, không làm ảnh hưởng đến tuyến thi công móng lò đốt của Novacons.",
+      "Thống nhất vùng an toàn bán kính quay cẩu tháp seri 608241 của Novacons với vùng hoạt động xe máy của Minh Khanh và Lũng Lô."
     ],
-    "status": "Đang theo dõi thực hiện tại hiện trường",
-    "action_for_pd": "Cử Chỉ huy trưởng và Trưởng ban An ninh công trường chốt ngay mốc ranh giới, chụp ảnh hiện trạng lập biên bản 3 bên làm bằng chứng phòng thủ pháp lý."
+    "status": "CẦN KÝ CHỐT BIÊN BẢN",
+    "action_for_pd": "GĐDA chỉ đạo CHT Lương Phi Long chốt ngay văn bản Biên bản cuộc họp 3 bên ngày 25/09 với CĐT, quy định rõ trách nhiệm nếu Minh Khanh làm chậm bàn giao tuyến cừ Larsen cắt ngang móng lò đốt thì Novacons sẽ bảo lưu quyền claim EOT và chi phí dừng chờ."
+  },
+  {
+    "id": "MOM-VST-06",
+    "meeting_date": "2026-09-23",
+    "meeting_title": "Kế hoạch nghiệm thu công việc hiện trường (KHNTCV-T.01)",
+    "party": "Novacons (CHT Lương Phi Long) và TVGS VNCC-VCC",
+    "commitments": [
+      "24/09/2026 (09h30): Đã nghiệm thu cao độ đất tự nhiên trước khi đào hố móng lò đốt (trục 1-7 đến 3-1/1E-1F).",
+      "25/09/2026 (10h30): Đã chứng kiến lấy mẫu thí nghiệm thép xây dựng và coupler nối thép.",
+      "27/09/2026 (14h00 - CHIỀU MAI): Nghiệm thu đào đất và cắt đầu cọc hố móng Lò đốt MM-03."
+    ],
+    "status": "KHẨN CẤP - THỰC HIỆN 14H00 NGÀY 27/09",
+    "deadline": "2026-09-27 14:00",
+    "action_for_pd": "Giao CHT Lương Phi Long và Kỹ sư Trắc đạc/Hiện trường hoàn tất san gạt đáy móng, tẩy đầu cọc MM-03, bắc thang lối lên xuống hố móng an toàn trước 11h00 ngày 27/09 để đón TVGS nghiệm thu đúng hẹn 14h00."
+  },
+  {
+    "id": "MOM-VST-07",
+    "meeting_date": "2026-09-17",
+    "meeting_title": "Công văn TVGS số 171 về BPTC Đào đất Hố rác & Lò đốt (MSS-003.R01)",
+    "party": "Liên danh Tư vấn VNCC-VCC (Võ Đôn Khải, Đặng Xuân Đăng) và Novacons",
+    "commitments": [
+      "Bổ sung bản vẽ tổng thể mặt bằng xe đào, xe ben, hướng di chuyển, bãi tập kết đất, trạm bơm thoát nước chống ngập.",
+      "Bổ sung bản vẽ trắc đạc cao độ trước đào và đáy đào.",
+      "Thể hiện hiện trạng công trình ngầm, cừ Larsen, Shoring, King Post trên mặt bằng và mặt cắt.",
+      "Bổ sung biện pháp an toàn mép hố sâu, rào chắn cảnh báo, lối lên xuống."
+    ],
+    "status": "ĐANG CHỈNH SỬA R02",
+    "deadline": "2026-09-28",
+    "action_for_pd": "Giao Kỹ sư Kỹ thuật hiện trường phối hợp Kỹ sư Trắc đạc hoàn thiện BPTC đào đất MSS-003.R02 nộp lại TVGS trước ngày 28/09, kết hợp bản vẽ bãi tập kết đất không tận dụng bán kính 10km (OTS-005)."
+  },
+  {
+    "id": "MOM-VST-08",
+    "meeting_date": "2026-09-25",
+    "meeting_title": "Ý kiến TVGS về BPTC Chống thấm đầu cọc Móng Hố rác & Hố rỉ (MSS-005.R00)",
+    "party": "TVGS VNCC-VCC và Novacons",
+    "commitments": [
+      "TVGS phản hồi email chiều 25/09 lúc 16:41: 'Hồ sơ nhà thầu trình khác với bản vẽ Thiết kế'.",
+      "Cần làm rõ chi tiết xử lý màng chống thấm liên kết đầu cọc bê tông khối móng hố rác/hố rỉ."
+    ],
+    "status": "VƯỚNG MẮC KỸ THUẬT CẦN GIẢI TRÌNH",
+    "deadline": "2026-09-28",
+    "action_for_pd": "GĐDA chỉ đạo Kỹ sư QA/QC rà soát đối chiếu bản vẽ thiết kế được duyệt với biện pháp thi công của hãng chống thấm, lập RFI hoặc giải trình kỹ thuật gửi TVGS ngay sáng thứ Hai (28/09) để không làm đình trệ công tác đổ bê tông lót và móng hố rác."
+  },
+  {
+    "id": "MOM-VST-09",
+    "meeting_date": "2026-09-24",
+    "meeting_title": "Đệ trình RFA-001.R01 - Xin chấp thuận chia 2 phân đợt đổ bê tông móng lò đốt",
+    "party": "Novacons, TVTK VNCC và TVGS VCC",
+    "commitments": [
+      "Vướng mặt bằng hiện trạng: Tuyến cừ Larsen hiện trạng cắt ngang móng lò đốt chưa thể nhổ do điều kiện địa chất và tải trọng bãi rác bên cạnh.",
+      "Novacons đề xuất chia đợt 1 đổ phần móng ngoài vướng cừ, đợt 2 thi công sau khi cừ được xử lý hạ tải/nhổ."
+    ],
+    "status": "CHỜ PHÊ DUYỆT RFA",
+    "action_for_pd": "Đôn đốc TVTK và TVGS phê duyệt chính thức RFA-001. Đồng thời gửi văn bản thông báo cho CĐT: Việc chia đợt là giải pháp tình thế do lỗi bàn giao mặt bằng vướng cừ Larsen của CĐT, chi phí phát sinh khớp nối bê tông (coupler, băng cản nước, vệ sinh mạch ngừng) thuộc trách nhiệm CĐT."
   },
   {
     "id": "MOM-01",
@@ -28,20 +82,6 @@
     "pd_negotiation_weapon": "Tại cuộc họp ngày 18/09, anh Long đã cam kết bàn giao mốc Ram dốc trước 22/09 nhưng nay đã trễ 4 ngày. Đây là lý do chính khiến nhà thầu chưa thể cho máy ép cọc vào. Đề nghị CĐT ghi nhận vào biên bản hôm nay và tự động gia hạn tương ứng."
   },
   {
-    "id": "MOM-02",
-    "meeting_title": "Cuộc họp Giao ban Kỹ thuật Hiện trường",
-    "meeting_date": "2026-09-15",
-    "location": "Phòng họp Chỉ huy trưởng Novacons",
-    "item_no": "MOM-KT.03",
-    "commitment": "Tư vấn Giám sát hoàn thành kiểm tra hiện trường và ký biên bản nghiệm thu cốt thép móng phân đoạn 1",
-    "responsible_party": "Tư vấn Giám sát (Anh Nguyễn Văn Thanh - TVGS Trưởng)",
-    "deadline": "2026-09-20",
-    "status": "ĐÃ HOÀN THÀNH",
-    "is_overdue": false,
-    "overdue_days": 0,
-    "pd_negotiation_weapon": "Đã ký nghiệm thu thành công ngày 20/09, đủ điều kiện pháp lý để nghiệm thu đổ bê tông."
-  },
-  {
     "id": "MOM-03",
     "meeting_title": "Cuộc họp Giao ban Tuần số 12 - Dự án Vietstar",
     "meeting_date": "2026-09-18",
@@ -54,19 +94,5 @@
     "is_overdue": false,
     "overdue_days": 0,
     "pd_negotiation_weapon": "Hồ sơ và chứng chỉ CO/CQ của hãng sơn Bách Khoa đã sẵn sàng trên bàn làm việc, nộp đúng cam kết trước hạn 27/09 để tạo uy tín với CĐT."
-  },
-  {
-    "id": "MOM-04",
-    "meeting_title": "Cuộc họp Giao ban Tuần số 12 - Dự án Vietstar",
-    "meeting_date": "2026-09-18",
-    "location": "Văn phòng Ban QLDA Vietstar - Tây Bắc Củ Chi",
-    "item_no": "MOM-12.06",
-    "commitment": "CĐT Vietstar và Đơn vị Thiết kế cung cấp kết quả tính toán tải trọng máy nghiền rác để nhà thầu đặt bu lông móng neo chờ",
-    "responsible_party": "Đơn vị Thiết kế & Ban Kỹ thuật Vietstar",
-    "deadline": "2026-09-25",
-    "status": "QUÁ HẠN 1 NGÀY",
-    "is_overdue": true,
-    "overdue_days": 1,
-    "pd_negotiation_weapon": "Cần cảnh báo CĐT: Nếu chậm cung cấp vị trí bu lông móng máy nghiền rác thì không thể đổ bê tông móng khối lớn B30 mác M400 đợt tới."
   }
 ]

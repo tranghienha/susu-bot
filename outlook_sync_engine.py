@@ -649,10 +649,133 @@ class OutlookSyncEngine:
                         "\n💡 *Su Su sẽ tự động gửi tin nhắn Telegram ngay khi phát hiện thư mới!*"
                     ]
                     client.send_message(admin_chat_id, "\n".join(info_lines))
+
+                # Tự động rà soát cảnh báo mốc công việc khẩn cấp & giao việc
+                self._check_and_alert_deadlines(client=client, admin_chat_id=admin_chat_id)
         except Exception as e:
             print(f"[OutlookAutoSync] Lỗi gửi Telegram: {e}")
 
         return status_info
+
+    def _check_and_alert_deadlines(self, client, admin_chat_id: int):
+        """Tự động rà soát các cam kết biên bản họp và mốc nghiệm thu khẩn cấp để nhắc nhở GĐDA."""
+        if not client:
+            return
+        alert_file = OUTLOOK_SYNC_DIR / "last_deadline_alert.json"
+        last_alert_data = {}
+        if alert_file.exists():
+            try:
+                with open(alert_file, "r", encoding="utf-8") as f:
+                    last_alert_data = json.load(f)
+            except Exception:
+                pass
+
+        now = datetime.datetime.now()
+        # Không spam: mỗi mốc nhắc cách nhau tối thiểu 3 tiếng
+        last_sent_str = last_alert_data.get("last_sent_time", "")
+        if last_sent_str:
+            try:
+                last_sent = datetime.datetime.strptime(last_sent_str, "%Y-%m-%d %H:%M:%S")
+                if (now - last_sent).total_seconds() < 10800:  # 3 giờ
+                    return
+            except Exception:
+                pass
+
+        # Nạp mom_action_tracker.json
+        mom_path = DATA_DIR / "mom_action_tracker.json"
+        if not mom_path.exists():
+            return
+        try:
+            with open(mom_path, "r", encoding="utf-8") as f:
+                moms = json.load(f)
+        except Exception:
+            return
+
+        urgent_alerts = []
+        for m in moms:
+            dl_str = m.get("deadline", "")
+            title = m.get("meeting_title", "")
+            if not dl_str:
+                continue
+            try:
+                if " " in dl_str:
+                    dl_dt = datetime.datetime.strptime(dl_str, "%Y-%m-%d %H:%M")
+                else:
+                    dl_dt = datetime.datetime.strptime(dl_str, "%Y-%m-%d")
+                    dl_dt = dl_dt.replace(hour=17, minute=0)
+
+                diff = dl_dt - now
+                hours_left = diff.total_seconds() / 3600.0
+
+                if 0 <= hours_left <= 36:
+                    urgent_alerts.append({
+                        "id": m.get("id"),
+                        "title": title,
+                        "deadline": dl_str,
+                        "hours_left": int(round(hours_left)),
+                        "action": m.get("action_for_pd") or m.get("commitment") or ""
+                    })
+            except Exception:
+                pass
+
+        if urgent_alerts:
+            lines = [
+                "🚨 *THAM MƯU TỰ ĐỘNG: CẢNH BÁO MỐC CÔNG VIỆC KHẨN CẤP!*",
+                f"_(Hệ thống giám sát định kỳ 30 phút • {now.strftime('%H:%M • %d/%m/%Y')})_",
+                "━━━━━━━━━━━━━━━━━━━━\n"
+            ]
+            for a in urgent_alerts:
+                h = a["hours_left"]
+                h_str = f"còn ~{h} giờ nữa" if h > 0 else "đang tới hạn"
+                lines.append(f"⏰ *[{a['id']}] {a['title']}*")
+                lines.append(f"• 🕒 Hạn thực hiện: `{a['deadline']}` (*{h_str}*)")
+                if a["action"]:
+                    lines.append(f"👉 *Chỉ đạo giao việc:* _{a['action']}_\n")
+
+            lines.append("━━━━━━━━━━━━━━━━━━━━")
+            lines.append("💡 Bấm `/giaoviec` để xem toàn bộ ma trận phân công chi tiết.")
+
+            markup = {
+                "inline_keyboard": [
+                    [{"text": "📋 Xem Ma Trận Giao Việc", "callback_data": "exec_delegation"}],
+                    [{"text": "📊 Bản Tin Tham Mưu GĐDA", "callback_data": "exec_summary"}]
+                ]
+            }
+            client.send_message(admin_chat_id, "\n".join(lines), reply_markup=markup)
+
+            last_alert_data["last_sent_time"] = now.strftime("%Y-%m-%d %H:%M:%S")
+            last_alert_data["alerts_count"] = len(urgent_alerts)
+            try:
+                with open(alert_file, "w", encoding="utf-8") as f:
+                    json.dump(last_alert_data, f, ensure_ascii=False, indent=2)
+            except Exception:
+                pass
+
+    def send_task_delegation_briefing(self, admin_chat_id: int = 8249791298) -> bool:
+        """Gửi trực tiếp bản tin tham mưu phân công giao việc & điều phối lên Telegram."""
+        try:
+            from qshien.desktop_assistant.telegram_bot import TelegramClient, load_telegram_config
+            from qshien.desktop_assistant.project_executive_engine import get_executive_engine
+            cfg = load_telegram_config()
+            tok = cfg.get("bot_token", "")
+            if not tok:
+                return False
+            client = TelegramClient(tok)
+            eng = get_executive_engine()
+            msg = eng.get_task_delegation_report()
+            markup = {
+                "inline_keyboard": [
+                    [
+                        {"text": "🤝 Xem Cam Kết MOM", "callback_data": "exec_mom"},
+                        {"text": "📧 Hộp Thư Outlook", "callback_data": "outlook_briefing"}
+                    ],
+                    [{"text": "📊 Về Bản Tin GĐDA", "callback_data": "exec_summary"}]
+                ]
+            }
+            return client.send_message(admin_chat_id, msg, reply_markup=markup)
+        except Exception as e:
+            print(f"[OutlookSync] Lỗi gửi delegation briefing: {e}")
+            return False
 
     def start_sync_daemon(self, interval_seconds: int = 1800, admin_chat_id: int = 8249791298):
         """Chạy vòng lặp kiểm tra Outlook định kỳ trong nền (mặc định 1800 giây = 30 phút)."""
@@ -696,12 +819,16 @@ if __name__ == "__main__":
     parser.add_argument("--daemon", action="store_true", help="Chạy vòng lặp định kỳ liên tục trong nền")
     parser.add_argument("--interval", type=int, default=30, help="Chu kỳ phút cho daemon (mặc định: 30 phút)")
     parser.add_argument("--notify", action="store_true", help="Gửi thông báo Telegram xác nhận trạng thái hiện tại")
+    parser.add_argument("--delegation", action="store_true", help="Gửi bản tin tham mưu phân công giao việc & điều phối lên Telegram")
     args = parser.parse_args()
 
     engine = get_outlook_engine()
 
     if args.daemon:
         engine.start_sync_daemon(interval_seconds=args.interval * 60)
+    elif args.delegation:
+        ok = engine.send_task_delegation_briefing()
+        print("Đã gửi bản tin phân công giao việc lên Telegram:", ok)
     elif args.auto:
         status = engine.check_and_notify_telegram(notify_always=args.notify)
         print(f"Quét tự động hoàn tất lúc {status.get('last_check')}: {status.get('new_emails')} email mới.")

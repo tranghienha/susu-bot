@@ -295,9 +295,9 @@ class SuSuTelegramBot:
         """Bàn phím tương tác nhanh (Reply Keyboard) chuẩn 5 tab Desktop + Tham Mưu GĐDA + Outlook."""
         return {
             "keyboard": [
-                [{"text": "📊 THAM MƯU GĐDA"}, {"text": "🏢 Hồ Sơ Dự Án Vietstar"}],
-                [{"text": "📧 Hộp Thư Outlook"}, {"text": "🌟 14 Bài Học Hôm Nay"}],
-                [{"text": "📈 Lịch & Nhịp Tử Vi"}, {"text": "📋 Danh Sách G-Tasks"}],
+                [{"text": "📊 THAM MƯU GĐDA"}, {"text": "📋 Giao Việc & Điều Phối"}],
+                [{"text": "📧 Hộp Thư Outlook"}, {"text": "🏢 Hồ Sơ Dự Án Vietstar"}],
+                [{"text": "🌟 14 Bài Học Hôm Nay"}, {"text": "📈 Lịch & Nhịp Tử Vi"}],
                 [{"text": "🔍 Tra Cứu Tình Huống"}, {"text": "❓ Hướng Dẫn & Trợ Giúp"}]
             ],
             "resize_keyboard": True,
@@ -347,6 +347,7 @@ class SuSuTelegramBot:
             f"_(Phạm Hà Khánh Ngọc • 21/10/2019 • Đồng hành 24/7 trên mọi công trường)_\n\n"
             f"✨ *HỆ SINH THÁI NÃO BỘ ĐƯỢC KẾ THỪA TỪ DESKTOP:*\n"
             f"• 📊 *Tham Mưu Chiến Lược GĐDA:* Bản tin 1 trang, quản trị rủi ro hố sâu, hồ sơ Claim EOT, vũ khí đàm phán MOM & sức khỏe dòng tiền.\n"
+            f"• 📋 *Phân Công Giao Việc & Điều Phối:* Theo dõi mốc khẩn cấp, tháo gỡ điểm nghẽn kỹ thuật & phân nhiệm vụ từng kỹ sư.\n"
             f"• 🌟 *14 Bài học thực chiến hôm nay:* Lật thẻ tình huống 8 Trụ Cột, kèm bối cảnh, rủi ro, chiến lược, thoại mẫu & đúc kết.\n"
             f"• 📈 *Lịch Vạn Niên & Tử Vi Hiện Trường:* Can Chi, Trực, Sao, Giờ Hoàng Đạo đổ bê tông/cất nóc, Hỷ Thần, Tài Thần & Nhịp sinh học Biorhythm.\n"
             f"• 📋 *Sổ tay G-Tasks:* Đồng bộ danh mục việc cần làm dự án VST, quản lý tiến độ thi công & nhắc việc.\n"
@@ -368,6 +369,7 @@ class SuSuTelegramBot:
             "• _\"Thời gian tạm ứng và tỷ lệ giữ lại của dự án Vietstar?\"_\n\n"
             "👑 *2. Bộ công cụ Tham mưu Giám đốc Dự án (GĐDA):*\n"
             "• `/thammuu` : Bản tin tổng hợp 1 trang trước giờ họp giao ban CĐT.\n"
+            "• `/giaoviec` : Ma trận phân công giao việc & điều phối hiện trường.\n"
             "• `/claim <nội dung>` : Ghi nhanh sự kiện cản trở để đòi EOT & bù tiền.\n"
             "• `/risk <nội dung>` : Ghi nhanh rủi ro hiện trường vào Sổ đăng ký rủi ro.\n"
             "• `/subcon <nội dung>` : Ghi nhanh đánh giá & đơn giá thầu phụ, tổ đội.\n"
@@ -869,16 +871,36 @@ class SuSuTelegramBot:
                     {"text": "💰 Dòng Tiền & Bảo Lãnh", "callback_data": "exec_cashflow"}
                 ],
                 [
-                    {"text": "🚨 Sổ Rủi Ro Đỏ/Cam", "callback_data": "exec_risks"},
-                    {"text": "🤝 Cam Kết MOM Quá Hạn", "callback_data": "exec_mom"}
+                    {"text": "📋 Phân Công Giao Việc", "callback_data": "exec_delegation"},
+                    {"text": "🤝 Cam Kết MOM", "callback_data": "exec_mom"}
                 ],
                 [
-                    {"text": "👷 Tình Báo Thầu Phụ", "callback_data": "exec_subcon"},
+                    {"text": "🚨 Sổ Rủi Ro Đỏ/Cam", "callback_data": "exec_risks"},
+                    {"text": "👷 Tình Báo Thầu Phụ", "callback_data": "exec_subcon"}
+                ],
+                [
+                    {"text": "📧 Hộp Thư Outlook", "callback_data": "outlook_briefing"},
                     {"text": "🔄 Cập Nhật Bản Tin", "callback_data": "exec_summary"}
                 ]
             ]
         }
         self.client.send_message(chat_id, summary, reply_markup=markup)
+
+    def handle_task_delegation(self, chat_id: int):
+        """Báo cáo ma trận phân công giao việc và điều phối công trường cho GĐDA."""
+        eng = self._get_exec_engine()
+        if eng:
+            msg = eng.get_task_delegation_report()
+            markup = {
+                "inline_keyboard": [
+                    [
+                        {"text": "🤝 Xem Cam Kết MOM", "callback_data": "exec_mom"},
+                        {"text": "📧 Hộp Thư Outlook", "callback_data": "outlook_briefing"}
+                    ],
+                    [{"text": "◀ Quay Lại Bản Tin GĐDA", "callback_data": "exec_summary"}]
+                ]
+            }
+            self.client.send_message(chat_id, msg, reply_markup=markup)
 
     def handle_executive_claims(self, chat_id: int):
         eng = self._get_exec_engine()
@@ -1149,6 +1171,8 @@ class SuSuTelegramBot:
                 self.handle_executive_mom(chat_id)
             elif cb_data == "exec_subcon":
                 self.handle_executive_subcon(chat_id)
+            elif cb_data == "exec_delegation":
+                self.handle_task_delegation(chat_id)
             elif cb_data == "outlook_briefing":
                 self.handle_outlook_briefing(chat_id)
             elif cb_data == "outlook_sync":
@@ -1184,7 +1208,11 @@ class SuSuTelegramBot:
         t_clean = text.strip()
         t_lower = t_clean.lower()
 
-        # 0. Tham Mưu Giám Đốc Dự Án (GĐDA)
+        # 0. Tham Mưu Giám Đốc Dự Án (GĐDA) & Phân Công Giao Việc
+        if any(kw in t_lower for kw in ("giao việc", "giao viec", "phan cong", "phân công", "điều phối", "dieu phoi", "ke hoach")) or t_lower in ("/giaoviec", "/kehoach", "/actions", "/phancong"):
+            self.handle_task_delegation(chat_id)
+            return
+
         if any(kw in t_lower for kw in ("tham mưu", "tham muu", "thammuu", "gđda", "gdda", "cố vấn", "bản tin gdda")) or t_lower.startswith("/thammuu"):
             self.handle_executive_briefing(chat_id)
             return
