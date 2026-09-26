@@ -360,7 +360,7 @@ class OutlookSyncEngine:
 
         host = host or os.environ.get("IMAP_HOST", "mail.novacons.com.vn")
         port = int(port or os.environ.get("IMAP_PORT", 993))
-        user = user or os.environ.get("IMAP_USER", "hienpv@novacons.com.vn")
+        user = user or os.environ.get("IMAP_USER", "BCHVIETSTAR@novacons.com.vn")
         password = password or os.environ.get("NOVACONS_MAIL_PASSWORD") or os.environ.get("IMAP_PASSWORD", "")
 
         if not password:

@@ -67,34 +67,6 @@ def on_startup():
     except Exception as e:
         print(f"[Startup setMyCommands Error] {e}")
 
-    # Khởi động luồng chạy ngầm quét IMAP 24/7 trên Cloud (không phụ thuộc máy tính)
-    def _cloud_imap_sync_worker():
-        import time
-        print("[Cloud IMAP Worker] Khởi động tiến trình ngầm giám sát hòm thư Novacons 24/7...", flush=True)
-        time.sleep(10)
-        while True:
-            try:
-                mail_pass = os.environ.get("NOVACONS_MAIL_PASSWORD", "") or os.environ.get("IMAP_PASSWORD", "")
-                if mail_pass:
-                    try:
-                        from qshien.desktop_assistant.outlook_sync_engine import get_outlook_engine
-                    except ImportError:
-                        from outlook_sync_engine import get_outlook_engine
-
-                    engine = get_outlook_engine()
-                    res = engine.sync_imap_data(password=mail_pass, limit=20)
-                    if res.get("success") and res.get("new_emails", 0) > 0:
-                        print(f"[Cloud IMAP] 📬 Phát hiện {res['new_emails']} email mới! Gửi cảnh báo Telegram...", flush=True)
-                        engine.check_and_notify_telegram(new_emails=res.get("new_records", []))
-            except Exception as e:
-                print(f"[Cloud IMAP Worker Error] {e}", flush=True)
-
-            # Quét định kỳ mỗi 15 phút (900 giây)
-            time.sleep(900)
-
-    t = threading.Thread(target=_cloud_imap_sync_worker, daemon=True)
-    t.start()
-
 
 @app.get("/")
 @app.get("/health")
