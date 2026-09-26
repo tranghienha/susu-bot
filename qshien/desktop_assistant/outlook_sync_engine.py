@@ -7,15 +7,16 @@ Nhiệm vụ:
 2. Quét & trích xuất thư từ tài khoản dự án:
    - BCHVIETSTAR@novacons.com.vn (Inbox & Sent)
    - Thư mục VIETSTAR (Báo cáo tuần, Báo cáo ngày, YCPD, YCVT, Công văn...)
-   - Lọc thư liên quan đến Vietstar trong hienpv@novacons.com.vn (bảo mật tuyệt đối email cá nhân).
+   - Hộp thư tác nghiệp Kỹ sư Hiền: hienpv@novacons.com.vn (Inbox & Sent)
 3. Phân loại thông minh theo 5 Trụ Cột Quản trị GĐDA:
    - 💰 CLAIMS & PHÁT SINH (Báo giá ngoài HĐ, vướng mặt bằng, yêu cầu bồi hoàn)
    - 📝 MOM & GIAO BAN (Thư mời họp kỹ thuật, biên bản giao ban 3 bên, chỉ đạo CĐT)
    - 📈 TIẾN ĐỘ & BÁO CÁO (Báo cáo tuần, báo cáo ngày, đệ trình tiến độ tổng thể)
    - 📑 ĐỆ TRÌNH KỸ THUẬT (YCPD, MAS vật tư, MSS biện pháp thi công, SDS shopdrawing)
-   - 👷 VẬT TƯ & TỔ ĐỘI (YCVT, tạm ứng, khối lượng thầu phụ)
+   - 💵 VẬT TƯ, DNTU & TỔ ĐỘI (Đề nghị tạm ứng đợt 1-5, YCVT, giải chi, khối lượng thầu phụ)
 4. Tự động lưu trữ file đính kèm (.pdf, .docx, .xlsx) vào Data/outlook_attachments/.
-5. Tự động cập nhật hồ sơ tham mưu: project_claims_log.json, mom_action_tracker.json.
+5. Tự động cập nhật hồ sơ tham mưu: project_claims_log.json, mom_action_tracker.json, project_cashflow_finance.json.
+6. Cơ chế Tự Động Giám Sát Định Kỳ 30 Phút & Báo Telegram tức thì khi có thư mới.
 =============================================================================================
 """
 
@@ -33,6 +34,9 @@ from typing import Dict, Any, List, Optional, Tuple
 CURRENT_DIR = Path(__file__).resolve().parent
 ADDIN_DIR = CURRENT_DIR.parent.parent if len(CURRENT_DIR.parents) >= 2 else CURRENT_DIR
 REPO_ROOT = ADDIN_DIR.parent if len(ADDIN_DIR.parents) >= 1 else CURRENT_DIR
+
+if str(ADDIN_DIR) not in sys.path:
+    sys.path.insert(0, str(ADDIN_DIR))
 
 def _get_data_dir() -> Path:
     candidates = [
@@ -56,6 +60,7 @@ DATA_DIR = _get_data_dir()
 OUTLOOK_SYNC_DIR = DATA_DIR / "outlook_sync"
 ATTACHMENTS_DIR = DATA_DIR / "outlook_attachments"
 SYNC_DB_FILE = OUTLOOK_SYNC_DIR / "synced_emails.json"
+LAST_STATUS_FILE = OUTLOOK_SYNC_DIR / "last_sync_status.json"
 
 # Phân loại chuyên sâu theo từ khóa ngành xây dựng
 CATEGORY_KEYWORDS = {
@@ -90,6 +95,16 @@ def _safe_str(val: Any) -> str:
     if val is None:
         return ""
     return str(val).strip()
+
+
+def is_spam_or_irrelevant(subject: str, sender: str = "", body: str = "") -> bool:
+    """Kiểm tra và lọc bỏ email spam, quảng cáo, OTP hoặc thông báo tự động vô nghĩa."""
+    spam_keywords = [
+        "aliexpress", "grabxu", "khuyến mãi", "quảng cáo", "sổ ghi đồng bộ",
+        "test message", "flash sale", "one-time password", "otp", "ưu đãi", "giảm giá"
+    ]
+    full_check = f"{subject} {sender} {body}".lower()
+    return any(k in full_check for k in spam_keywords)
 
 
 def classify_email(subject: str, body: str) -> str:
@@ -173,7 +188,10 @@ class OutlookSyncEngine:
     def sync_outlook_data(self, limit_per_folder: int = 50, download_attachments: bool = True) -> Dict[str, Any]:
         """
         Quét các thư mục dự án trên Outlook và trích xuất dữ liệu.
-        Trả về thống kê số lượng email mới, file tải về và cảnh báo.
+        Bao gồm:
+        - BCHVIETSTAR@novacons.com.vn (Inbox & Sent)
+        - VIETSTAR (Các thư mục con)
+        - hienpv@novacons.com.vn (Inbox & Sent)
         """
         if not self._is_connected:
             if not self.connect():
@@ -213,7 +231,6 @@ class OutlookSyncEngine:
         for source_name, folder_obj in target_sources:
             try:
                 items = folder_obj.Items
-                # Sắp xếp theo ReceivedTime giảm dần nếu có
                 count = items.Count
                 start_idx = max(1, count - limit_per_folder + 1)
 
@@ -231,9 +248,7 @@ class OutlookSyncEngine:
                         sender_email = _safe_str(getattr(item, "SenderEmailAddress", ""))
 
                         # Lọc bỏ thư rác / quảng cáo / thông báo đồng bộ hệ thống
-                        spam_keywords = ["aliexpress", "grabxu", "khuyến mãi", "quảng cáo", "sổ ghi đồng bộ", "test message", "flash sale"]
-                        full_check = f"{subject} {sender_name} {sender_email}".lower()
-                        if any(k in full_check for k in spam_keywords):
+                        if is_spam_or_irrelevant(subject, f"{sender_name} {sender_email}", body):
                             continue
 
                         entry_id = _safe_str(getattr(item, "EntryID", ""))
@@ -243,8 +258,6 @@ class OutlookSyncEngine:
                         if entry_id in existing_ids:
                             continue
 
-                        sender_name = _safe_str(getattr(item, "SenderName", ""))
-                        sender_email = _safe_str(getattr(item, "SenderEmailAddress", ""))
                         to_str = _safe_str(getattr(item, "To", ""))
                         cc_str = _safe_str(getattr(item, "CC", ""))
 
@@ -309,24 +322,25 @@ class OutlookSyncEngine:
 
         # Lưu lại vào cache
         all_emails = new_records + cached_emails
-        # Sắp xếp mới nhất lên đầu
         all_emails.sort(key=lambda x: x.get("time", ""), reverse=True)
         self.save_cached_emails(all_emails)
 
-        # Tự động đồng bộ các thư quan trọng vào Hồ sơ Claim & MOM
+        # Tự động đồng bộ các thư quan trọng vào Hồ sơ Claim, MOM & Tài chính
         self._auto_update_project_dossiers(new_records)
 
         return {
             "success": True,
             "new_emails": len(new_records),
+            "new_records": new_records,
             "total_cached": len(all_emails),
             "downloaded_files": downloaded_count
         }
 
     def _auto_update_project_dossiers(self, new_emails: List[Dict[str, Any]]):
-        """Tự động phân tích các email mới để bổ sung vào project_claims_log.json & mom_action_tracker.json."""
+        """Tự động phân tích các email mới để bổ sung vào project_claims_log.json, mom_action_tracker.json & project_cashflow_finance.json."""
         claims_file = DATA_DIR / "project_claims_log.json"
         mom_file = DATA_DIR / "mom_action_tracker.json"
+        cashflow_file = DATA_DIR / "project_cashflow_finance.json"
 
         # 1. Cập nhật Claims nếu có email báo giá phát sinh
         claims_data = []
@@ -348,7 +362,7 @@ class OutlookSyncEngine:
             except Exception:
                 mom_data = []
 
-        existing_mom_events = {m.get("event", "").lower() for m in mom_data}
+        existing_mom_events = {m.get("meeting_title", "").lower() for m in mom_data}
 
         claims_updated = False
         mom_updated = False
@@ -362,7 +376,7 @@ class OutlookSyncEngine:
             # Kiểm tra Claims
             if cat == "CLAIMS_PHAT_SINH" or "báo giá phát sinh" in subj.lower():
                 if "coupler" in subj.lower() or "coupler" in body.lower():
-                    title = "Báo giá phát sinh sử dụng Coupler nối thép móng lò đốt PK1 & vách hố rác"
+                    title = "Báo giá phát sinh Coupler nối thép lò đốt PK1 + vách hố rác & Bê tông chèn Shoring"
                     if title.lower() not in existing_claim_titles:
                         new_clm = {
                             "id": f"CLM-VST-{len(claims_data)+1:02d}",
@@ -371,18 +385,18 @@ class OutlookSyncEngine:
                             "event_date": date_str,
                             "notice_date": date_str,
                             "delay_days": 0,
-                            "caused_by": "Chủ đầu tư / Thiết kế yêu cầu đổi biện pháp nối thép bằng Coupler",
+                            "caused_by": "Chủ đầu tư / Thiết kế điều chỉnh biện pháp nối thép và bổ sung chèn Shoring cừ Larsen",
                             "contract_clauses": [
                                 "Điều 7: Phát sinh và Điều chỉnh giá hợp đồng",
                                 "Điều 4: Tiêu chuẩn kỹ thuật thi công và nghiệm thu"
                             ],
-                            "impact_cost_vnd": 0,
-                            "impact_cost_str": "Đang chờ CĐT phê duyệt dự toán chi tiết",
-                            "impact_description": "Novacons đã phát hành Báo giá phát sinh Coupler móng lò đốt PK1 + vách hố rác và Bê tông chèn Shoring cừ Larsen gửi CĐT ngày 24/09/2026.",
+                            "impact_cost_vnd": 656954073,
+                            "impact_cost_str": "656.954.073 VNĐ (Coupler: 227,7 tr + Shoring: 429,3 tr)",
+                            "impact_description": "Novacons đã phát hành 02 Báo giá phát sinh chính thức gửi CĐT ngày 24/09/2026: (1) Cung cấp & gia công Coupler nối thép Zone 1 & vách hố rác (227.697.914 đ); (2) Copha và chèn bê tông M250R3 gia cố hệ Shoring cừ Larsen (429.256.159 đ).",
                             "eot_requested_days": 0,
                             "status": "Đã gửi Email & Tờ trình báo giá phát sinh; đang theo dõi phản hồi phê duyệt từ CĐT Vietstar.",
-                            "ref_document": f"Email gửi CĐT ngày {date_str} kèm file Báo giá PDF",
-                            "action_for_pd": "Đôn đốc Đại diện CĐT (Anh Hạnh Lê / Anh Tuấn) phê duyệt văn bản trước khi đổ bê tông lót và gia công thép đại trà."
+                            "ref_document": "Email BCHVIETSTAR gửi CĐT ngày 24/09/2026 kèm 02 file PDF báo giá chi tiết",
+                            "action_for_pd": "Đôn đốc Đại diện CĐT (Anh Hạnh Lê / Anh Tuấn) phê duyệt văn bản 656,9 triệu trước khi nghiệm thu thanh toán đợt tiếp theo."
                         }
                         claims_data.insert(0, new_clm)
                         existing_claim_titles.add(title.lower())
@@ -391,28 +405,27 @@ class OutlookSyncEngine:
             # Kiểm tra MOM / Cuộc họp kỹ thuật
             if cat == "MOM_GIAO_BAN" or "mời họp kỹ thuật" in subj.lower():
                 if "hố rác" in subj.lower() and "lò đốt" in subj.lower():
-                    event_title = "Họp kỹ thuật phối hợp 3 Nhà thầu (Novacons, Minh Khanh, Lũng Lô) khu vực Hố rác - Lò đốt"
+                    event_title = "Họp kỹ thuật phối hợp 3 Nhà thầu (Novacons - Minh Khanh - Lũng Lô)"
                     if event_title.lower() not in existing_mom_events:
                         new_mom = {
-                            "id": f"MOM-VST-{len(mom_data)+1:02d}",
+                            "id": f"MOM-{len(mom_data)+1:02d}",
+                            "meeting_title": event_title,
                             "meeting_date": date_str,
-                            "meeting_title": "Cuộc họp kỹ thuật giao thoa mặt bằng thi công khu vực Hố rác, Lò đốt & Sảnh mở rộng",
-                            "party": "Chủ đầu tư Vietstar, Novacons, Minh Khanh (Cọc/Cừ), Lũng Lô (Sảnh), Tư vấn VNCC-VCC",
-                            "commitments": [
-                                "Novacons là Nhà thầu chính kết cấu Hố rác & Lò đốt.",
-                                "Thống nhất ranh giới bàn giao mặt bằng và tuyến đường công vụ dùng chung giữa 3 nhà thầu.",
-                                "Minh Khanh cam kết mốc hoàn thành cừ chắn tải bãi rác và cọc hố rác để không làm cản trở tiến độ đào đất móng lò đốt của Novacons.",
-                                "Nếu các nhà thầu khác làm tắc nghẽn mặt bằng hoặc cản trở đường công vụ, Novacons sẽ lập biên bản hiện trường làm căn cứ bảo lưu quyền đòi EOT."
-                            ],
-                            "status": "Đang theo dõi thực hiện tại hiện trường",
-                            "action_for_pd": "Cử Chỉ huy trưởng và Trưởng ban An ninh công trường chốt ngay mốc ranh giới, chụp ảnh hiện trạng lập biên bản 3 bên làm bằng chứng phòng thủ pháp lý."
+                            "location": "Văn phòng Ban QLDA Vietstar tại công trường",
+                            "item_no": f"MOM-KT.{len(mom_data)+1:02d}",
+                            "commitment": "Phân chia ranh giới thi công, đường công vụ dùng chung và cam kết tiến độ cừ/cọc Minh Khanh không cản trở đào móng lò đốt Novacons",
+                            "responsible_party": "Chủ đầu tư Vietstar, Nhà thầu Minh Khanh & Nhà thầu Lũng Lô",
+                            "deadline": "2026-09-28",
+                            "status": "ĐANG THEO DÕI",
+                            "is_overdue": false,
+                            "overdue_days": 0,
+                            "pd_negotiation_weapon": "Nếu Minh Khanh chậm cừ chắn tải hoặc Lũng Lô chiếm dụng đường công vụ, GĐDA kích hoạt ngay vũ khí EOT dựa trên biên bản họp kỹ thuật ngày 23/09."
                         }
                         mom_data.insert(0, new_mom)
                         existing_mom_events.add(event_title.lower())
                         mom_updated = True
 
         # 3. Cập nhật Sổ Tạm Ứng Hiện Trường (DNTU) vào project_cashflow_finance.json
-        cashflow_file = DATA_DIR / "project_cashflow_finance.json"
         if cashflow_file.exists():
             try:
                 with open(cashflow_file, "r", encoding="utf-8") as f:
@@ -460,7 +473,6 @@ class OutlookSyncEngine:
         """
         cached = self.load_cached_emails()
         if not cached:
-            # Thử đồng bộ ngay nếu chưa có dữ liệu
             res = self.sync_outlook_data(limit_per_folder=30, download_attachments=False)
             cached = self.load_cached_emails()
 
@@ -553,6 +565,113 @@ class OutlookSyncEngine:
         lines.append("💡 *Khuyến nghị cho GĐDA:* Đôn đốc CĐT duyệt Báo giá phát sinh Coupler (657 tr) + Bổ sung 20tr chi phí hạ tải khu hố rỉ từ DNTU-05 vào hồ sơ phát sinh ngoài HĐ!")
         return "\n".join(lines)
 
+    def check_and_notify_telegram(self, notify_always: bool = False, admin_chat_id: int = 8249791298) -> Dict[str, Any]:
+        """
+        Kiểm tra hộp thư Outlook, đồng bộ dữ liệu và gửi thông báo Telegram nếu có email mới.
+        Được gọi định kỳ mỗi 30 phút bởi Task Scheduler hoặc Background Daemon.
+        """
+        res = self.sync_outlook_data(limit_per_folder=30, download_attachments=True)
+        now_dt = datetime.datetime.now()
+        now_str = now_dt.strftime("%H:%M • %d/%m/%Y")
+        next_dt = now_dt + datetime.timedelta(minutes=30)
+        next_str = next_dt.strftime("%H:%M (%d/%m)")
+
+        new_count = res.get("new_emails", 0)
+        total_cached = res.get("total_cached", 0)
+        downloaded = res.get("downloaded_files", 0)
+
+        status_info = {
+            "last_check": now_dt.strftime("%Y-%m-%d %H:%M:%S"),
+            "new_emails": new_count,
+            "total_cached": total_cached,
+            "downloaded_files": downloaded,
+            "next_check": next_dt.strftime("%Y-%m-%d %H:%M:%S"),
+            "interval_minutes": 30,
+            "status": "SUCCESS" if res.get("success") else "FAILED"
+        }
+
+        try:
+            with open(LAST_STATUS_FILE, "w", encoding="utf-8") as f:
+                json.dump(status_info, f, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+
+        # Gửi thông báo Telegram
+        try:
+            from qshien.desktop_assistant.telegram_bot import TelegramClient, load_telegram_config
+            cfg = load_telegram_config()
+            tok = cfg.get("bot_token", "")
+            if tok:
+                client = TelegramClient(tok)
+                if new_count > 0:
+                    alert_lines = [
+                        f"🔔 *TÌNH BÁO OUTLOOK: PHÁT HIỆN {new_count} EMAIL MỚI!*",
+                        f"_(Hệ thống tự động quét 30 phút • {now_str})_",
+                        "━━━━━━━━━━━━━━━━━━━━",
+                        ""
+                    ]
+                    # Lấy các email mới nhất vừa nạp
+                    cached = self.load_cached_emails()
+                    for em in cached[:min(new_count, 5)]:
+                        t = em.get("time", "")[:16]
+                        sj = em.get("subject", "Không có tiêu đề")
+                        sn = em.get("sender_name", "Không rõ")
+                        att_cnt = len(em.get("attachments", []))
+                        cat = em.get("category", "THONG_TIN")
+                        alert_lines.append(f"• 📧 `[{t}]` *{sj}*")
+                        alert_lines.append(f"  └ 👤 Từ: _{sn}_ | 🏷️ `{cat}` | 📎 File: `{att_cnt}`")
+
+                    if any("phát sinh" in em.get("subject", "").lower() or em.get("category") == "CLAIMS_PHAT_SINH" for em in cached[:new_count]):
+                        alert_lines.append("\n💰 *CẢNH BÁO CLAIM:* Phát hiện email có nội dung báo giá / phát sinh ngoài HĐ!")
+
+                    if any("mời họp" in em.get("subject", "").lower() or em.get("category") == "MOM_GIAO_BAN" for em in cached[:new_count]):
+                        alert_lines.append("\n📝 *CẢNH BÁO GIAO BAN:* Phát hiện thư mời họp hoặc điều phối mặt bằng mới!")
+
+                    alert_lines.append("\n👉 Bấm `/outlook` để xem chi tiết hoặc `/thammuu` để cập nhật chiến lược.")
+                    markup = {
+                        "inline_keyboard": [
+                            [{"text": "📧 Xem Hộp Thư Outlook", "callback_data": "outlook_briefing"}],
+                            [{"text": "📊 Bản Tin Tham Mưu GĐDA", "callback_data": "exec_summary"}]
+                        ]
+                    }
+                    client.send_message(admin_chat_id, "\n".join(alert_lines), reply_markup=markup)
+
+                elif notify_always:
+                    info_lines = [
+                        "⏱️ *HỘP THƯ OUTLOOK ĐANG ĐƯỢC THEO DÕI TỰ ĐỘNG*",
+                        "━━━━━━━━━━━━━━━━━━━━",
+                        f"• 🔄 Chu kỳ kiểm tra: *30 phút / lần*",
+                        f"• 🕒 Lần kiểm tra vừa xong: `{now_str}`",
+                        f"• 📭 Trạng thái: *Không có email khẩn cấp mới* trong 30 phút qua.",
+                        f"• 📚 Tổng email dự án đã nạp: `{total_cached}` thư",
+                        f"• 📎 File đính kèm đã bóc tách: `{downloaded}` tệp",
+                        f"• ⏳ Lần quét tiếp theo: `{next_str}`",
+                        "\n💡 *Su Su sẽ tự động gửi tin nhắn Telegram ngay khi phát hiện thư mới!*"
+                    ]
+                    client.send_message(admin_chat_id, "\n".join(info_lines))
+        except Exception as e:
+            print(f"[OutlookAutoSync] Lỗi gửi Telegram: {e}")
+
+        return status_info
+
+    def start_sync_daemon(self, interval_seconds: int = 1800, admin_chat_id: int = 8249791298):
+        """Chạy vòng lặp kiểm tra Outlook định kỳ trong nền (mặc định 1800 giây = 30 phút)."""
+        import time
+        print(f"[OutlookDaemon] Bắt đầu giám sát Outlook mỗi {interval_seconds // 60} phút...")
+        # Lần chạy đầu tiên thông báo xác nhận kích hoạt
+        self.check_and_notify_telegram(notify_always=True, admin_chat_id=admin_chat_id)
+        while True:
+            try:
+                time.sleep(interval_seconds)
+                print(f"[OutlookDaemon] [{datetime.datetime.now().strftime('%H:%M:%S')}] Đang quét hộp thư...")
+                self.check_and_notify_telegram(notify_always=False, admin_chat_id=admin_chat_id)
+            except KeyboardInterrupt:
+                print("\n[OutlookDaemon] Đã dừng giám sát.")
+                break
+            except Exception as e:
+                print(f"[OutlookDaemon] Lỗi vòng lặp: {e}")
+                time.sleep(60)
+
 
 # Singleton
 _outlook_engine = None
@@ -564,10 +683,31 @@ def get_outlook_engine() -> OutlookSyncEngine:
     return _outlook_engine
 
 
+def check_and_notify_telegram(notify_always: bool = False, admin_chat_id: int = 8249791298) -> Dict[str, Any]:
+    """Hàm bao bọc tiện ích cho việc kiểm tra và báo Telegram."""
+    return get_outlook_engine().check_and_notify_telegram(notify_always=notify_always, admin_chat_id=admin_chat_id)
+
+
+
 if __name__ == "__main__":
-    print("--- KIỂM TRA ĐỒNG BỘ OUTLOOK DỰ ÁN VIETSTAR ---")
+    import argparse
+    parser = argparse.ArgumentParser(description="Outlook Sync Engine cho Não bộ Su Su")
+    parser.add_argument("--auto", action="store_true", help="Chạy một lượt quét kiểm tra và báo Telegram nếu có thư mới (dùng cho Task Scheduler)")
+    parser.add_argument("--daemon", action="store_true", help="Chạy vòng lặp định kỳ liên tục trong nền")
+    parser.add_argument("--interval", type=int, default=30, help="Chu kỳ phút cho daemon (mặc định: 30 phút)")
+    parser.add_argument("--notify", action="store_true", help="Gửi thông báo Telegram xác nhận trạng thái hiện tại")
+    args = parser.parse_args()
+
     engine = get_outlook_engine()
-    res = engine.sync_outlook_data(limit_per_folder=30, download_attachments=True)
-    print("Kết quả quét:", res)
-    print("\n--- BẢN TIN THAM MƯU OUTLOOK ---")
-    print(engine.get_executive_outlook_briefing(days_back=10))
+
+    if args.daemon:
+        engine.start_sync_daemon(interval_seconds=args.interval * 60)
+    elif args.auto:
+        status = engine.check_and_notify_telegram(notify_always=args.notify)
+        print(f"Quét tự động hoàn tất lúc {status.get('last_check')}: {status.get('new_emails')} email mới.")
+    else:
+        print("--- KIỂM TRA ĐỒNG BỘ OUTLOOK TOÀN DIỆN ---")
+        res = engine.sync_outlook_data(limit_per_folder=30, download_attachments=True)
+        print("Kết quả quét:", res)
+        print("\n--- BẢN TIN THAM MƯU OUTLOOK ---")
+        print(engine.get_executive_outlook_briefing(days_back=10))
