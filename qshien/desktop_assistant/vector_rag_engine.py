@@ -177,6 +177,7 @@ class SuSuVectorRAG:
         
         # 1. Quét file 1,263+ tình huống thực chiến, Google Drive & YouTube (Thầy Linh, Thầy Long, Thầy Tuấn)
         json_paths = [
+            DATA_DIR / "tinh_huong_bim_tcvn14177_tt09.json",
             DATA_DIR / "tinh_huong_thuc_chien.json",
             DATA_DIR / "14_tinh_huong_hom_nay.json",
             DATA_DIR / "tinh_huong_cong_trinh.json",
@@ -264,6 +265,9 @@ class SuSuVectorRAG:
                         elif jp.name == "tinh_huong_hse_an_toan_lao_dong.json":
                             source_name = f"An Toàn Lao Động HSE (QCVN 18:2021/BXD) - {it.get('ChuyenDe', 'An toàn')}"
                             source_type = "HSE_AN_TOAN_LAO_DONG"
+                        elif jp.name == "tinh_huong_bim_tcvn14177_tt09.json":
+                            source_name = f"BIM & TCVN 14177 VNCC - {it.get('ChuyenDe', 'BIM')}"
+                            source_type = "BIM_TCVN14177_TT09"
                         elif jp.name == "tinh_huong_dia_ky_thuat_mong_sau.json":
                             source_name = f"Địa Kỹ Thuật & Xử Lý Móng Sâu - {it.get('ChuyenDe', 'Móng sâu')}"
                             source_type = "DIA_KY_THUAT_MONG_SAU"
@@ -296,6 +300,7 @@ class SuSuVectorRAG:
         # 2. Quét các tài liệu Cẩm nang & Pháp lý trong docs/
         doc_files = [
             ("CAM_NANG_CHI_HUY_TRUONG.md", "Cẩm Nang Chỉ Huy Trưởng Thực Chiến", "KY_THUAT_HIEN_TRUONG"),
+            ("BIM_TCVN14177_DINH_MUC_TT09.md", "Cẩm Nang Thực Chiến BIM & TCVN 14177 (VNCC)", "PHAP_LY_BAN_GIAY"),
             ("PHAP_LY_2026_ROADMAP.md", "Lộ Trình Pháp Lý Xây Dựng 2026 (TT38/TT12/Luật XD)", "PHAP_LY_BAN_GIAY"),
             ("DINH_MUC_FRAMEWORK_2025_2026.md", "Khung Định Mức & Dự Toán 2025-2026", "DONG_TIEN_TAI_CHINH"),
             ("BCH_JOBS_AND_TOOLS.md", "Sổ Tay Nghiệp Vụ Ban Chỉ Huy Công Trường", "KY_THUAT_HIEN_TRUONG"),

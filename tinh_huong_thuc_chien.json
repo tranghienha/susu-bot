@@ -59937,5 +59937,85 @@
     "CauThoaiMau": "Kính gửi TVGS và CĐT, chúng tôi đã hoàn thành công tác kiểm tra Lập biên bản nghiệm thu chuyển giao công nghệ và đào tạo vận hành cơ điện cho Chủ đầu tư theo đúng quy trình kỹ thuật, trân trọng kính mời quý bên nghiệm thu.",
     "BaiHocXuongMau": "Chất lượng cơ điện MEP quyết định 80% trải nghiệm người dùng cuối của tòa nhà; kiểm soát chặt chẽ từng chi tiết là thương hiệu của nhà thầu chuyên nghiệp.",
     "Nguon": "tinh_huong_vnk_mep.json"
+  },
+  {
+    "TieuDe": "Định mức BIM TT 09/2024 & TT 12/2021: Phương pháp lập dự toán chi phí áp dụng BIM và quy tắc trần 50%",
+    "TruCot": "DONG_TIEN_TAI_CHINH",
+    "BoiCanh": "Chủ đầu tư yêu cầu nhà thầu xây lắp triển khai mô hình BIM (Shop Drawing 3D, bóc tách khối lượng QTO, điều phối CDE) nhưng ban đầu gói thầu chưa phân bổ riêng mục chi phí BIM trong bảng giá hợp đồng.",
+    "ChienLuocXuLy": "1. Căn cứ Thông tư 09/2024/TT-BXD (sửa đổi, bổ sung Thông tư 12/2021/TT-BXD, mục Thuyết minh chung Phụ lục V): Chi phí áp dụng BIM cho công trình/gói thầu được xác định bằng phương pháp lập DỰ TOÁN CHI PHÍ.\n2. Quy tắc khống chế trần: Tổng chi phí áp dụng BIM không vượt quá 50% tổng chi phí thiết kế xây dựng công trình; chi phí áp dụng BIM cho bước Thiết kế bản vẽ thi công/Shop Drawing được bổ sung tối đa 20% chi phí thiết kế tương ứng.\n3. Đối với nhà thầu thi công: Bóc tách dự toán chi phí BIM gồm: (a) Chi phí nhân công chuyên gia (BIM Manager, BIM Coordinator, BIM Modeler tính theo lương chuyên gia/ngày công); (b) Chi phí bản quyền phần mềm & hạ tầng CDE; (c) Chi phí đào tạo, phối hợp không gian 3D và xuất bản vẽ Shop Drawing.\n4. Đệ trình dự toán chi phí áp dụng BIM đính kèm đề xuất bổ sung phụ lục hợp đồng theo đúng khung định mức của Bộ Xây dựng.",
+    "CauThoaiMau": "Căn cứ Phụ lục V Thông tư 09/2024/TT-BXD của Bộ Xây dựng, Nhà thầu kính trình Chủ đầu tư và TVGS phê duyệt Dự toán chi phí triển khai Mô hình BIM giai đoạn thi công xây lắp (trong hạn mức bổ sung 20% chi phí thiết kế bản vẽ thi công) để làm cơ sở giải ngân theo tiến độ gói thầu.",
+    "BaiHocXuongMau": "Không bao giờ nhận triển khai BIM 'miễn phí' khi hợp đồng không yêu cầu; làm BIM tốn kém rất nhiều chi phí bản quyền và nhân sự mô hình hóa, bắt buộc phải dùng Thông tư 09/2024/TT-BXD để đòi bổ sung chi phí.",
+    "SourceChannel": "Bộ Xây Dựng - Thông tư 09/2024/TT-BXD & TT 12/2021/TT-BXD",
+    "ChuyenDe": "Định mức chi phí BIM & Dự toán xây dựng"
+  },
+  {
+    "TieuDe": "TCVN 14177-2 Mục 6.2 & 7.2: Vũ khí bác bỏ yêu cầu dựng chi tiết thừa (Over-modeling) từ TVGS VNCC",
+    "TruCot": "PHONG_THU_PHAP_LY",
+    "BoiCanh": "Tư vấn giám sát VNCC yêu cầu Nhà thầu Novacons phải dựng mô hình 3D chi tiết đến từng bu lông, đai thép, phụ kiện ren nhỏ (LOD 400 - 500) trên toàn bộ mô hình kết cấu và MEP tầng hầm Dự án Vietstar, gây quá tải mô hình và làm đội chi phí nhân lực gấp 3 lần.",
+    "ChienLuocXuLy": "1. Viện dẫn trực tiếp TCVN 14177-2:2024 Mục 6.2(b) và Mục 7.2(b) (Quy định do chính Tổng công ty Tư vấn Xây dựng Việt Nam - VNCC biên soạn theo giao nhiệm vụ của Bộ Xây dựng): 'Bên thực hiện KHÔNG tạo ra thông tin vượt quá yêu cầu của cấp độ thông tin cần thiết (Level of Information Need - LOIN), không mở rộng ra ngoài thành tố chỉ định và KHÔNG CHỨA CHI TIẾT THỪA'.\n2. Đối chiếu Kế hoạch thực hiện BIM (BEP) đã phê duyệt: Nếu BEP chỉ quy định mô hình đạt LOD 300 / LOIN mức độ hình học hình học khối (Geometric Detail) và thông tin cấu kiện chính (Alphanumeric Info), việc đòi hỏi LOD 400 cho các chi tiết phụ là vi phạm thỏa thuận chuyển giao MIDP/TIDP.\n3. Lập công văn phản hồi chính thức: Trích dẫn TCVN 14177 của VNCC khẳng định việc dựng chi tiết thừa làm giảm hiệu năng CDE, phát sinh xung đột ảo và lãng phí nguồn lực xã hội.\n4. Nếu TVGS VNCC vẫn bảo lưu yêu cầu: Đề xuất lập Biên bản phát sinh công việc ngoài BEP và tính chi phí phát sinh theo Thông tư 09/2024/TT-BXD.",
+    "CauThoaiMau": "Kính gửi TVGS Liên danh VNCC - VCC: Căn cứ Mục 6.2.b Hướng dẫn áp dụng TCVN 14177-2:2024 do chính VNCC biên soạn, Nhà thầu có trách nhiệm không tạo thông tin vượt cấp độ cần thiết (LOIN) và không tạo chi tiết thừa. Đề nghị TVGS thống nhất phạm vi mô hình theo đúng BEP đã ký kết ở LOD 300; trường hợp nâng cấp lên LOD 400 cho phụ kiện nhỏ, kính đề nghị xác nhận khối lượng phát sinh theo Thông tư 09/2024/TT-BXD.",
+    "BaiHocXuongMau": "Đem chính tiêu chuẩn và tài liệu hướng dẫn do VNCC chắp bút ra làm việc với TVGS VNCC là chiến thuật pháp lý đỉnh cao, buộc tư vấn phải tuân thủ đúng nguyên tắc kỹ thuật chuẩn mực.",
+    "SourceChannel": "TCVN 14177-2:2024 (Biên soạn bởi VNCC)",
+    "ChuyenDe": "Kiểm soát cấp độ thông tin LOIN/LOD & Chống Over-modeling"
+  },
+  {
+    "TieuDe": "TCVN 14177-1 & ISO 19650: Quy trình 4 trạng thái CDE (WIP - Shared - Published - Archived) và chống ngâm hồ sơ",
+    "TruCot": "PHAP_LY_BAN_GIAY",
+    "BoiCanh": "Nhà thầu đưa mô hình Shop Drawing BIM lên hệ thống CDE (BIM 360 / Trimble Connect / InnoSight) để trình duyệt nhưng TVGS 'im lặng' không bấm phê duyệt suốt 3 tuần, trong khi công trường dưới mặt đất sắp đến ngày đổ bê tông dầm sàn.",
+    "ChienLuocXuLy": "1. Vận hành chuẩn chu trình quản lý thông tin CDE theo TCVN 14177-1:2024 (Khoản 6.2, Hình 10 và 11):\n   - Trạng thái WIP (Work in Progress): Mô hình đang tạo lập nội bộ của Nhà thầu.\n   - Trạng thái SHARED (Chia sẻ): Nhà thầu kiểm tra nội bộ đạt (Check-Review-Approve) rồi đẩy lên vùng Shared để TVGS và các bên phối hợp kiểm tra.\n   - Trạng thái PUBLISHED (Phát hành): TVGS xem xét và chấp thuận cho sử dụng thi công.\n   - Trạng thái ARCHIVED (Lưu trữ): Lưu trữ vết lịch sử và hồ sơ hoàn công.\n2. Căn cứ TCVN 14177-2:2024 Mục 6.4 và 7.4: Trường hợp TVGS từ chối mô hình, BẮT BUỘC phải 'Ghi lại lý do tại sao xem xét không thành công, ghi lại mọi sửa đổi để nhóm triển khai hoàn thành' chứ không được quyền từ chối miệng hoặc im lặng.\n3. Thiết lập Time-bar trên CDE: Gửi Thông báo RFI/Transmittal xác định rõ thời hạn xem xét là 07 ngày làm việc theo hợp đồng. Sau 07 ngày nếu TVGS không có ý kiến phản hồi văn bản, mô hình tự động chuyển sang trạng thái 'Approved as Noted / Phát hành có điều kiện' để công trường thi công, bảo lưu quyền gia hạn tiến độ (EOT) nếu bị ách tắc.",
+    "CauThoaiMau": "Kính gửi TVGS: Mô hình Container REV-CS-02 đã được Nhà thầu đệ trình lên vùng SHARED trên CDE từ ngày 10/09/2026 (quá 10 ngày làm việc). Căn cứ TCVN 14177-2 Mục 6.4, kính đề nghị TVGS phê duyệt chuyển sang trạng thái PUBLISHED hoặc gửi phiếu phản hồi sửa đổi cụ thể trong 48h tới để không làm gián đoạn kế hoạch đổ bê tông sàn B1.",
+    "BaiHocXuongMau": "Làm việc trên CDE phải có quy định Time-bar phê duyệt rõ ràng trong BEP; không để TVGS lợi dụng việc 'chưa duyệt 3D' để đình trệ nghiệm thu hiện trường 2D.",
+    "SourceChannel": "TCVN 14177-1:2024 & TCVN 14177-2:2024",
+    "ChuyenDe": "Quản trị CDE & Chu trình chuyển giao thông tin ISO 19650"
+  },
+  {
+    "TieuDe": "Quyết định 348/QĐ-BXD & TCVN 14177: Xử lý xung đột (Clash Detection) giữa MEP và Kết cấu trước khi đổ bê tông",
+    "TruCot": "KY_THUAT_HIEN_TRUONG",
+    "BoiCanh": "Khi chạy kiểm tra xung đột (Clash Detection) trên Navisworks/Revit giữa mô hình Kết cấu hầm Vietstar và hệ thống đường ống thoát nước thải/ống gió MEP, phát hiện 18 vị trí ống luồn xuyên qua dầm chính mà bản vẽ thiết kế không có chi tiết gia cường lỗ mở.",
+    "ChienLuocXuLy": "1. Phân loại mức độ xung đột theo Quyết định 348/QĐ-BXD:\n   - Xung đột cứng (Hard Clash): Ống MEP đâm xuyên bê tông cốt thép dầm chính -> Nghiêm trọng, đe dọa an toàn chịu lực kết cấu.\n   - Xung đột mềm (Clearance/Soft Clash): Khoảng cách bảo trì, bảo dưỡng không đạt tiêu chuẩn.\n2. Nguyên tắc ưu tiên xử lý không gian (Hierarchy of Priority) trong BEP:\n   - Ưu tiên 1: Hệ thống kết cấu chịu lực chính (cột, vách, dầm dự ứng lực không được đục cắt).\n   - Ưu tiên 2: Đường ống tự chảy có độ dốc cố định (thoát nước mưa, thoát nước thải sinh hoạt).\n   - Ưu tiên 3: Ống thông gió kích thước lớn.\n   - Ưu tiên 4: Ống cấp nước áp lực, ống chữa cháy PCCC, máng cáp điện (dễ uốn/chuyển hướng).\n3. Lập Báo cáo Xung đột (Clash Report) kèm tọa độ 3D và phương án đề xuất: Trình TVGS VNCC và Đơn vị Thiết kế chủ trì họp điều phối (Coordination Meeting) để phê duyệt phương án bẻ ống MEP hoặc đặt ống chờ gia cường kết cấu trước khi thi công coppha cốt thép.\n4. Ký biên bản giải quyết xung đột 3 bên để bảo vệ nhà thầu khỏi mọi cáo buộc tự ý đục phá bê tông sau này.",
+    "CauThoaiMau": "Báo cáo xung đột 3D phát hiện 18 điểm giao cắt giữa ống thoát nước DN150 và dầm D3 trục 4-5. Căn cứ thứ tự ưu tiên trong BEP, Nhà thầu đề xuất phương án hạ cao độ đáy ống 150mm để đi dưới đáy dầm và đóng trần thạch cao che lại, kính đề nghị Đơn vị Thiết kế và TVGS phê duyệt phương án xử lý.",
+    "BaiHocXuongMau": "Chạy Clash Detection trên mô hình trước 1 tuần giúp cứu hàng trăm triệu tiền khoan cắt đục phá bê tông và tránh bị Tư vấn lập biên bản xử phạt vi phạm an toàn kết cấu.",
+    "SourceChannel": "Quyết định 348/QĐ-BXD & Báo cáo phối hợp BIM",
+    "ChuyenDe": "Xử lý xung đột Clash Detection & Phối hợp MEP - Kết cấu"
+  },
+  {
+    "TieuDe": "TCVN 14177-2 Bước 8: Nghiệm thu mô hình hoàn công PIM và bàn giao mô hình tài sản AIM cho Chủ đầu tư",
+    "TruCot": "PHAP_LY_BAN_GIAY",
+    "BoiCanh": "Công trình chuẩn bị bàn giao đưa vào sử dụng, Chủ đầu tư yêu cầu Nhà thầu phải nộp mô hình hoàn công BIM As-Built nhưng hai bên tranh cãi gay gắt về mức độ thông tin phi hình học (COBie / Asset Data) cần tích hợp vào mô hình.",
+    "ChienLuocXuLy": "1. Căn cứ TCVN 14177-2:2024 Bước 8 (Kết thúc chuyển giao dự án - Project Close-out):\n   - PIM (Project Information Model): Mô hình thông tin dự án phục vụ giai đoạn bàn giao nghiệm thu.\n   - AIM (Asset Information Model): Mô hình thông tin tài sản bàn giao cho Đơn vị Quản lý vận hành (Facility Management).\n2. Tiêu chí nghiệm thu mô hình hoàn công PIM:\n   - Kích thước hình học thực tế (Geometric Accuracy) phản ánh đúng sai số cho phép theo TCVN 4453:1995 và biên bản đo đạc trắc đạc hoàn công.\n   - Cập nhật toàn bộ các thay đổi thiết kế hiện trường (Site Instructions, RFI, Phụ lục bổ sung).\n3. Giới hạn thông tin phi hình học (Alphanumeric Info): Chỉ nhập các trường thông tin đã cam kết trong Kế hoạch chuyển giao MIDP/TIDP ban đầu (như Nhãn hiệu, Model, Công suất, Ngày lắp đặt, Thời hạn bảo hành). Bác bỏ yêu cầu nhập toàn bộ catalogue chi tiết từng con ốc vít của CĐT nếu không được cấp kinh phí theo Thông tư 09/2024/TT-BXD.\n4. Đóng gói Container thông tin sang trạng thái ARCHIVED trên CDE kèm định dạng mở IFC (Industry Foundation Classes) để CĐT không bị phụ thuộc vào bản quyền phần mềm độc quyền.",
+    "CauThoaiMau": "Nhà thầu đã hoàn tất cập nhật mô hình As-Built PIM theo đúng kích thước trắc đạc hoàn công và thông số thiết bị cam kết trong bảng MIDP. Kính đề nghị Chủ đầu tư và TVGS nghiệm thu mô hình và chuyển giao sang trạng thái ARCHIVED để làm thủ tục quyết toán hợp đồng.",
+    "BaiHocXuongMau": "Không làm rõ tiêu chí nghiệm thu mô hình As-Built từ lúc lập BEP sẽ khiến nhà thầu bị CĐT giữ lại 5-10% tiền bảo hành công trình vì lý do 'thiếu thông tin vận hành trong BIM'.",
+    "SourceChannel": "TCVN 14177-2:2024 & Quyết định 348/QĐ-BXD",
+    "ChuyenDe": "Nghiệm thu mô hình hoàn công PIM/AIM & Bàn giao tài sản"
+  },
+  {
+    "TieuDe": "BIM & Quản trị Hợp đồng: Sử dụng mô hình BIM bóc tách khối lượng (QTO) để bảo vệ thanh toán giai đoạn (IPC)",
+    "TruCot": "DONG_TIEN_TAI_CHINH",
+    "BoiCanh": "Khi làm hồ sơ thanh toán đợt 4 phần bê tông vách hầm và cọc khoan nhồi, TVGS VNCC chiết giảm 120m3 bê tông vì cho rằng khối lượng bóc thủ công trên bản vẽ 2D của Nhà thầu có sai số và hao hụt vượt định mức.",
+    "ChienLuocXuLy": "1. Trích xuất bảng khối lượng tự động từ mô hình BIM (Quantity Takeoff - QTO) đã được TVGS phê duyệt ở trạng thái PUBLISHED trên CDE.\n2. Căn cứ Quyết định 348/QĐ-BXD và TCVN 14177-1: Mô hình 3D trên CDE thể hiện chính xác thể tích hình học thực của cấu kiện không phụ thuộc vào sai số đo bóc thủ công.\n3. Lập bảng đối chiếu 3 cột: (a) Khối lượng theo BOQ thầu; (b) Khối lượng xuất từ mô hình BIM 3D; (c) Khối lượng nghiệm thu thực tế hiện trường kèm phiếu giao nhận bê tông thương phẩm.\n4. Chứng minh khối lượng chênh lệch là phần thể tích giao cắt (Volume intersection) đã được phần mềm tự động khấu trừ chuẩn xác, bảo vệ toàn bộ giá trị thanh toán cho Nhà thầu mà không bị cắt giảm tùy tiện.",
+    "CauThoaiMau": "Bảng bóc tách khối lượng QTO trích xuất trực tiếp từ mô hình Container REV-ST-04 (đã được TVGS ký duyệt Published trên CDE) cho thấy khối lượng bê tông vách hầm trục 1-3 là 415.6 m3, hoàn toàn phù hợp với thể tích hình học 3D. Kính đề nghị TVGS chấp thuận thanh toán đủ theo giá trị này.",
+    "BaiHocXuongMau": "Khối lượng bóc tách từ mô hình BIM đã duyệt trên CDE là căn cứ bảo vệ thanh toán cực kỳ vững chắc, dập tắt mọi sự chèn ép bóc tách thủ công từ phía Tư vấn.",
+    "SourceChannel": "Mô hình thông tin công trình BIM & QTO",
+    "ChuyenDe": "Bóc tách khối lượng tự động QTO & Bảo vệ thanh toán IPC"
+  },
+  {
+    "TieuDe": "Thầu phụ & Tổ đội không có năng lực BIM: Cơ chế Back-charge và quản lý Container thông tin của Tổng thầu Novacons",
+    "TruCot": "TO_DOI_CAI_THAU",
+    "BoiCanh": "Gói thầu cơ điện MEP và hoàn thiện do các Thầu phụ thi công nhưng các đơn vị này không có nhân sự biết sử dụng Revit/BIM, không thể nộp mô hình phối hợp khiến tiến độ chung bị chậm trễ.",
+    "ChienLuocXuLy": "1. Áp dụng TCVN 14177-1 Phụ lục A (Nguyên tắc phân chia Container thông tin theo bộ môn và tổ hợp nhóm chuyển giao thông tin).\n2. Tổng thầu Novacons thành lập Tổ BIM trung tâm: Đứng ra hỗ trợ dựng mô hình số hóa cho Thầu phụ dựa trên bản vẽ 2D Shop Drawing được nộp.\n3. Ký thỏa thuận bổ sung (Service Level Agreement - SLA): Quy định rõ định mức chi phí dựng mô hình thay thế (tính theo m2 sàn hoặc tỷ lệ % giá trị hợp đồng thầu phụ theo khung Thông tư 09/2024/TT-BXD).\n4. Thực hiện cơ chế khấu trừ chi phí (Back-charge) vào kỳ thanh toán tiếp theo của Thầu phụ, đảm bảo Tổng thầu vừa kiểm soát được CDE dự án, vừa không bị bù lỗ chi phí nhân sự.",
+    "CauThoaiMau": "Do Nhà thầu phụ cơ điện chưa huy động được kỹ sư BIM theo đúng cam kết trong BEP, Tổng thầu Novacons sẽ cử Tổ BIM thực hiện thay công tác mô hình hóa và khấu trừ chi phí hỗ trợ kỹ thuật theo đơn giá 15.000 đ/m2 sàn vào đợt thanh toán số 2.",
+    "BaiHocXuongMau": "Nếu Thầu phụ yếu BIM, Tổng thầu phải chủ động nắm quyền kiểm soát CDE ngay từ đầu; buông lỏng cho thầu phụ tự xoay sở sẽ làm tê liệt toàn bộ quy trình nghiệm thu của dự án.",
+    "SourceChannel": "TCVN 14177-1 & Quy chế quản lý Thầu phụ",
+    "ChuyenDe": "Quản lý Thầu phụ trên CDE & Khấu trừ chi phí Back-charge"
+  },
+  {
+    "TieuDe": "Chủ đầu tư chậm giao mô hình thiết kế gốc: Kích hoạt quy trình Claim thời gian và chi phí theo BEP",
+    "TruCot": "PHONG_THU_PHAP_LY",
+    "BoiCanh": "Theo tiến độ hợp đồng, Chủ đầu tư phải bàn giao mô hình BIM thiết kế kỹ thuật (PIM giai đoạn thiết kế) cho Nhà thầu trước ngày khởi công 15 ngày, nhưng quá hạn 30 ngày CĐT vẫn chỉ bàn giao file CAD 2D rời rạc và bắt nhà thầu phải tự bỏ tiền dựng lại mô hình từ đầu.",
+    "ChienLuocXuLy": "1. Đối chiếu Kế hoạch thực hiện BIM (BEP) và Yêu cầu thông tin của bên đặt hàng (EIR) theo Quyết định 348/QĐ-BXD: Chủ đầu tư có nghĩa vụ pháp lý cung cấp thông tin tham chiếu và tài nguyên chia sẻ ban đầu trên CDE.\n2. Căn cứ TCVN 14177-2 Mục 6.1 (Kiểm tra tính sẵn có của thông tin tham khảo): 'Nếu không truy cập được tài nguyên chia sẻ hoặc chưa được cung cấp thông tin tham khảo, Bên thực hiện phải thông báo ngay cho Bên đặt hàng và đánh giá tác động tiềm ẩn tới kế hoạch chuyển giao thông tin (TIDP/MIDP)'.\n3. Lập Thông báo khiếu nại (Notice of Delay & Claim): Ghi rõ việc thiếu mô hình thiết kế gốc làm đình trệ công tác lập Shop Drawing 3D trên CDE, dẫn đến kéo dài thời gian hoàn thành (EOT).\n4. Trường hợp CĐT yêu cầu Nhà thầu tự dựng lại mô hình từ file 2D: Đòi hỏi phê duyệt bổ sung chi phí 'Tạo lập mô hình thông tin ban đầu' tính theo đơn giá chuyên gia quy định tại Thông tư 09/2024/TT-BXD.",
+    "CauThoaiMau": "Kính gửi Ban QLDA và TVGS: Việc CĐT chưa bàn giao mô hình BIM thiết kế đã vi phạm Mục 3.2 Kế hoạch BEP, trực tiếp làm chậm 20 ngày công tác triển khai bản vẽ thi công. Nhà thầu xin bảo lưu quyền gia hạn tiến độ EOT tương ứng và đề nghị bổ sung chi phí dựng mô hình số hóa nếu CĐT giao Nhà thầu thực hiện thay.",
+    "BaiHocXuongMau": "Chậm bàn giao mô hình BIM đầu vào cũng nghiêm trọng tương đương với chậm bàn giao mặt bằng thi công; phải lập hồ sơ Claim ngay để tránh bị phạt tiến độ oan.",
+    "SourceChannel": "TCVN 14177-2:2024 & BEP Quản lý dự án",
+    "ChuyenDe": "Khiếu nại tiến độ Claim do chậm bàn giao mô hình BIM"
   }
 ]
