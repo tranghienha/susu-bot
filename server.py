@@ -72,7 +72,9 @@ def on_startup():
         import time
         print("[Cloud IMAP Worker] Khởi động tiến trình ngầm giám sát hòm thư 24/7...", flush=True)
         time.sleep(15)
+        loop_count = 0
         while True:
+            loop_count += 1
             try:
                 try:
                     from qshien.desktop_assistant.outlook_sync_engine import get_outlook_engine
@@ -81,19 +83,45 @@ def on_startup():
 
                 engine = get_outlook_engine()
                 res = engine.sync_imap_data(limit=20)
-                if res.get("success") and res.get("new_emails", 0) > 0:
-                    print(f"[Cloud IMAP] 📬 Phát hiện {res['new_emails']} email mới! Gửi cảnh báo Telegram...", flush=True)
-                    engine.check_and_notify_telegram(new_emails=res.get("new_records", []))
+                new_emails = res.get("new_records", []) if res.get("success") else []
+                if res.get("success") and len(new_emails) > 0:
+                    print(f"[Cloud IMAP] 📬 Phát hiện {len(new_emails)} email mới! Gửi cảnh báo Telegram...", flush=True)
+                    engine.check_and_notify_telegram(new_emails=new_emails, admin_chat_id=8249791298)
                 else:
                     print(f"[Cloud IMAP] Đã kiểm tra hộp thư, không có email mới ({res.get('total_cached', 0)} cached).", flush=True)
+                    # Định kỳ mỗi 2 tiếng (8 chu kỳ 15 phút) gửi báo cáo định kỳ 1 lần để GĐDA yên tâm
+                    if loop_count % 8 == 0:
+                        engine.check_and_notify_telegram(notify_always=True, admin_chat_id=8249791298)
             except Exception as e:
                 print(f"[Cloud IMAP Worker Error] {e}", flush=True)
 
             # Quét định kỳ mỗi 15 phút (900 giây)
             time.sleep(900)
 
-    t = threading.Thread(target=_cloud_imap_sync_worker, daemon=True)
-    t.start()
+    # Khởi động luồng Keep-Alive Self-Ping để chống ngủ đông (Render Free Tier Spin-Down)
+    def _keep_alive_worker():
+        import time
+        import urllib.request
+        print("[Keep-Alive Worker] Khởi động luồng giữ kết nối liên tục 24/7...", flush=True)
+        time.sleep(60)
+        while True:
+            try:
+                url = "https://qshien-susu.onrender.com/health"
+                req = urllib.request.Request(url, headers={"User-Agent": "SuSu-Cloud-KeepAlive/1.0"})
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    if resp.status == 200:
+                        print("[Keep-Alive] Ping thành công, dịch vụ duy trì thức 24/7.", flush=True)
+            except Exception as e:
+                print(f"[Keep-Alive Ping Error] {e}", flush=True)
+
+            # Ping mỗi 8 phút (480s < 900s timeout của Render Free Tier)
+            time.sleep(480)
+
+    t_imap = threading.Thread(target=_cloud_imap_sync_worker, daemon=True)
+    t_imap.start()
+
+    t_ping = threading.Thread(target=_keep_alive_worker, daemon=True)
+    t_ping.start()
 
 
 @app.get("/")
@@ -102,11 +130,41 @@ def health_check():
     """Kiểm tra tình trạng hoạt động của bot."""
     return {
         "status": "healthy",
-        "service": "Su Su QS Assistant - Google Cloud Run",
+        "service": "Su Su QS Assistant - Cloud 24/7",
         "bot_username": "@Hienqs_susu_bot",
-        "ecosystem": "Google Cloud",
-        "ai_engine": "Google Gemini Ultra + Vector RAG 5,449 cases"
+        "ecosystem": "Render Cloud + IMAP 24/7 Autonomous Daemon",
+        "ai_engine": "Google Gemini Ultra + Vector RAG 5,589 chunks",
+        "mailbox_monitored": "BCHVIETSTAR@novacons.com.vn"
     }
+
+
+@app.get("/sync")
+@app.get("/cron-trigger")
+def manual_sync_trigger():
+    """Endpoint cho phép kích hoạt quét và đồng bộ hộp thư ngay lập tức (hỗ trợ external cron)."""
+    try:
+        try:
+            from qshien.desktop_assistant.outlook_sync_engine import get_outlook_engine
+        except ImportError:
+            from outlook_sync_engine import get_outlook_engine
+
+        engine = get_outlook_engine()
+        res = engine.sync_imap_data(limit=20)
+        new_cnt = res.get("new_emails", 0)
+        new_recs = res.get("new_records", [])
+        if new_cnt > 0:
+            engine.check_and_notify_telegram(new_emails=new_recs, admin_chat_id=8249791298)
+        else:
+            engine.check_and_notify_telegram(notify_always=True, admin_chat_id=8249791298)
+
+        return {
+            "success": True,
+            "new_emails": new_cnt,
+            "total_cached": res.get("total_cached", 0),
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
 
 
 def _safe_process_update(update_data: Dict[str, Any]):

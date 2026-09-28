@@ -1041,18 +1041,31 @@ class SuSuTelegramBot:
         self.client.send_message(chat_id, msg, reply_markup=keyboard)
 
     def handle_sync_outlook(self, chat_id: int):
-        """Kích hoạt quét đồng bộ Outlook tức thì."""
-        self.client.send_message(chat_id, "⏳ *Đang kết nối Microsoft Outlook Desktop để quét thư từ mới...* Vui lòng chờ vài giây...")
+        """Kích hoạt quét đồng bộ Outlook / IMAP tức thì."""
+        self.client.send_message(chat_id, "⏳ *Đang quét đồng bộ hộp thư dự án (Outlook / IMAP)...* Vui lòng chờ vài giây...")
         try:
-            from qshien.desktop_assistant.outlook_sync_engine import get_outlook_engine
+            try:
+                from qshien.desktop_assistant.outlook_sync_engine import get_outlook_engine
+            except ImportError:
+                from outlook_sync_engine import get_outlook_engine
+
             engine = get_outlook_engine()
-            res = engine.sync_outlook_data(limit_per_folder=30, download_attachments=True)
+            res = None
+            if sys.platform == "win32":
+                try:
+                    res = engine.sync_outlook_data(limit_per_folder=30, download_attachments=True)
+                except Exception:
+                    res = None
+
+            if not res or not res.get("success"):
+                res = engine.sync_imap_data(limit=20, download_attachments=True)
+
             if res.get("success"):
                 new_cnt = res.get("new_emails", 0)
                 tot_cnt = res.get("total_cached", 0)
                 file_cnt = res.get("downloaded_files", 0)
                 msg = (
-                    f"✅ *ĐỒNG BỘ OUTLOOK THÀNH CÔNG!*\n\n"
+                    f"✅ *ĐỒNG BỘ HỘP THƯ DỰ ÁN THÀNH CÔNG!*\n\n"
                     f"• 📩 Email mới phát hiện: `{new_cnt}` thư\n"
                     f"• 📚 Tổng số email trong kho: `{tot_cnt}` thư\n"
                     f"• 📎 File đính kèm đã tải về: `{file_cnt}` files (PDF, DOCX, XLSX)\n"
@@ -1060,7 +1073,7 @@ class SuSuTelegramBot:
                     f"👉 Bấm nút bên dưới để xem báo cáo chi tiết."
                 )
             else:
-                msg = f"⚠️ Kết nối Outlook thất bại: {res.get('error', 'Lỗi không xác định')}"
+                msg = f"⚠️ Kết nối hộp thư thất bại: {res.get('error', 'Lỗi không xác định')}"
         except Exception as e:
             msg = f"⚠️ Lỗi trong quá trình đồng bộ: {e}"
 

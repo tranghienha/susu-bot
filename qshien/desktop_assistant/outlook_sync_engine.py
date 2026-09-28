@@ -775,20 +775,46 @@ class OutlookSyncEngine:
         lines.append("💡 *Khuyến nghị cho GĐDA:* Đôn đốc CĐT duyệt Báo giá phát sinh Coupler (657 tr) + Bổ sung 20tr chi phí hạ tải khu hố rỉ từ DNTU-05 vào hồ sơ phát sinh ngoài HĐ!")
         return "\n".join(lines)
 
-    def check_and_notify_telegram(self, notify_always: bool = False, admin_chat_id: int = 8249791298) -> Dict[str, Any]:
+    def check_and_notify_telegram(
+        self,
+        notify_always: bool = False,
+        admin_chat_id: int = 8249791298,
+        new_emails: Optional[List[Dict[str, Any]]] = None
+    ) -> Dict[str, Any]:
         """
-        Kiểm tra hộp thư Outlook, đồng bộ dữ liệu và gửi thông báo Telegram nếu có email mới.
-        Được gọi định kỳ mỗi 30 phút bởi Task Scheduler hoặc Background Daemon.
+        Kiểm tra hộp thư Outlook/IMAP, đồng bộ dữ liệu và gửi thông báo Telegram nếu có email mới.
+        Được gọi định kỳ mỗi 15-30 phút bởi Background Daemon trên Cloud hoặc Task Scheduler.
         """
-        res = self.sync_outlook_data(limit_per_folder=30, download_attachments=True)
         now_dt = datetime.datetime.now()
         now_str = now_dt.strftime("%H:%M • %d/%m/%Y")
         next_dt = now_dt + datetime.timedelta(minutes=30)
         next_str = next_dt.strftime("%H:%M (%d/%m)")
 
-        new_count = res.get("new_emails", 0)
-        total_cached = res.get("total_cached", 0)
-        downloaded = res.get("downloaded_files", 0)
+        if new_emails is not None:
+            # Được truyền danh sách email mới từ bên ngoài (ví dụ từ IMAP worker)
+            new_records = new_emails
+            cached = self.load_cached_emails()
+            new_count = len(new_records)
+            total_cached = len(cached)
+            downloaded = sum(len(e.get("attachments", [])) for e in cached)
+            is_success = True
+        else:
+            # Tự động quét: Ưu tiên Outlook Desktop nếu trên Windows, fallback sang IMAP
+            res = None
+            if sys.platform == "win32":
+                try:
+                    res = self.sync_outlook_data(limit_per_folder=30, download_attachments=True)
+                except Exception:
+                    res = None
+
+            if not res or not res.get("success"):
+                res = self.sync_imap_data(limit=20, download_attachments=True)
+
+            new_count = res.get("new_emails", 0)
+            new_records = res.get("new_records", [])
+            total_cached = res.get("total_cached", 0)
+            downloaded = res.get("downloaded_files", 0)
+            is_success = res.get("success", False)
 
         status_info = {
             "last_check": now_dt.strftime("%Y-%m-%d %H:%M:%S"),
@@ -797,7 +823,7 @@ class OutlookSyncEngine:
             "downloaded_files": downloaded,
             "next_check": next_dt.strftime("%Y-%m-%d %H:%M:%S"),
             "interval_minutes": 30,
-            "status": "SUCCESS" if res.get("success") else "FAILED"
+            "status": "SUCCESS" if is_success else "FAILED"
         }
 
         try:
@@ -811,54 +837,108 @@ class OutlookSyncEngine:
             from qshien.desktop_assistant.telegram_bot import TelegramClient, load_telegram_config
             cfg = load_telegram_config()
             tok = cfg.get("bot_token", "")
-            if tok:
+            target_chat_ids = set(cfg.get("allowed_chat_ids", []))
+            if admin_chat_id:
+                target_chat_ids.add(admin_chat_id)
+
+            if tok and target_chat_ids:
                 client = TelegramClient(tok)
+
                 if new_count > 0:
-                    alert_lines = [
-                        f"🔔 *TÌNH BÁO OUTLOOK: PHÁT HIỆN {new_count} EMAIL MỚI!*",
-                        f"_(Hệ thống tự động quét 30 phút • {now_str})_",
-                        "━━━━━━━━━━━━━━━━━━━━",
-                        ""
-                    ]
-                    # Lấy các email mới nhất vừa nạp
-                    cached = self.load_cached_emails()
-                    for em in cached[:min(new_count, 5)]:
-                        t = em.get("time", "")[:16]
-                        sj = em.get("subject", "Không có tiêu đề")
-                        sn = em.get("sender_name", "Không rõ")
-                        att_cnt = len(em.get("attachments", []))
-                        cat = em.get("category", "THONG_TIN")
-                        alert_lines.append(f"• 📧 `[{t}]` *{sj}*")
-                        alert_lines.append(f"  └ 👤 Từ: _{sn}_ | 🏷️ `{cat}` | 📎 File: `{att_cnt}`")
+                    for cid in target_chat_ids:
+                        for em in new_records[:5]:
+                            t = em.get("time", "")[:16]
+                            sj = em.get("subject", "Không có tiêu đề")
+                            sn = em.get("sender_name", "Không rõ")
+                            cat = em.get("category", "THONG_TIN")
+                            body_prev = em.get("body_preview", "")[:400].replace("\n", " ").strip()
+                            atts = [a.get("filename", "") for a in em.get("attachments", []) if a.get("filename")]
 
-                    if any("phát sinh" in em.get("subject", "").lower() or em.get("category") == "CLAIMS_PHAT_SINH" for em in cached[:new_count]):
-                        alert_lines.append("\n💰 *CẢNH BÁO CLAIM:* Phát hiện email có nội dung báo giá / phát sinh ngoài HĐ!")
+                            # Sinh tham mưu chiến lược tự động cho từng loại email
+                            advice = ""
+                            sj_low = sj.lower()
+                            if "mss-005" in sj_low or "cắt đầu cọc" in sj_low:
+                                advice = (
+                                    "💡 *THAM MƯU HÀNH ĐỘNG GĐDA & GIAO VIỆC:*\n"
+                                    "• Đôn đốc TVGS VCC/VNCC phê duyệt BPTC cắt đầu cọc trong 03 ngày.\n"
+                                    "• Chỉ đạo CHT Lương Phi Long bố trí máy cắt cọc chuyên dụng bằng đĩa xoay/laser, "
+                                    "nghiêm cấm dùng búa đập vỡ gây nứt thân cọc D500; bảo vệ râu thép neo đúng chiều dài 40d vào đài móng."
+                                )
+                            elif "sds-004" in sj_low or "thép dầm móng" in sj_low or "móng lò đốt" in sj_low:
+                                advice = (
+                                    "💡 *THAM MƯU HÀNH ĐỘNG GĐDA & GIAO VIỆC:*\n"
+                                    "• Căn cứ TCVN 14177-2 Mục 6.4, đôn đốc TVGS VNCC hoàn tất thẩm tra mô hình/bản vẽ thép trong 07 ngày làm việc.\n"
+                                    "• Kiểm tra xung đột giữa dầm móng lò đốt cote -2.0m với các đường ống thoát nước rỉ rác; "
+                                    "chuẩn bị đầu chờ coupler để sẵn sàng gia công thép đợt 1."
+                                )
+                            elif "bct.04" in sj_low or "báo cáo tuần" in sj_low:
+                                advice = (
+                                    "💡 *THAM MƯU HÀNH ĐỘNG GĐDA & GIAO VIỆC:*\n"
+                                    "• Đối chiếu sản lượng thực tế thi công tuần 04 với đường găng tiến độ 210 ngày.\n"
+                                    "• Chuẩn bị số liệu xác nhận khối lượng hoàn thành tuần để phục vụ lập hồ sơ thanh toán IPC Đợt 1."
+                                )
+                            elif "coupler" in sj_low or "lấy mẫu thép" in sj_low or "ntvl" in sj_low:
+                                advice = (
+                                    "💡 *THAM MƯU HÀNH ĐỘNG GĐDA & GIAO VIỆC:*\n"
+                                    "• Nhắc QA/QC phối hợp TVGS VNCC lập biên bản lấy mẫu niêm phong tại nhà máy VAS.\n"
+                                    "• Lưu phiếu kết quả thí nghiệm kéo nén coupler làm căn cứ quyết toán mục phát sinh 657 triệu VNĐ!"
+                                )
+                            elif "băng cản nước" in sj_low or "mas-006" in sj_low or "inox" in sj_low:
+                                advice = (
+                                    "💡 *THAM MƯU HÀNH ĐỘNG GĐDA & GIAO VIỆC:*\n"
+                                    "• Kiểm tra chứng chỉ xuất xưởng CO/CQ của PT. INDONESIA TSINGSHAN STAINLESS STEEL.\n"
+                                    "• Nghiệm thu quy cách 4x300mm trước khi hàn lắp mạch ngừng đáy hố rác chống ăn mòn nước rỉ rác."
+                                )
+                            elif "phát sinh" in sj_low or cat == "CLAIMS_PHAT_SINH":
+                                advice = (
+                                    "💰 *CẢNH BÁO CLAIM CHI PHÍ:*\n"
+                                    "• Email có nội dung phát sinh ngoài HĐ. Cần gửi Notice of Claim trong vòng 07-28 ngày để bảo lưu quyền đòi tiền!"
+                                )
+                            elif "mời họp" in sj_low or cat == "MOM_GIAO_BAN":
+                                advice = (
+                                    "📝 *CẢNH BÁO GIAO BAN:*\n"
+                                    "• Thư mời họp kỹ thuật/điều phối mặt bằng. Cần chuẩn bị tài liệu giải trình tiến độ và biên bản cam kết."
+                                )
+                            else:
+                                advice = "💡 *THAM MƯU:* Đã ghi nhận vào kho tri thức dự án. Vui lòng rà soát chỉ đạo tổ đội tương ứng."
 
-                    if any("mời họp" in em.get("subject", "").lower() or em.get("category") == "MOM_GIAO_BAN" for em in cached[:new_count]):
-                        alert_lines.append("\n📝 *CẢNH BÁO GIAO BAN:* Phát hiện thư mời họp hoặc điều phối mặt bằng mới!")
+                            alert_lines = [
+                                f"🔔 *TÌNH BÁO EMAIL MỚI: DỰ ÁN VIETSTAR*",
+                                f"_(Giám sát 24/7 • {now_str})_",
+                                "━━━━━━━━━━━━━━━━━━━━",
+                                f"📌 *{sj}*",
+                                f"• 👤 *Từ:* `{sn}`",
+                                f"• 🕒 *Thời gian:* `{t}` | 🏷️ `{cat}`"
+                            ]
+                            if atts:
+                                alert_lines.append(f"• 📎 *File đính kèm:* `{', '.join(atts[:3])}`")
+                            if body_prev:
+                                alert_lines.append(f"• 📝 *Trích yếu:* _{body_prev}_")
+                            alert_lines.append("")
+                            alert_lines.append(advice)
 
-                    alert_lines.append("\n👉 Bấm `/outlook` để xem chi tiết hoặc `/thammuu` để cập nhật chiến lược.")
-                    markup = {
-                        "inline_keyboard": [
-                            [{"text": "📧 Xem Hộp Thư Outlook", "callback_data": "outlook_briefing"}],
-                            [{"text": "📊 Bản Tin Tham Mưu GĐDA", "callback_data": "exec_summary"}]
-                        ]
-                    }
-                    client.send_message(admin_chat_id, "\n".join(alert_lines), reply_markup=markup)
+                            markup = {
+                                "inline_keyboard": [
+                                    [{"text": "📧 Hộp Thư Outlook", "callback_data": "outlook_briefing"}],
+                                    [{"text": "📊 Bản Tin Tham Mưu GĐDA", "callback_data": "exec_summary"}]
+                                ]
+                            }
+                            client.send_message(cid, "\n".join(alert_lines), reply_markup=markup)
 
                 elif notify_always:
                     info_lines = [
-                        "⏱️ *HỘP THƯ OUTLOOK ĐANG ĐƯỢC THEO DÕI TỰ ĐỘNG*",
+                        "⏱️ *BÁO CÁO GIÁM SÁT HỘP THƯ DỰ ÁN BCHVIETSTAR (30 PHÚT)*",
                         "━━━━━━━━━━━━━━━━━━━━",
-                        f"• 🔄 Chu kỳ kiểm tra: *30 phút / lần*",
+                        f"• 🟢 Trạng thái hệ thống: *Đang giám sát tự động 24/7 trên Cloud*",
                         f"• 🕒 Lần kiểm tra vừa xong: `{now_str}`",
-                        f"• 📭 Trạng thái: *Không có email khẩn cấp mới* trong 30 phút qua.",
+                        f"• 📭 Hộp thư: *Không có email khẩn cấp mới* trong 30 phút qua.",
                         f"• 📚 Tổng email dự án đã nạp: `{total_cached}` thư",
                         f"• 📎 File đính kèm đã bóc tách: `{downloaded}` tệp",
                         f"• ⏳ Lần quét tiếp theo: `{next_str}`",
-                        "\n💡 *Su Su sẽ tự động gửi tin nhắn Telegram ngay khi phát hiện thư mới!*"
+                        "\n💡 *Su Su luôn túc trực và sẽ gửi tin nhắn ngay khi TVGS/CĐT hoặc BCH gửi thư mới!*"
                     ]
-                    client.send_message(admin_chat_id, "\n".join(info_lines))
+                    for cid in target_chat_ids:
+                        client.send_message(cid, "\n".join(info_lines))
 
                 # Tự động rà soát cảnh báo mốc công việc khẩn cấp & giao việc
                 self._check_and_alert_deadlines(client=client, admin_chat_id=admin_chat_id)
