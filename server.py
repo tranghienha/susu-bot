@@ -15,7 +15,7 @@ import threading
 from pathlib import Path
 from typing import Dict, Any
 
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI, Request, Response, BackgroundTasks
 import uvicorn
 
 # Định vị thư mục
@@ -140,31 +140,35 @@ def health_check():
 
 @app.get("/sync")
 @app.get("/cron-trigger")
-def manual_sync_trigger():
+def manual_sync_trigger(background_tasks: BackgroundTasks):
     """Endpoint cho phép kích hoạt quét và đồng bộ hộp thư ngay lập tức (hỗ trợ external cron)."""
-    try:
+    import datetime
+
+    def _do_sync():
         try:
-            from qshien.desktop_assistant.outlook_sync_engine import get_outlook_engine
-        except ImportError:
-            from outlook_sync_engine import get_outlook_engine
+            try:
+                from qshien.desktop_assistant.outlook_sync_engine import get_outlook_engine
+            except ImportError:
+                from outlook_sync_engine import get_outlook_engine
 
-        engine = get_outlook_engine()
-        res = engine.sync_imap_data(limit=20)
-        new_cnt = res.get("new_emails", 0)
-        new_recs = res.get("new_records", [])
-        if new_cnt > 0:
-            engine.check_and_notify_telegram(new_emails=new_recs, admin_chat_id=8249791298)
-        else:
-            engine.check_and_notify_telegram(notify_always=True, admin_chat_id=8249791298)
+            engine = get_outlook_engine()
+            res = engine.sync_imap_data(limit=20, download_attachments=True)
+            new_recs = res.get("new_records", []) if res.get("success") else []
+            if len(new_recs) > 0:
+                print(f"[ManualSync] Phát hiện {len(new_recs)} email mới, gửi alert...", flush=True)
+                engine.check_and_notify_telegram(new_emails=new_recs, admin_chat_id=8249791298)
+            else:
+                print("[ManualSync] Không có email mới, gửi heartbeat...", flush=True)
+                engine.check_and_notify_telegram(notify_always=True, admin_chat_id=8249791298)
+        except Exception as e:
+            print(f"[ManualSync Error] {e}", flush=True)
 
-        return {
-            "success": True,
-            "new_emails": new_cnt,
-            "total_cached": res.get("total_cached", 0),
-            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
-    except Exception as e:
-        return {"success": False, "error": str(e)}
+    background_tasks.add_task(_do_sync)
+    return {
+        "status": "triggered",
+        "message": "Đã tiếp nhận yêu cầu đồng bộ hộp thư trong nền và gửi báo cáo Telegram.",
+        "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
 
 
 def _safe_process_update(update_data: Dict[str, Any]):
