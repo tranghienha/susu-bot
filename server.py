@@ -171,6 +171,34 @@ def manual_sync_trigger(background_tasks: BackgroundTasks):
     }
 
 
+@app.post("/api/telegram-proxy")
+async def telegram_proxy(request: Request):
+    """Proxy gửi tin nhắn Telegram an toàn từ Chrome extension (tránh bị chặn ISP)."""
+    try:
+        data = await request.json()
+        token = data.get("bot_token") or bot.client.token
+        chat_id = data.get("chat_id", 8249791298)
+        text = data.get("text", "")
+        parse_mode = data.get("parse_mode", "Markdown")
+        markup = data.get("reply_markup")
+
+        url = f"https://api.telegram.org/bot{token}/sendMessage"
+        payload = {"chat_id": chat_id, "text": text}
+        if parse_mode:
+            payload["parse_mode"] = parse_mode
+        if markup:
+            payload["reply_markup"] = markup
+
+        import requests
+        r = requests.post(url, json=payload, timeout=15)
+        if r.status_code != 200:
+            payload.pop("parse_mode", None)
+            r = requests.post(url, json=payload, timeout=15)
+        return {"ok": r.status_code == 200, "result": r.json() if r.status_code == 200 else r.text}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+
 def _safe_process_update(update_data: Dict[str, Any]):
     try:
         msg = update_data.get("message", {})
