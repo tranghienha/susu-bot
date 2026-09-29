@@ -144,6 +144,77 @@ def classify_email(subject: str, body: str) -> str:
     return "THONG_TIN_CHUNG"
 
 
+def extract_email_core_content(text: str, max_chars: int = 1500) -> str:
+    """
+    Trích xuất nội dung chỉ đạo, ý kiến phê duyệt hoặc nội dung chính yếu của email.
+    Loại bỏ các đoạn trích dẫn phản hồi lịch sử (Vào ngày... viết:, On... wrote:, > ...),
+    tiêu đề chuyển tiếp (-------- Thư gốc --------) nhưng giữ trọn vẹn lời chào (Dear/Kính gửi...),
+    ý kiến chỉ đạo chính và lời kết.
+    """
+    if not text:
+        return ""
+
+    # 1. Chuẩn hóa ký tự xuống dòng
+    text = str(text).replace("\r\n", "\n").replace("\r", "\n")
+
+    # 2. Xử lý trường hợp email chuyển tiếp bắt đầu bằng header (-------- Thư gốc --------)
+    lines = text.split("\n")
+    if lines and re.match(r'^\s*-{3,}.*-{3,}\s*$', lines[0]):
+        header_keys = ('tiêu đề:', 'subject:', 'ngày:', 'date:', 'gửi từ:', 'from:', 'người nhận:', 'to:', 'đồng kính gửi:', 'cc:', 'bcc:')
+        idx = 1
+        while idx < len(lines):
+            l = lines[idx].strip()
+            if not l:
+                idx += 1
+                continue
+            if any(l.lower().startswith(k) for k in header_keys) or l.startswith('<') or ('@' in l and any(dom in l.lower() for dom in ['novacons', 'vietstar', 'gmail', 'vcc', 'vncc'])):
+                idx += 1
+                continue
+            break
+        if idx < len(lines):
+            text = "\n".join(lines[idx:]).strip()
+
+    # 3. Loại bỏ khối trích dẫn phản hồi / email quote / forwarded header
+    patterns = [
+        r'\n\s*Người gửi:\s*.*?(?:\n\s*Đ[aã][\s\S]*?g[uư][\s\S]*?i:|\n\s*Đến:|\n\s*Sent:)[\s\S]*',
+        r'\n\s*\*Người gửi:\*[\s\S]*',
+        r'\n\s*From:\s*.*?(?:\n\s*Sent:|\n\s*To:)[\s\S]*',
+        r'\n\s*Vào\s+[\s\S]*?(?:đã\s*\n?\s*)?viết:',
+        r'\n\s*On\s+[\s\S]*?wrote:',
+        r'\n\s*-----Original Message-----[\s\S]*',
+        r'\n\s*_{5,}[\s\S]*',
+        r'\n\s*-{5,}[\s\S]*'
+    ]
+    for pat in patterns:
+        m = re.search(pat, text, re.IGNORECASE)
+        if m:
+            text = text[:m.start()]
+
+    # 4. Lọc bỏ các dòng quote bắt đầu bằng > hoặc &gt;
+    clean_lines = []
+    for line in text.split("\n"):
+        l_str = line.strip()
+        if l_str.startswith(">") or l_str.startswith("&gt;"):
+            continue
+        clean_lines.append(line)
+    text = "\n".join(clean_lines)
+
+    # 5. Thu gọn dòng trống liên tiếp
+    text = re.sub(r'\n{3,}', '\n\n', text)
+    text = text.strip()
+
+    # 6. Cắt tỉa thông minh nếu quá dài
+    if len(text) > max_chars:
+        cut = text[:max_chars]
+        last_period = max(cut.rfind('. '), cut.rfind('.\n'), cut.rfind('\n\n'))
+        if last_period > max_chars * 0.7:
+            text = cut[:last_period + 1] + "\n\n...(Còn tiếp)..."
+        else:
+            text = cut + " ...(Còn tiếp)..."
+
+    return text
+
+
 class OutlookSyncEngine:
     """Động cơ kết nối Microsoft Outlook MAPI và xử lý tri thức email dự án."""
 
@@ -312,6 +383,7 @@ class OutlookSyncEngine:
                             "time": recv_time_str,
                             "category": category,
                             "body_preview": body[:1500],
+                            "core_content": extract_email_core_content(body),
                             "attachments": attachments_meta,
                             "synced_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         }
@@ -519,6 +591,7 @@ class OutlookSyncEngine:
                         "time": recv_time_str,
                         "category": category,
                         "body_preview": body[:1500].strip(),
+                        "core_content": extract_email_core_content(body),
                         "attachments": attachments_meta,
                         "synced_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     }
@@ -716,8 +789,14 @@ class OutlookSyncEngine:
                 sj = c.get("subject", "")
                 sn = c.get("sender_name", "")
                 att_cnt = len(c.get("attachments", []))
+                core = c.get("core_content") or extract_email_core_content(c.get("body_preview", ""))
                 lines.append(f"• `[{t}]` *{sj}*")
-                lines.append(f"  └ 👤 Người gửi: _{sn}_ | 📎 File đính kèm: `{att_cnt}`")
+                lines.append(f"  └ 👤 Người gửi: _{sn}_ | 📎 File: `{att_cnt}`")
+                if core:
+                    short_core = " ".join(core.split())
+                    if len(short_core) > 130:
+                        short_core = short_core[:127] + "..."
+                    lines.append(f"  └ 💬 _Nội dung:_ \"{short_core}\"")
         else:
             lines.append("• _Không có email phát sinh mới trong kỳ._")
         lines.append("")
@@ -729,8 +808,14 @@ class OutlookSyncEngine:
                 t = m.get("time", "")[:10]
                 sj = m.get("subject", "")
                 sn = m.get("sender_name", "")
+                core = m.get("core_content") or extract_email_core_content(m.get("body_preview", ""))
                 lines.append(f"• `[{t}]` *{sj}*")
                 lines.append(f"  └ 👥 Phối hợp: _{sn}_")
+                if core:
+                    short_core = " ".join(core.split())
+                    if len(short_core) > 130:
+                        short_core = short_core[:127] + "..."
+                    lines.append(f"  └ 💬 _Nội dung:_ \"{short_core}\"")
         else:
             lines.append("• _Không có thư mời họp hoặc biên bản mới._")
         lines.append("")
@@ -741,7 +826,13 @@ class OutlookSyncEngine:
             for p in progress_list[:3]:
                 t = p.get("time", "")[:10]
                 sj = p.get("subject", "")
+                core = p.get("core_content") or extract_email_core_content(p.get("body_preview", ""))
                 lines.append(f"• `[{t}]` {sj}")
+                if core:
+                    short_core = " ".join(core.split())
+                    if len(short_core) > 130:
+                        short_core = short_core[:127] + "..."
+                    lines.append(f"  └ 💬 _Nội dung:_ \"{short_core}\"")
         else:
             lines.append("• _Chưa có cập nhật báo cáo tuần mới._")
         lines.append("")
@@ -753,7 +844,13 @@ class OutlookSyncEngine:
                 t = s.get("time", "")[:10]
                 sj = s.get("subject", "")
                 sn = s.get("sender_name", "")
+                core = s.get("core_content") or extract_email_core_content(s.get("body_preview", ""))
                 lines.append(f"• `[{t}]` {sj} (_{sn}_)")
+                if core:
+                    short_core = " ".join(core.split())
+                    if len(short_core) > 130:
+                        short_core = short_core[:127] + "..."
+                    lines.append(f"  └ 💬 _Nội dung:_ \"{short_core}\"")
         else:
             lines.append("• _Không có đệ trình kỹ thuật mới._")
         lines.append("")
@@ -765,9 +862,15 @@ class OutlookSyncEngine:
                 t = a.get("time", "")[:10]
                 sj = a.get("subject", "")
                 sn = a.get("sender_name", "")
+                core = a.get("core_content") or extract_email_core_content(a.get("body_preview", ""))
                 lines.append(f"• `[{t}]` *{sj}* (_{sn}_)")
                 if "đợt 5" in sj.lower():
                     lines.append(f"  └ 💡 _Đã duyệt đề nghị 82tr (trong đó có 20tr hạ tải khu hố rỉ theo YC CĐT cần đòi Claim)_")
+                elif core:
+                    short_core = " ".join(core.split())
+                    if len(short_core) > 130:
+                        short_core = short_core[:127] + "..."
+                    lines.append(f"  └ 💬 _Nội dung:_ \"{short_core}\"")
         else:
             lines.append("• _Chưa có phát sinh tạm ứng mới trong kỳ._")
         lines.append("")
@@ -851,7 +954,7 @@ class OutlookSyncEngine:
                             sj = em.get("subject", "Không có tiêu đề")
                             sn = em.get("sender_name", "Không rõ")
                             cat = em.get("category", "THONG_TIN")
-                            body_prev = em.get("body_preview", "")[:400].replace("\n", " ").strip()
+                            core = em.get("core_content") or extract_email_core_content(em.get("body_preview", ""))
                             atts = [a.get("filename", "") for a in em.get("attachments", []) if a.get("filename")]
 
                             # Sinh tham mưu chiến lược tự động cho từng loại email
@@ -912,9 +1015,15 @@ class OutlookSyncEngine:
                             ]
                             if atts:
                                 alert_lines.append(f"• 📎 *File đính kèm:* `{', '.join(atts[:3])}`")
-                            if body_prev:
-                                alert_lines.append(f"• 📝 *Trích yếu:* _{body_prev}_")
+
                             alert_lines.append("")
+                            alert_lines.append("💬 *NỘI DUNG CHÍNH YẾU:*")
+                            if core:
+                                alert_lines.append(core)
+                            else:
+                                alert_lines.append("_(Không có nội dung văn bản)_")
+                            alert_lines.append("")
+                            alert_lines.append("━━━━━━━━━━━━━━━━━━━━")
                             alert_lines.append(advice)
 
                             markup = {
