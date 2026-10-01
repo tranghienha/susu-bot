@@ -1078,6 +1078,61 @@ class SuSuTelegramBot:
         except Exception as e:
             self.client.send_message(chat_id, f"⚠️ Lỗi kết nối Não bộ AI Su Su: {e}")
 
+    def handle_gemini_key_help(self, chat_id: int):
+        """Hướng dẫn lấy và cài đặt Google Gemini API Key."""
+        msg = (
+            "🔑 *HƯỚNG DẪN CÀI ĐẶT GOOGLE GEMINI AI KEY*\n"
+            "━━━━━━━━━━━━━━━━━━━━\n"
+            "Để Su Su phân tích tình huống sâu rộng kết hợp AI tạo sinh thế hệ mới:\n\n"
+            "1️⃣ Truy cập: https://aistudio.google.com/app/apikey (Hoàn toàn miễn phí của Google).\n"
+            "2️⃣ Bấm *Create API key* và copy đoạn mã (dạng `AIzaSy...`).\n"
+            "3️⃣ Gửi tin nhắn vào bot theo cú pháp:\n"
+            "👉 `/set_key AIzaSyxxxxxxxxxxxxxxxxxxxxxxxxx`\n\n"
+            "💡 *Lưu ý:* Nếu chưa có key, Su Su vẫn hoạt động bình thường bằng Não bộ Vector RAG 5.449 tình huống thực chiến!"
+        )
+        self.client.send_message(chat_id, msg)
+
+    def handle_set_gemini_key(self, chat_id: int, key_str: str):
+        """Cài đặt và kiểm tra Google Gemini API Key từ Telegram."""
+        k = key_str.strip()
+        if not k.startswith("AIzaSy") or len(k) < 30:
+            self.client.send_message(
+                chat_id,
+                "⚠️ *Key không đúng định dạng!*\n"
+                "Google Gemini API Key thường bắt đầu bằng `AIzaSy...` và dài khoảng 39 ký tự.\n"
+                "👉 Bạn có thể lấy key miễn phí tại: https://aistudio.google.com/app/apikey"
+            )
+            return
+
+        self.client.send_chat_action(chat_id, "typing")
+        # Kiểm tra thử key qua Google API
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={k}"
+        headers = {"Content-Type": "application/json"}
+        payload = {"contents": [{"parts": [{"text": "Xin chào"}]}]}
+        try:
+            r = requests.post(url, headers=headers, json=payload, timeout=12)
+            if r.status_code == 200:
+                try:
+                    from consult_expert import save_user_api_key
+                except ImportError:
+                    from scripts.consult_expert import save_user_api_key
+                save_user_api_key(k)
+                self.client.send_message(
+                    chat_id,
+                    "✅ *KÍCH HOẠT GOOGLE GEMINI AI THÀNH CÔNG!*\n"
+                    "━━━━━━━━━━━━━━━━━━━━\n"
+                    "✨ Não bộ AI Su Su trực tuyến đã sẵn sàng kết nối.\n"
+                    "Bạn có thể đặt câu hỏi tình huống thực tế hoặc gõ `tk <từ khóa>` để nhận tham vấn chuyên sâu."
+                )
+            else:
+                self.client.send_message(
+                    chat_id,
+                    f"⚠️ Google API từ chối key này (HTTP {r.status_code}):\n`{r.text[:120]}`\n"
+                    f"Vui lòng kiểm tra lại key tại https://aistudio.google.com/app/apikey"
+                )
+        except Exception as e:
+            self.client.send_message(chat_id, f"⚠️ Lỗi kết nối khi kiểm tra key: {e}")
+
     # =========================================================================
     # THAM MƯU CHIẾN LƯỢC CHO GIÁM ĐỐC DỰ ÁN (GĐDA)
     # =========================================================================
@@ -1616,7 +1671,17 @@ class SuSuTelegramBot:
             self.handle_add_task(chat_id, task_content)
             return
 
-        # 9. Mọi câu hỏi thông thường -> chuyển cho Google Gemini AI + Vector RAG
+        # 9. Quản lý Gemini API Key
+        if t_lower.startswith("/set_key ") or t_lower.startswith("/set_gemini_key ") or t_lower.startswith("/key "):
+            key_content = t_clean.split(" ", 1)[1]
+            self.handle_set_gemini_key(chat_id, key_content)
+            return
+
+        if t_lower in ("/key", "/set_key", "/gemini_key", "cài đặt key", "cài key", "cai key"):
+            self.handle_gemini_key_help(chat_id)
+            return
+
+        # 10. Mọi câu hỏi thông thường -> chuyển cho Google Gemini AI + Vector RAG
         self.handle_natural_question(chat_id, t_clean)
 
     def start_polling(self):

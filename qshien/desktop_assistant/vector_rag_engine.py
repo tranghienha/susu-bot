@@ -21,7 +21,12 @@ import unicodedata
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple
 
-import numpy as np
+try:
+    import numpy as np
+    HAS_NUMPY = True
+except ImportError:
+    np = None
+    HAS_NUMPY = False
 
 # Thư mục gốc & Dữ liệu
 _this_file = Path(__file__).resolve()
@@ -92,13 +97,32 @@ class SuSuVectorRAG:
         self.db_path = db_path
         self.chunks: List[Dict[str, Any]] = []
         self.vocab: Dict[str, int] = {}
-        self.idf: np.ndarray = np.array([])
-        self.doc_vectors: Optional[np.ndarray] = None
-        self.doc_lengths: np.ndarray = np.array([])
+        if HAS_NUMPY:
+            self.idf: np.ndarray = np.array([])
+            self.doc_vectors: Optional[np.ndarray] = None
+            self.doc_lengths: np.ndarray = np.array([])
+        else:
+            self.idf = []
+            self.doc_vectors = None
+            self.doc_lengths = []
         self.avg_doc_len: float = 0.0
         
         self._init_db()
-        self.load_or_build_index()
+        if HAS_NUMPY:
+            self.load_or_build_index()
+        else:
+            self._load_metadata_only()
+
+    def _load_metadata_only(self):
+        """Nạp dữ liệu cơ bản từ SQLite khi chưa cài numpy."""
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            conn.row_factory = sqlite3.Row
+            rows = conn.execute("SELECT id, chunk_uid, source_name, source_type, pillar, title, context, solution, quote, lesson FROM kb_chunks LIMIT 200").fetchall()
+            self.chunks = [dict(r) for r in rows]
+            conn.close()
+        except Exception:
+            pass
 
     def _init_db(self):
         """Khởi tạo cấu trúc bảng SQLite lưu trữ Vector Knowledge Base."""
@@ -566,13 +590,65 @@ class SuSuVectorRAG:
         self.doc_lengths = np.array(doc_lengths, dtype=np.float32)
         self.avg_doc_len = float(np.mean(self.doc_lengths)) if doc_lengths else 1.0
 
+    def _query_sqlite_fallback(self, query_text: str, top_k: int = 5, pillar_filter: str = "") -> List[Dict[str, Any]]:
+        """Truy vấn dự phòng trực tiếp qua SQLite khi môi trường thiếu numpy hoặc RAM."""
+        if not self.db_path.exists():
+            return []
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            conn.row_factory = sqlite3.Row
+            cur = conn.cursor()
+            raw_tokens = tokenize(query_text)
+            terms = [t for t in raw_tokens if len(t) > 1][:6]
+            if not terms:
+                terms = [w.strip().lower() for w in query_text.split() if len(w.strip()) > 1][:6]
+
+            clauses = []
+            params = []
+            for t in terms:
+                clauses.append("(LOWER(title) LIKE ? OR LOWER(context) LIKE ? OR LOWER(solution) LIKE ? OR LOWER(raw_text) LIKE ?)")
+                p = f"%{t}%"
+                params.extend([p, p, p, p])
+
+            filter_sql = ""
+            if pillar_filter:
+                filter_sql = " AND (pillar = ? OR pillar LIKE ?)"
+                params.extend([pillar_filter, f"%{pillar_filter}%"])
+
+            where_sql = " AND ".join(clauses) if clauses else "1=1"
+            sql = f"SELECT id, chunk_uid, source_name, source_type, pillar, title, context, solution, quote, lesson FROM kb_chunks WHERE {where_sql} {filter_sql} LIMIT {top_k}"
+            rows = cur.execute(sql, params).fetchall()
+
+            if len(rows) < top_k and len(clauses) > 1:
+                where_or = " OR ".join(clauses)
+                or_params = []
+                for t in terms:
+                    p = f"%{t}%"
+                    or_params.extend([p, p, p, p])
+                if pillar_filter:
+                    or_params.extend([pillar_filter, f"%{pillar_filter}%"])
+                sql_or = f"SELECT id, chunk_uid, source_name, source_type, pillar, title, context, solution, quote, lesson FROM kb_chunks WHERE ({where_or}) {filter_sql} LIMIT {top_k}"
+                rows = cur.execute(sql_or, or_params).fetchall()
+
+            conn.close()
+            results = []
+            for r in rows:
+                item = dict(r)
+                item["similarity_pct"] = 85.0
+                item["raw_score"] = 0.85
+                results.append(item)
+            return results
+        except Exception as e:
+            print(f"[SQLite Fallback Error] {e}")
+            return []
+
     def query(self, query_text: str, top_k: int = 5, pillar_filter: str = "") -> List[Dict[str, Any]]:
         """
         Tìm kiếm lai (Hybrid Search: Cosine Vector Semantic + BM25 Lexical).
         Trả về danh sách top_k kết quả tốt nhất kèm phần trăm độ tương đồng.
         """
-        if not query_text.strip() or self.doc_vectors is None or len(self.chunks) == 0:
-            return []
+        if not HAS_NUMPY or self.doc_vectors is None or len(self.chunks) == 0:
+            return self._query_sqlite_fallback(query_text, top_k, pillar_filter)
 
         q_tokens = tokenize(query_text)
         if not q_tokens:

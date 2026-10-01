@@ -25,9 +25,7 @@ _this_file = Path(__file__).resolve()
 PROJECT_DIR = _this_file.parents[1] if len(_this_file.parents) > 1 else _this_file.parent
 _TRITHUC = os.environ.get("QSH_TRITHUC_ROOT", "").strip()
 
-import base64
-
-DEFAULT_GEMINI_KEY = base64.b64decode(b"QVEuQWI4Uk42Sm1XWXNVN0xPZkZiT3hhakRmNHFneDNJU0VOLUd1dTItNkozRWZFQmRPZlE=").decode("ascii")
+DEFAULT_GEMINI_KEY = ""
 
 def _find_consult_data_dir() -> Path:
     candidates = [
@@ -70,13 +68,22 @@ USER_KEYS_FILE = DATA_DIR / "google_api_keys.json"
 SECRETS_DIR = Path.home() / ".qshien"
 SECRETS_FILE = SECRETS_DIR / "secrets.json"
 
-# Danh sách Model Ưu Tiên (Google Gemini 3.x Flash & Pro)
+# Danh sách Model Ưu Tiên (Google Gemini Flash & Pro)
 ULTRA_MODELS_PRIORITY = [
-    "gemini-3.6-flash",
-    "gemini-3.5-flash",
-    "gemini-3.1-flash-lite",
-    "gemini-3.7-flash"
+    "gemini-2.5-flash",
+    "gemini-2.0-flash",
+    "gemini-1.5-flash",
+    "gemini-1.5-pro",
+    "gemini-2.5-pro"
 ]
+
+
+def is_valid_gemini_key(key: str) -> bool:
+    """Kiểm tra key có đúng định dạng Google AI Studio API Key (AIzaSy...) hay không."""
+    if not key or not isinstance(key, str):
+        return False
+    k = key.strip()
+    return k.startswith("AIzaSy") and len(k) >= 30
 
 
 def get_google_ultra_api_key() -> str:
@@ -98,18 +105,18 @@ def get_google_ultra_api_key() -> str:
                     line = line.strip()
                     if line.startswith("GEMINI_API_KEY=") or line.startswith("GOOGLE_API_KEY="):
                         k = line.split("=", 1)[1].strip()
-                        if len(k) > 10:
+                        if is_valid_gemini_key(k):
                             return k
             except Exception:
                 pass
 
     # 2. Biến môi trường
     env_key = os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")
-    if env_key.strip():
+    if is_valid_gemini_key(env_key):
         return env_key.strip()
 
     # 3. File secret ngoài repo
-    for fp in (SECRETS_FILE, USER_KEYS_FILE):
+    for fp in (USER_KEYS_FILE, SECRETS_FILE):
         if fp.exists():
             try:
                 with open(fp, "r", encoding="utf-8") as f:
@@ -117,7 +124,7 @@ def get_google_ultra_api_key() -> str:
                 key = data.get("api_key") or data.get("google_api_key") or data.get("gemini_api_key")
                 if isinstance(key, list) and key:
                     key = key[0]
-                if isinstance(key, str) and len(key.strip()) > 10:
+                if isinstance(key, str) and is_valid_gemini_key(key):
                     return key.strip()
             except Exception:
                 pass
@@ -130,26 +137,43 @@ def get_google_ultra_api_key() -> str:
                     cfg = json.load(f)
                     key = cfg.get("gemini_api_key") or cfg.get("GEMINI_API_KEY", "")
                     if isinstance(key, list) and key:
-                        return key[0]
-                    elif isinstance(key, str) and len(key.strip()) > 10:
-                        return key.split(",")[0].strip()
+                        cand = key[0]
+                        if is_valid_gemini_key(cand):
+                            return cand
+                    elif isinstance(key, str):
+                        cand = key.split(",")[0].strip()
+                        if is_valid_gemini_key(cand):
+                            return cand
             except Exception:
                 pass
 
-    return DEFAULT_GEMINI_KEY
+    return ""
 
 
 def save_user_api_key(api_key: str):
-    """Lưu Google API Key của người dùng (~/.qshien/secrets.json & .env)."""
+    """Lưu Google API Key của người dùng (~/.qshien/secrets.json, Data/google_api_keys.json & .env)."""
+    k = api_key.strip()
     try:
         SECRETS_DIR.mkdir(parents=True, exist_ok=True)
         with open(SECRETS_FILE, "w", encoding="utf-8") as f:
             json.dump({
-                "api_key": api_key.strip(),
+                "api_key": k,
                 "updated_at": str(Path(__file__).stat().st_mtime)
             }, f, indent=2)
-        
-        # Đồng thời cập nhật file .env
+    except Exception:
+        pass
+
+    try:
+        USER_KEYS_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with open(USER_KEYS_FILE, "w", encoding="utf-8") as f:
+            json.dump({
+                "api_key": k,
+                "gemini_api_key": k
+            }, f, indent=2)
+    except Exception:
+        pass
+
+    # Đồng thời cập nhật file .env
         env_file = PROJECT_DIR / ".env"
         env_lines = []
         if env_file.exists():
@@ -249,84 +273,90 @@ YÊU CẦU PHẢN HỒI THEO ĐÚNG CẤU TRÚC 5 PHẦN (Thực chiến, đanh 
 """
 
     api_key = get_google_ultra_api_key()
-    if not api_key:
-        return "⚠️ Chưa có Google Gemini API Key. Bạn có thể mở file .env hoặc vào phần Cài đặt của Trợ lý Su Su để nhập key."
-
-    # 3. Gọi trực tiếp Gemini REST API qua requests (Không phụ thuộc package ngoài)
-    payload = {
-        "contents": [
-            {
-                "parts": [
-                    {"text": prompt}
-                ]
-            }
-        ],
-        "generationConfig": {
-            "temperature": 0.35,
-            "topP": 0.95,
-            "maxOutputTokens": 4096
-        }
-    }
-
-    headers = {
-        "Content-Type": "application/json"
-    }
-
     last_err = ""
-    for model_name in ULTRA_MODELS_PRIORITY:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
-        try:
-            resp = requests.post(url, headers=headers, json=payload, timeout=40)
-            if resp.status_code == 200:
-                data = resp.json()
-                candidates = data.get("candidates", [])
-                if candidates:
-                    parts = candidates[0].get("content", {}).get("parts", [])
-                    if parts and "text" in parts[0]:
-                        return parts[0]["text"].strip()
-            else:
-                last_err = f"HTTP {resp.status_code}: {resp.text[:120]}"
-        except Exception as e:
-            last_err = str(e)
-            continue
 
-    # 4. Fallback thông minh: Nếu Gemini lỗi (key hết hạn hoặc lỗi mạng), trích xuất trực tiếp từ Vector RAG 5.449 tình huống
+    # 3. Nếu có API Key hợp lệ, gọi trực tiếp Gemini REST API qua requests
+    if is_valid_gemini_key(api_key):
+        payload = {
+            "contents": [
+                {
+                    "parts": [
+                        {"text": prompt}
+                    ]
+                }
+            ],
+            "generationConfig": {
+                "temperature": 0.35,
+                "topP": 0.95,
+                "maxOutputTokens": 4096
+            }
+        }
+
+        headers = {
+            "Content-Type": "application/json"
+        }
+
+        for model_name in ULTRA_MODELS_PRIORITY:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+            try:
+                resp = requests.post(url, headers=headers, json=payload, timeout=35)
+                if resp.status_code == 200:
+                    data = resp.json()
+                    candidates = data.get("candidates", [])
+                    if candidates:
+                        parts = candidates[0].get("content", {}).get("parts", [])
+                        if parts and "text" in parts[0]:
+                            return parts[0]["text"].strip()
+                else:
+                    last_err = f"HTTP {resp.status_code}"
+            except Exception as e:
+                last_err = str(e)
+                continue
+
+    # 4. Fallback thông minh: Luôn trích xuất từ Não bộ Vector RAG khi không có key hoặc API ngoài gián đoạn
     if get_vector_rag is not None:
         try:
             rag = get_vector_rag()
             top_cases = rag.query(user_question, top_k=2)
             if top_cases:
-                sc = top_cases[0]
-                pillar = sc.get("TruCot", "CHUYÊN SÂU")
-                title = sc.get("TieuDe") or sc.get("TenTinhHuong") or "Tình huống thực tế"
-                context = sc.get("BoiCanh", "")
-                risk = sc.get("RuiRo", "")
-                solution = sc.get("ChienLuocXuLy", "")
-                dialogue = sc.get("CauThoaiMau", "")
-                lesson = sc.get("BaiHocXuongMau", "")
-
                 fb_lines = [
-                    f"🤖 *TRI THỨC THỰC CHIẾN TỪ NÃO BỘ SU SU (VECTOR RAG - 5.449 TÌNH HUỐNG):*",
-                    f"_(Kết nối Gemini AI trực tuyến tạm gián đoạn; Su Su trích xuất tình huống tương đồng nhất)_\n",
-                    f"🏷️ *Trụ cột:* `{pillar}`",
-                    f"📌 *{title}*\n"
+                    "🤖 *TRI THỨC THỰC CHIẾN TỪ NÃO BỘ SU SU (VECTOR RAG - 5.449 TÌNH HUỐNG):*",
+                    "_(Trích xuất từ cẩm nang hiện trường & 8 trụ cột quản trị dự án)_\n"
                 ]
-                if context:
-                    fb_lines.append(f"📍 *BỐI CẢNH CÔNG TRƯỜNG:*\n{context}\n")
-                if risk:
-                    fb_lines.append(f"⚠️ *RỦI RO & CẠM BẪY:*\n{risk}\n")
-                if solution:
-                    fb_lines.append(f"🛠️ *CHIẾN LƯỢC XỬ LÝ:*\n{solution}\n")
-                if dialogue:
-                    fb_lines.append(f"💬 *CÂU THOẠI / CÔNG VĂN MẪU:*\n_{dialogue}_\n")
-                if lesson:
-                    fb_lines.append(f"💎 *ĐÚC KẾT XƯƠNG MÁU:*\n👉 *{lesson}*")
+                for idx, sc in enumerate(top_cases[:2], 1):
+                    pillar = sc.get("pillar") or sc.get("TruCot") or "CHUYÊN SÂU"
+                    title = sc.get("title") or sc.get("TieuDe") or sc.get("TenTinhHuong") or "Tình huống thực tế"
+                    context = sc.get("context") or sc.get("BoiCanh", "")
+                    risk = sc.get("risk") or sc.get("RuiRo", "")
+                    solution = sc.get("solution") or sc.get("ChienLuocXuLy", "")
+                    dialogue = sc.get("quote") or sc.get("CauThoaiMau", "")
+                    lesson = sc.get("lesson") or sc.get("BaiHocXuongMau", "")
 
+                    fb_lines.append(f"📌 *TÌNH HUỐNG {idx}: {title.strip()}*")
+                    fb_lines.append(f"🏷️ *Trụ cột:* `{pillar}`\n")
+                    if context:
+                        fb_lines.append(f"📍 *BỐI CẢNH CÔNG TRƯỜNG:*\n{context.strip()}\n")
+                    if risk:
+                        fb_lines.append(f"⚠️ *RỦI RO & CẠM BẪY:*\n{risk.strip()}\n")
+                    if solution:
+                        fb_lines.append(f"🛠️ *CHIẾN LƯỢC XỬ LÝ:*\n{solution.strip()}\n")
+                    if dialogue:
+                        fb_lines.append(f"💬 *CÂU THOẠI / CÔNG VĂN MẪU:*\n_{dialogue.strip()}_\n")
+                    if lesson:
+                        fb_lines.append(f"💎 *ĐÚC KẾT XƯƠNG MÁU:*\n👉 *{lesson.strip()}*\n")
+                    fb_lines.append("────────────────────\n")
+
+                fb_lines.append("💡 *Mẹo:* Bạn có thể kích hoạt Gemini AI trực tuyến bằng lệnh: `/set_key <Google_API_Key>`")
                 return "\n".join(fb_lines)
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"[RAG Fallback Error] {e}")
 
-    return f"⚠️ Không thể kết nối với dịch vụ Google Gemini AI ({last_err}). Vui lòng kiểm tra lại kết nối mạng hoặc API Key."
+    # 5. Nếu không khớp tình huống nào trong CSDL và không có key
+    return (
+        f"💡 Su Su chưa tìm thấy tình huống nào trùng khớp cho *\"{user_question}\"*.\n\n"
+        f"👉 Bạn hãy thử tra cứu với từ khóa cụ thể hơn (Ví dụ: `tk bê tông`, `tk tạm ứng`, `tk phát sinh`).\n"
+        f"👉 Hoặc cài đặt Google Gemini API Key để Su Su đàm thoại tạo sinh qua lệnh: `/set_key <API_Key>`"
+    )
 
 
 def consult_task_action_plan(task_title: str, task_details: str = "", list_name: str = "") -> str:
