@@ -22,8 +22,13 @@ CHO TRỢ LÝ SU SU
 
 import datetime
 from typing import Dict, Any, List, Tuple, Optional
-import tkinter as tk
-from tkinter import ttk, messagebox
+try:
+    import tkinter as tk
+    from tkinter import ttk, messagebox
+except (ImportError, Exception):
+    tk = None
+    ttk = None
+    messagebox = None
 try:
     from .lunar_biorhythm import jd_from_date, solar_to_lunar, CAN, CHI
 except ImportError:
@@ -536,6 +541,9 @@ def get_vietnamese_holidays(solar_date: datetime.date) -> Dict[str, Any]:
 def open_tuvi_holidays_popup(parent, birth_date: datetime.date, target_date: datetime.date,
                             person_name: str = "", on_date_select=None):
     """Mở cửa sổ chi tiết Tử Vi Phong Thủy & Tra Cứu Lịch Ngày Lễ Việt Nam."""
+    if tk is None:
+        print("[TuVi] Tkinter không khả dụng trên môi trường headless/server.")
+        return
     win = tk.Toplevel(parent)
     p_name = person_name or "Tôi"
     win.title(f"🔮 Tử Vi Phong Thủy & Lịch Ngày Lễ Việt Nam - {p_name} ({birth_date.strftime('%d/%m/%Y')})")
