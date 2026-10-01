@@ -64,6 +64,18 @@ def on_startup():
         url = f"{bot.client.api_url}/setMyCommands"
         requests.post(url, json={"commands": commands}, timeout=5)
         print("[Startup] setMyCommands updated successfully.")
+
+        # Tự động đồng bộ và bảo đảm Webhook nhận đủ cả callback_query
+        try:
+            wh_url = f"{bot.client.api_url}/setWebhook"
+            wh_payload = {
+                "url": "https://qshien-susu.onrender.com/webhook",
+                "allowed_updates": ["message", "edited_message", "callback_query", "channel_post", "edited_channel_post"]
+            }
+            requests.post(wh_url, json=wh_payload, timeout=5)
+            print("[Startup] Webhook verified with callback_query.")
+        except Exception as ex_wh:
+            print(f"[Startup setWebhook Error] {ex_wh}")
     except Exception as e:
         print(f"[Startup setMyCommands Error] {e}")
 
