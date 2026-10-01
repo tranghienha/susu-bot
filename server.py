@@ -211,6 +211,57 @@ async def telegram_proxy(request: Request):
         return {"ok": False, "error": str(e)}
 
 
+@app.post("/api/auto-schedule-meeting")
+async def auto_schedule_meeting(request: Request):
+    """Tiếp nhận thông tin tin nhắn từ Zalo/Outlook và tự động lên lịch vào Google Tasks nếu là thông báo họp."""
+    try:
+        data = await request.json()
+        text = data.get("text", "")
+        group = data.get("group", "Nhóm Zalo")
+        sender = data.get("sender", "Thành viên")
+        source = data.get("source", "Zalo")
+
+        try:
+            from qshien.desktop_assistant.meeting_scheduler import auto_save_meeting_to_tasks, format_meeting_telegram_banner, is_meeting_notice
+        except ImportError:
+            from meeting_scheduler import auto_save_meeting_to_tasks, format_meeting_telegram_banner, is_meeting_notice
+
+        if not is_meeting_notice(text):
+            return {"is_meeting": False, "saved": False}
+
+        task = auto_save_meeting_to_tasks(text=text, group_name=group, sender_name=sender, source_type=source)
+        if task:
+            banner = format_meeting_telegram_banner(task)
+            return {"is_meeting": True, "saved": True, "task": task, "banner": banner}
+        return {"is_meeting": True, "saved": False}
+    except Exception as e:
+        return {"error": str(e), "saved": False}
+
+
+@app.post("/api/zalo-webhook")
+async def zalo_webhook(request: Request):
+    """Tiếp nhận payload trực tiếp từ Zalo Extension để ghi nhận tri thức và tự động lên lịch họp."""
+    try:
+        payload = await request.json()
+        text = payload.get("text", "")
+        group = payload.get("group", "Nhóm Zalo")
+        sender = payload.get("sender", "Thành viên")
+
+        try:
+            from qshien.desktop_assistant.meeting_scheduler import auto_save_meeting_to_tasks, is_meeting_notice
+        except ImportError:
+            from meeting_scheduler import auto_save_meeting_to_tasks, is_meeting_notice
+
+        if is_meeting_notice(text):
+            task = auto_save_meeting_to_tasks(text=text, group_name=group, sender_name=sender, source_type="Zalo")
+            if task:
+                print(f"[Zalo Webhook] Đã tự động tạo Google Task cho lịch họp: {task.get('title')}", flush=True)
+
+        return {"ok": True}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+
 def _safe_process_update(update_data: Dict[str, Any]):
     try:
         msg = update_data.get("message", {})

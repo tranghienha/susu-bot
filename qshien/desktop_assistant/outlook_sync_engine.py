@@ -1023,15 +1023,41 @@ class OutlookSyncEngine:
                             else:
                                 alert_lines.append("_(Không có nội dung văn bản)_")
                             alert_lines.append("")
+
+                            # Tự động nhận diện và lên lịch Google Tasks nếu là thông báo họp
+                            meeting_banner = ""
+                            try:
+                                from qshien.desktop_assistant.meeting_scheduler import auto_save_meeting_to_tasks, format_meeting_telegram_banner, is_meeting_notice
+                            except ImportError:
+                                try:
+                                    from meeting_scheduler import auto_save_meeting_to_tasks, format_meeting_telegram_banner, is_meeting_notice
+                                except ImportError:
+                                    is_meeting_notice = None
+
+                            if is_meeting_notice and (cat == "MOM_GIAO_BAN" or is_meeting_notice(f"{sj} {core}")):
+                                m_task = auto_save_meeting_to_tasks(
+                                    text=f"{sj}\n{core}",
+                                    group_name="Hộp thư Dự án Vietstar",
+                                    sender_name=sn,
+                                    source_type="Outlook"
+                                )
+                                if m_task:
+                                    meeting_banner = format_meeting_telegram_banner(m_task)
+
+                            if meeting_banner:
+                                alert_lines.append(meeting_banner)
+                                alert_lines.append("")
+
                             alert_lines.append("━━━━━━━━━━━━━━━━━━━━")
                             alert_lines.append(advice)
 
-                            markup = {
-                                "inline_keyboard": [
-                                    [{"text": "📧 Hộp Thư Outlook", "callback_data": "outlook_briefing"}],
-                                    [{"text": "📊 Bản Tin Tham Mưu GĐDA", "callback_data": "exec_summary"}]
-                                ]
-                            }
+                            inline_btns = []
+                            if meeting_banner:
+                                inline_btns.append([{"text": "📋 Xem Sổ Tay Google Tasks", "callback_data": "tasks_list"}])
+                            inline_btns.append([{"text": "📧 Hộp Thư Outlook", "callback_data": "outlook_briefing"}])
+                            inline_btns.append([{"text": "📊 Bản Tin Tham Mưu GĐDA", "callback_data": "exec_summary"}])
+
+                            markup = {"inline_keyboard": inline_btns}
                             client.send_message(cid, "\n".join(alert_lines), reply_markup=markup)
 
                 elif notify_always:

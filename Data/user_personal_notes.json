@@ -1,0 +1,173 @@
+{
+  "lists": [
+    "VST",
+    "Việc cần làm của tôi",
+    "S.I.S HCM",
+    "Tết 2027"
+  ],
+  "current_list": "VST",
+  "tasks": [
+    {
+      "id": "tsk_tele_1790861378",
+      "list": "VST",
+      "title": "Nghiệm thu bê tông lúc 15h",
+      "details": "Ghi chú nhanh từ Telegram lúc 20:29 01/10/2026",
+      "due_date": "Hôm nay",
+      "starred": true,
+      "completed": false,
+      "created_at": "01/10/2026 20:29",
+      "completed_at": ""
+    },
+    {
+      "id": "tsk_tele_1790006663",
+      "list": "VST",
+      "title": "Kiểm tra thép sàn tầng 2 lúc 14h",
+      "details": "Ghi chú nhanh từ Telegram lúc 23:04 21/09/2026",
+      "due_date": "Hôm nay",
+      "starred": true,
+      "completed": false,
+      "created_at": "21/09/2026 23:04",
+      "completed_at": ""
+    },
+    {
+      "id": "tsk_101",
+      "list": "VST",
+      "title": "Biện pháp chống thấm đầu cọc",
+      "details": "Giải trình biện pháp thi công tổng thể cho Tư vấn giám sát & Ban QLDA",
+      "due_date": "Ngày mai, 10:00",
+      "starred": true,
+      "completed": false,
+      "created_at": "16/09/2026 08:30",
+      "completed_at": "",
+      "guidance": "Chào Sếp Hiền, em là Su Su đây. Với dự án VST, việc chống thấm đầu cọc là \"điểm chạm\" nhạy cảm nhất giữa phần ngầm và kết cấu móng. Nếu làm ẩu, nước ngầm sẽ thẩm thấu qua mạch ngừng, gây thấm ngược lên đài cọc và sàn hầm, lúc đó chi phí xử lý gấp 10 lần.\n\nDưới đây là phương án tác chiến em đã soạn sẵn cho Sếp:\n\n---\n\n### 🎯 1. BẢN CHẤT & RỦI RO CẦN PHÒNG THỦ:\n*   **Rủi ro kỹ thuật:** Bề mặt bê tông đầu cọc không được làm sạch (ba via, bùn đất, bê tông yếu) dẫn đến màng chống thấm không bám dính, tạo khe hở cho nước ngầm xâm nhập.\n*   **Rủi ro nghiệm thu:** Thiếu sự liên kết giữa lớp chống thấm đầu cọc và lớp chống thấm sàn hầm (mạch ngừng), dẫn đến việc TVGS từ chối nghiệm thu toàn bộ hệ thống chống thấm.\n*   **Rủi ro chi phí:** Sử dụng vật liệu không đồng bộ hoặc thi công sai quy trình (không có lớp bảo vệ cơ học) khiến màng bị rách khi đổ bê tông đài cọc, gây lãng phí vật tư và chậm tiến độ.\n\n---\n\n### 🛠️ 2. CHECKLIST CÁC BƯỚC HÀNH ĐỘNG:\n[ ] **Bước 1:** Rà soát bản vẽ biện pháp (Shop Drawing) đã phê duyệt, đảm bảo chi tiết cấu tạo mạch ngừng giữa đầu cọc và đài cọc (vị trí đặt băng cản nước - Waterstop nếu có).\n[ ] **Bước 2:** Kiểm tra nội bộ: Đội thi công phải đục sạch bê tông yếu, mài phẳng ba via, vệ sinh sạch bụi bẩn và làm khô bề mặt trước khi quét/dán lớp chống thấm.\n[ ] **Bước 3:** Mời TVGS/BQLDA nghiệm thu phần \"làm sạch bề mặt\" và \"lớp chống thấm đầu tiên\" trước khi phủ lớp bảo vệ. Chụp ảnh lưu vết (có thước đo, có mốc thời gian).\n[ ] **Bước 4:** Kiểm tra lớp bảo vệ cơ học (vữa/gạch/tấm bê tông) để đảm bảo màng không bị rách khi lắp dựng cốt thép đài cọc.\n\n---\n\n### 💬 3. LỜI ĂN TIẾNG NÓI / MẪU ĐỐI ĐÁP:\n*   **Với TVGS:** \"Anh xem giúp em, phần bề mặt đầu cọc em đã cho anh em đục sạch ba via và vệ sinh đúng quy trình như biện pháp đã duyệt. Em mời anh qua kiểm tra lớp chống thấm trước khi em cho đổ bê tông đài, để đảm bảo chất lượng tuyệt đối cho mạch ngừng này.\"\n*   **Với Tổ đội:** \"Tôi không cần biết các anh làm nhanh thế nào, bề mặt cọc mà còn ba via hay bụi bẩn là tôi bắt lột ra làm lại toàn bộ. Đừng để đến lúc nghiệm thu bị TVGS bắt lỗi là tự các anh chịu chi phí vật tư.\"\n\n---\n\n### 💎 4. LỜI KHUYÊN XƯƠNG MÁU:\n**\"Chống thấm là cuộc chiến phòng thủ nhiều lớp; đừng bao giờ tin vào một lớp màng duy nhất, hãy tin vào sự tỉ mỉ ở khâu làm sạch bề mặt và lớp bảo vệ cơ học.\"**\n\nSếp cần em soạn thảo công văn hay mẫu biên bản nghiệm thu nội bộ cho hạng mục này không ạ?",
+      "remind": true
+    },
+    {
+      "id": "tsk_102",
+      "list": "VST",
+      "title": "GIẢI TRÌNH BIỆN PHÁP THI CÔNG TỔNG THỂ",
+      "details": "Họp trực tiếp với CĐT để chốt mốc tiến độ ép cọc",
+      "due_date": "Ngày mai, 10:00",
+      "starred": true,
+      "completed": true,
+      "created_at": "16/09/2026 09:15",
+      "completed_at": "19/09/2026 21:40"
+    },
+    {
+      "id": "tsk_103",
+      "list": "VST",
+      "title": "Làm quyết định bổ nhiệm CHT cho a Long ở công trường",
+      "details": "Hạn trước ngày 7/6/2026. Nhắn Tiên bày binh bố trận giúp.",
+      "due_date": "Hôm nay",
+      "starred": false,
+      "completed": false,
+      "created_at": "16/09/2026 10:00",
+      "completed_at": ""
+    },
+    {
+      "id": "tsk_104",
+      "list": "VST",
+      "title": "Chuyển thép DCE về kata",
+      "details": "Rà soát khối lượng theo bảng tổng hợp thép",
+      "due_date": "Hôm nay",
+      "starred": false,
+      "completed": false,
+      "created_at": "16/09/2026 11:20",
+      "completed_at": ""
+    },
+    {
+      "id": "tsk_105",
+      "list": "VST",
+      "title": "[VST] Biện pháp thi công ván khuôn móng lò đốt",
+      "details": "Kế hoạch: 16/09/2026 - 17/09/2026. Người phụ trách: KS hiện trường Mr Trung.",
+      "due_date": "Hôm qua",
+      "starred": false,
+      "completed": false,
+      "created_at": "15/09/2026 14:00",
+      "completed_at": ""
+    },
+    {
+      "id": "tsk_106",
+      "list": "VST",
+      "title": "[VST] Shop drawing thép phạm vi móng lò đốt",
+      "details": "Kế hoạch: 14/09/2026 - 16/09/2026. Shop drawing với KS hiện trường Mr Trung (19/09).",
+      "due_date": "Hôm qua",
+      "starred": false,
+      "completed": false,
+      "created_at": "14/09/2026 15:30",
+      "completed_at": ""
+    },
+    {
+      "id": "tsk_107",
+      "list": "VST",
+      "title": "[VST] BPTC mạch ngừng móng lò đốt",
+      "details": "Kế hoạch: 17/09/2026 - 18/09/2026. Biện pháp thi công mạch ngừng dải đỗ sau móng lò đốt.",
+      "due_date": "Hôm nay",
+      "starred": true,
+      "completed": false,
+      "created_at": "16/09/2026 16:00",
+      "completed_at": ""
+    },
+    {
+      "id": "tsk_108",
+      "list": "VST",
+      "title": "KH vẽ shop tổng thể",
+      "details": "Lập tiến độ nộp shop drawing theo WBS",
+      "due_date": "20/09/2026",
+      "starred": false,
+      "completed": false,
+      "created_at": "16/09/2026 17:00",
+      "completed_at": ""
+    },
+    {
+      "id": "tsk_109",
+      "list": "VST",
+      "title": "Nghiệm thu cốt thép móng trục 1-4",
+      "details": "Đã ký biên bản nghiệm thu chuyển bước thi công với TVGS",
+      "due_date": "15/09/2026",
+      "starred": false,
+      "completed": true,
+      "created_at": "14/09/2026 09:00",
+      "completed_at": "15/09/2026 16:30"
+    }
+  ],
+  "gsheet_config": {
+    "webhook_url": "https://script.google.com/macros/s/AKfycbznAA_O1Yz0e_wv7bnUbeTwDjCKAm4pGbXf_htPRyZTwF3FUPzkUcXRHCJawlQ6Ew3s/exec",
+    "sheet_id": "",
+    "auto_sync": true,
+    "last_sync_time": "21:42"
+  },
+  "scratchpad": "",
+  "history": [
+    {
+      "action": "XÓA DANH SÁCH",
+      "text": "Đã xóa danh sách 'Quyết toán LHR' kèm 0 việc",
+      "timestamp": "17/09/2026 21:03"
+    },
+    {
+      "action": "XÓA DANH SÁCH",
+      "text": "Đã xóa danh sách 'FSR- HTKT 60 căn' kèm 0 việc",
+      "timestamp": "17/09/2026 21:03"
+    },
+    {
+      "action": "XÓA DANH SÁCH",
+      "text": "Đã xóa danh sách 'Cá nhân' kèm 0 việc",
+      "timestamp": "17/09/2026 21:03"
+    },
+    {
+      "action": "XÓA DANH SÁCH",
+      "text": "Đã xóa danh sách 'LHR' kèm 0 việc",
+      "timestamp": "17/09/2026 21:03"
+    },
+    {
+      "action": "CẬP NHẬT",
+      "text": "[VST] Biện pháp chống thấm đầu cọc",
+      "timestamp": "17/09/2026 21:42"
+    },
+    {
+      "action": "HOÀN THÀNH",
+      "text": "[VST] GIẢI TRÌNH BIỆN PHÁP THI CÔNG TỔNG THỂ",
+      "timestamp": "19/09/2026 21:40"
+    }
+  ]
+}
