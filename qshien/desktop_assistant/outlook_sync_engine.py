@@ -794,9 +794,9 @@ class OutlookSyncEngine:
                 lines.append(f"  └ 👤 Người gửi: _{sn}_ | 📎 File: `{att_cnt}`")
                 if core:
                     short_core = " ".join(core.split())
-                    if len(short_core) > 130:
-                        short_core = short_core[:127] + "..."
-                    lines.append(f"  └ 💬 _Nội dung:_ \"{short_core}\"")
+                    if len(short_core) > 260:
+                        short_core = short_core[:257] + "..."
+                    lines.append(f"  └ 💬 *Nội dung chính:* \"{short_core}\"")
         else:
             lines.append("• _Không có email phát sinh mới trong kỳ._")
         lines.append("")
@@ -813,9 +813,9 @@ class OutlookSyncEngine:
                 lines.append(f"  └ 👥 Phối hợp: _{sn}_")
                 if core:
                     short_core = " ".join(core.split())
-                    if len(short_core) > 130:
-                        short_core = short_core[:127] + "..."
-                    lines.append(f"  └ 💬 _Nội dung:_ \"{short_core}\"")
+                    if len(short_core) > 260:
+                        short_core = short_core[:257] + "..."
+                    lines.append(f"  └ 💬 *Nội dung chính:* \"{short_core}\"")
         else:
             lines.append("• _Không có thư mời họp hoặc biên bản mới._")
         lines.append("")
@@ -830,9 +830,9 @@ class OutlookSyncEngine:
                 lines.append(f"• `[{t}]` {sj}")
                 if core:
                     short_core = " ".join(core.split())
-                    if len(short_core) > 130:
-                        short_core = short_core[:127] + "..."
-                    lines.append(f"  └ 💬 _Nội dung:_ \"{short_core}\"")
+                    if len(short_core) > 260:
+                        short_core = short_core[:257] + "..."
+                    lines.append(f"  └ 💬 *Nội dung chính:* \"{short_core}\"")
         else:
             lines.append("• _Chưa có cập nhật báo cáo tuần mới._")
         lines.append("")
@@ -848,9 +848,9 @@ class OutlookSyncEngine:
                 lines.append(f"• `[{t}]` {sj} (_{sn}_)")
                 if core:
                     short_core = " ".join(core.split())
-                    if len(short_core) > 130:
-                        short_core = short_core[:127] + "..."
-                    lines.append(f"  └ 💬 _Nội dung:_ \"{short_core}\"")
+                    if len(short_core) > 260:
+                        short_core = short_core[:257] + "..."
+                    lines.append(f"  └ 💬 *Nội dung chính:* \"{short_core}\"")
         else:
             lines.append("• _Không có đệ trình kỹ thuật mới._")
         lines.append("")
@@ -868,9 +868,9 @@ class OutlookSyncEngine:
                     lines.append(f"  └ 💡 _Đã duyệt đề nghị 82tr (trong đó có 20tr hạ tải khu hố rỉ theo YC CĐT cần đòi Claim)_")
                 elif core:
                     short_core = " ".join(core.split())
-                    if len(short_core) > 130:
-                        short_core = short_core[:127] + "..."
-                    lines.append(f"  └ 💬 _Nội dung:_ \"{short_core}\"")
+                    if len(short_core) > 260:
+                        short_core = short_core[:257] + "..."
+                    lines.append(f"  └ 💬 *Nội dung chính:* \"{short_core}\"")
         else:
             lines.append("• _Chưa có phát sinh tạm ứng mới trong kỳ._")
         lines.append("")
