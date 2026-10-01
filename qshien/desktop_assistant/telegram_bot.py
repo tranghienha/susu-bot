@@ -1192,6 +1192,10 @@ class SuSuTelegramBot:
                 self.handle_sync_outlook(chat_id)
             elif cb_data == "outlook_autosync_status":
                 self.handle_autosync(chat_id)
+            elif cb_data in ("main_menu", "start", "menu_chinh"):
+                self.handle_start(chat_id)
+            elif cb_data in ("help", "huong_dan"):
+                self.handle_help(chat_id)
             return
 
         # 2. Xử lý tin nhắn văn bản thông thường
