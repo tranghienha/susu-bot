@@ -1095,22 +1095,22 @@ class SuSuTelegramBot:
     def handle_set_gemini_key(self, chat_id: int, key_str: str):
         """Cài đặt và kiểm tra Google Gemini API Key từ Telegram."""
         k = key_str.strip()
-        if not k.startswith("AIzaSy") or len(k) < 30:
+        if (not k.startswith("AIzaSy") and not k.startswith("AQ.")) or len(k) < 30:
             self.client.send_message(
                 chat_id,
                 "⚠️ *Key không đúng định dạng!*\n"
-                "Google Gemini API Key thường bắt đầu bằng `AIzaSy...` và dài khoảng 39 ký tự.\n"
-                "👉 Bạn có thể lấy key miễn phí tại: https://aistudio.google.com/app/apikey"
+                "Google Gemini API Key thường bắt đầu bằng `AIzaSy...` hoặc `AQ...` và dài hơn 30 ký tự.\n"
+                "👉 Bạn có thể lấy key tại: https://aistudio.google.com/app/apikey"
             )
             return
 
         self.client.send_chat_action(chat_id, "typing")
-        # Kiểm tra thử key qua Google API
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={k}"
+        # Kiểm tra thử key qua Google API với Gemini 3.5 Flash
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key={k}"
         headers = {"Content-Type": "application/json"}
         payload = {"contents": [{"parts": [{"text": "Xin chào"}]}]}
         try:
-            r = requests.post(url, headers=headers, json=payload, timeout=12)
+            r = requests.post(url, headers=headers, json=payload, timeout=15)
             if r.status_code == 200:
                 try:
                     from consult_expert import save_user_api_key

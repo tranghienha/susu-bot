@@ -3,6 +3,9 @@
 *.env.*
 *credential*
 *secret*
+*keys.json
+*key.json
+google_api_keys.json
 mail_credentials.json
 outlook_attachments/
 Data/outlook_attachments/
