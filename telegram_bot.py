@@ -339,8 +339,10 @@ class SuSuTelegramBot:
     # XỬ LÝ CÁC LỆNH
     # =========================================================================
 
-    def handle_start(self, chat_id: int, user_info: Dict[str, Any]):
+    def handle_start(self, chat_id: int, user_info: Optional[Dict[str, Any]] = None):
         """Xử lý lệnh /start."""
+        if not user_info:
+            user_info = {}
         first_name = user_info.get("first_name", "Hiền")
         msg = (
             f"🌸 *Xin chào {first_name}! Tôi là Su Su - Trợ lý Chiến Lược & Cố Vấn GĐDA.*\n"
@@ -625,8 +627,80 @@ class SuSuTelegramBot:
         }
         self.client.send_message(chat_id, msg, reply_markup=markup)
 
-    def handle_biorhythm_tuvi(self, chat_id: int, offset_days: int = 0):
-        """Tính toán nhịp sinh học, lịch âm, giờ hoàng đạo và tử vi hiện trường chi tiết chuẩn Desktop."""
+    def _get_tuvi_profiles_file(self) -> Path:
+        """Định vị file cấu hình danh sách hồ sơ xem Tử Vi & Nhịp sinh học."""
+        candidates = [
+            DATA_DIR / "user_biorhythm_profile.json",
+            CURRENT_DIR / "Data" / "user_biorhythm_profile.json",
+            Path(r"C:\QS_Hien\Data\user_biorhythm_profile.json"),
+            Path("/app/Data/user_biorhythm_profile.json"),
+        ]
+        for c in candidates:
+            if c.exists():
+                return c
+        return DATA_DIR / "user_biorhythm_profile.json"
+
+    def _load_tuvi_profiles(self) -> Tuple[str, Dict[str, str]]:
+        """Nạp danh sách hồ sơ xem tử vi từ JSON, trả về (active_name, profiles)."""
+        p_file = self._get_tuvi_profiles_file()
+        default_profiles = {
+            "Kỹ sư Hiền": "1994-03-03",
+            "Phạm Hà Khánh Ngọc (Su Su)": "2019-10-21",
+            "Trịnh Thị Kim Chi": "2006-03-04"
+        }
+        active_name = "Kỹ sư Hiền"
+        if p_file.exists():
+            try:
+                with open(p_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    active_name = data.get("active_name", active_name)
+                    raw_profs = data.get("profiles", {})
+                    if raw_profs:
+                        clean_profs = {}
+                        for k, v in raw_profs.items():
+                            if isinstance(v, dict):
+                                clean_profs[k] = v.get("birth", "1994-03-03")
+                            else:
+                                clean_profs[k] = str(v)
+                        return active_name, clean_profs
+            except Exception:
+                pass
+        return active_name, default_profiles
+
+    def _save_tuvi_profiles(self, active_name: str, profiles: Dict[str, str]) -> bool:
+        """Lưu danh sách hồ sơ xem tử vi vào JSON."""
+        p_file = self._get_tuvi_profiles_file()
+        payload = {"active_name": active_name, "profiles": profiles}
+        try:
+            p_file.parent.mkdir(parents=True, exist_ok=True)
+            with open(p_file, "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False, indent=2)
+
+            if sys.platform == "win32":
+                win_p = Path(r"C:\QS_Hien\Data\user_biorhythm_profile.json")
+                if win_p != p_file and win_p.parent.exists():
+                    try:
+                        with open(win_p, "w", encoding="utf-8") as fw:
+                            json.dump(payload, fw, ensure_ascii=False, indent=2)
+                    except Exception:
+                        pass
+            return True
+        except Exception:
+            return False
+
+    @staticmethod
+    def _parse_birth_date(birth_raw: str) -> Optional[datetime.date]:
+        """Chuyển đổi chuỗi ngày sinh linh hoạt sang datetime.date."""
+        birth_raw = birth_raw.strip()
+        for fmt in ("%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y", "%d.%m.%Y", "%Y/%m/%d"):
+            try:
+                return datetime.datetime.strptime(birth_raw, fmt).date()
+            except ValueError:
+                pass
+        return None
+
+    def handle_biorhythm_tuvi(self, chat_id: int, offset_days: int = 0, person_idx: Optional[int] = None):
+        """Tính toán nhịp sinh học, lịch âm, giờ hoàng đạo và tử vi hiện trường cho từng nhân sự có ngày sinh."""
         try:
             try:
                 from qshien.desktop_assistant.tuvi_holidays import get_tuvi_analysis, get_vietnamese_holidays
@@ -635,10 +709,27 @@ class SuSuTelegramBot:
                 from tuvi_holidays import get_tuvi_analysis, get_vietnamese_holidays
                 from lunar_biorhythm import calculate_biorhythm, get_can_chi
 
-            target_date = datetime.date.today() + datetime.timedelta(days=offset_days)
-            birth = datetime.date(1994, 3, 3)
+            active_name, profiles = self._load_tuvi_profiles()
+            profile_names = list(profiles.keys())
+            if not profile_names:
+                profile_names = ["Kỹ sư Hiền"]
+                profiles = {"Kỹ sư Hiền": "1994-03-03"}
 
-            tuvi = get_tuvi_analysis(birth, target_date, "Kỹ sư Hiền")
+            if person_idx is not None and 0 <= person_idx < len(profile_names):
+                target_name = profile_names[person_idx]
+                self._save_tuvi_profiles(target_name, profiles)
+            elif active_name in profile_names:
+                target_name = active_name
+                person_idx = profile_names.index(active_name)
+            else:
+                target_name = profile_names[0]
+                person_idx = 0
+
+            birth_str = profiles.get(target_name, "1994-03-03")
+            birth = self._parse_birth_date(birth_str) or datetime.date(1994, 3, 3)
+            target_date = datetime.date.today() + datetime.timedelta(days=offset_days)
+
+            tuvi = get_tuvi_analysis(birth, target_date, target_name)
             holidays = get_vietnamese_holidays(target_date)
             lunar = get_can_chi(target_date.day, target_date.month, target_date.year)
             bio = calculate_biorhythm(birth, target_date)
@@ -674,8 +765,10 @@ class SuSuTelegramBot:
             e_comment = "Tâm lý tự tin, đàm phán thương thảo thuận lợi" if e_val > 0 else "Nên giữ bình tĩnh, tránh nóng giận với tổ đội"
             i_comment = "Đầu óc minh mẫn, soi BOQ và hợp đồng cực chuẩn" if i_val > 0 else "Cần rà soát kỹ bảng tính số liệu, tránh vội vàng"
 
+            birth_fmt = birth.strftime("%d/%m/%Y")
             lines = [
                 f"{event_str}📅 *LỊCH VẠN NIÊN & HIỆN TRƯỜNG* | `{hd_badge}`",
+                f"👤 *Đang xem cho:* 🔴 *{target_name}* (Sinh: `{birth_fmt}` • `{tuvi.get('user_canchi')}` - `{tuvi.get('user_napam')}`)",
                 f"*{thu_str}, {target_date.strftime('%d/%m/%Y')}* ➔ *Âm lịch:* `{lunar_dd:02d}/{lunar_mm:02d}/{lunar_yy}`",
                 f"• *Ngày:* `{lunar['ngay_can_chi']}` | *Tháng:* `{lunar['thang_can_chi']}` | *Năm:* `{lunar['nam_can_chi']}` | *Tiết:* `{lunar['tiet_khi']}`",
                 f"• *Trực:* `Trực {tuvi.get('truc_name')} ({tuvi.get('truc_eval')})` - {tuvi.get('truc_meaning')}",
@@ -691,14 +784,14 @@ class SuSuTelegramBot:
                 f"⚠️ *CẦN CẨN TRỌNG:*",
                 f"{lunar.get('viec_kieng')}. *Tuổi xung ngày:* `{tuvi.get('tuoi_xung_ngay', 'Không có')}`.\n",
                 "━━━━━━━━━━━━━━━━━━━━",
-                "🧘 *TỬ VI BẢN MỆNH KỸ SƯ (Giáp Tuất 1994 - Sơn Đầu Hỏa):*",
-                f"• *Bản mệnh:* `Sơn Đầu Hỏa` | *Khí vận ngày:* `{tuvi.get('day_napam', '')}`",
+                f"🧘 *TỬ VI BẢN MỆNH ({target_name} • {tuvi.get('user_canchi')} {birth.year}):*",
+                f"• *Bản mệnh:* `{tuvi.get('user_napam', '')}` (Hành {tuvi.get('user_menh', '')}) | *Khí vận ngày:* `{tuvi.get('day_napam', '')}`",
                 f"• *Ngũ hành:* {tuvi.get('nguhanh_status', '')}",
                 f"  _{tuvi.get('nguhanh_detail', '')}_",
                 f"• *Địa chi:* `{tuvi.get('chi_badge', '')}` - {tuvi.get('chi_status', '')}",
                 f"• *Điểm số vận thế:* `{tuvi.get('overall_score', 80)}/100` ➔ *{tuvi.get('rate_text', '')}*\n",
                 "━━━━━━━━━━━━━━━━━━━━",
-                "📈 *NHỊP SINH HỌC BIORHYTHM (NĂNG LƯỢNG NGÀY):*",
+                f"📈 *NHỊP SINH HỌC BIORHYTHM ({target_name} • NĂNG LƯỢNG NGÀY):*",
                 f"• 💪 *Thể chất (P):* {make_bar(p_val)} `{p_val:+.1f}%` ({p_comment})",
                 f"• ❤️ *Cảm xúc (E):* {make_bar(e_val)} `{e_val:+.1f}%` ({e_comment})",
                 f"• 🧠 *Trí tuệ (I):* {make_bar(i_val)} `{i_val:+.1f}%` ({i_comment})"
@@ -707,15 +800,159 @@ class SuSuTelegramBot:
             markup = {
                 "inline_keyboard": [
                     [
-                        {"text": "⏪ Hôm qua", "callback_data": f"tuvi_{offset_days - 1}"},
-                        {"text": "📅 Hôm nay", "callback_data": "tuvi_0"},
-                        {"text": "Ngày mai ⏩", "callback_data": f"tuvi_{offset_days + 1}"}
+                        {"text": "⏪ Hôm qua", "callback_data": f"tuvi_d_{offset_days - 1}_{person_idx}"},
+                        {"text": "📅 Hôm nay", "callback_data": f"tuvi_d_0_{person_idx}"},
+                        {"text": "Ngày mai ⏩", "callback_data": f"tuvi_d_{offset_days + 1}_{person_idx}"}
+                    ],
+                    [
+                        {"text": f"👤 Đổi Người Xem ({len(profile_names)} Hồ Sơ)", "callback_data": "tuvi_pick"}
+                    ],
+                    [
+                        {"text": "➕ Thêm Người Mới", "callback_data": "tuvi_add_help"}
                     ]
                 ]
             }
             self.client.send_message(chat_id, "\n".join(lines), reply_markup=markup)
         except Exception as e:
             self.client.send_message(chat_id, f"⚠️ Lỗi tính toán nhịp sinh học và tử vi: {e}")
+
+    def handle_tuvi_pick_user(self, chat_id: int):
+        """Hiển thị danh sách hồ sơ nhân sự kèm ngày tháng năm sinh để chọn xem tử vi."""
+        active_name, profiles = self._load_tuvi_profiles()
+        lines = [
+            "👤 *DANH SÁCH HỒ SƠ XEM TỬ VI & NHỊP SINH HỌC:*",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"📍 *Hiện tại đang chọn:* *{active_name}*\n",
+            "👉 *Bấm vào tên bên dưới để xem ngay vận trình hôm nay:*"
+        ]
+        inline_rows = []
+        for idx, (name, b_str) in enumerate(profiles.items()):
+            b_dt = self._parse_birth_date(b_str)
+            b_display = b_dt.strftime("%d/%m/%Y") if b_dt else b_str
+            active_mark = "✅ " if name == active_name else "▫️ "
+            btn_text = f"{active_mark}{name} ({b_display})"
+            inline_rows.append([{"text": btn_text, "callback_data": f"tuvi_u_{idx}"}])
+
+        inline_rows.append([
+            {"text": "➕ Thêm Người Mới", "callback_data": "tuvi_add_help"},
+            {"text": "◀ Quay Lại", "callback_data": "tuvi_0"}
+        ])
+        markup = {"inline_keyboard": inline_rows}
+        self.client.send_message(chat_id, "\n".join(lines), reply_markup=markup)
+
+    def handle_tuvi_add_help(self, chat_id: int):
+        """Hướng dẫn cú pháp thêm người mới xem Tử vi trên Telegram."""
+        msg = (
+            "➕ *THÊM HỒ SƠ XEM TỬ VI & NHỊP SINH HỌC MỚI:*\n"
+            "━━━━━━━━━━━━━━━━━━━━\n"
+            "👉 *Hãy gõ theo cú pháp:*\n"
+            "`/tuvi_add <Họ Tên> - <Ngày sinh dd/mm/yyyy>`\n\n"
+            "📝 *Ví dụ thực tế:*\n"
+            "• `/tuvi_add Lương Phi Long - 15/08/1986`\n"
+            "• `/tuvi_add Nguyễn Văn Trung - 22/11/1995`\n"
+            "• `/tuvi_add Trần Thu Hà - 10/04/1998`\n\n"
+            "✨ *Su Su sẽ tự động:*\n"
+            "1. Xác định Can Chi năm sinh (Bính Dần, Ất Hợi...).\n"
+            "2. Tra cứu Bản mệnh Ngũ hành (Lư Trung Hỏa, Sơn Đầu Hỏa...).\n"
+            "3. Lưu vào hồ sơ và tạo nút bấm chọn nhanh trên Telegram!\n\n"
+            "💡 *Mẹo:* Bạn cũng có thể gõ ngắn gọn: `/themtuvi Nam - 10/10/1990`"
+        )
+        markup = {
+            "inline_keyboard": [
+                [{"text": "👥 Xem Danh Sách Hồ Sơ", "callback_data": "tuvi_pick"}],
+                [{"text": "◀ Quay Lại Tử Vi", "callback_data": "tuvi_0"}]
+            ]
+        }
+        self.client.send_message(chat_id, msg, reply_markup=markup)
+
+    def handle_tuvi_add_person(self, chat_id: int, content: str):
+        """Thêm người mới vào danh sách hồ sơ xem tử vi từ Telegram."""
+        content = content.strip()
+        if not content:
+            self.handle_tuvi_add_help(chat_id)
+            return
+
+        sep = "-" if "-" in content else ("," if "," in content else None)
+        if not sep:
+            parts = content.rsplit(" ", 1)
+        else:
+            parts = content.split(sep, 1)
+
+        if len(parts) < 2:
+            self.client.send_message(
+                chat_id,
+                "⚠️ *Sai cú pháp!* Vui lòng nhập: `/tuvi_add <Họ Tên> - <Ngày sinh>`\nVí dụ: `/tuvi_add Lương Phi Long - 15/08/1986`"
+            )
+            return
+
+        name = parts[0].strip()
+        birth_raw = parts[1].strip()
+
+        b_dt = self._parse_birth_date(birth_raw)
+        if not b_dt:
+            self.client.send_message(
+                chat_id,
+                f"⚠️ Ngày sinh *\"{birth_raw}\"* không đúng định dạng. Vui lòng nhập dạng `dd/mm/yyyy` (Ví dụ: `15/08/1986`)."
+            )
+            return
+
+        active_name, profiles = self._load_tuvi_profiles()
+        profiles[name] = b_dt.strftime("%Y-%m-%d")
+        self._save_tuvi_profiles(name, profiles)
+
+        try:
+            from qshien.desktop_assistant.tuvi_holidays import get_tuvi_analysis
+        except ImportError:
+            from tuvi_holidays import get_tuvi_analysis
+        tuvi = get_tuvi_analysis(b_dt, datetime.date.today(), name)
+
+        p_names = list(profiles.keys())
+        idx = p_names.index(name)
+
+        msg = (
+            f"✅ *ĐÃ THÊM HỒ SƠ TỬ VI THÀNH CÔNG!*\n"
+            f"━━━━━━━━━━━━━━━━━━━━\n"
+            f"👤 *Họ và tên:* *{name}*\n"
+            f"🎂 *Ngày sinh:* `{b_dt.strftime('%d/%m/%Y')}`\n"
+            f"🔮 *Can Chi:* `{tuvi.get('user_canchi')}` (Nạp âm: `{tuvi.get('user_napam')}` - Hành `{tuvi.get('user_menh')}`)\n\n"
+            f"👉 Đã tự động kích hoạt làm người xem hiện tại!"
+        )
+        markup = {
+            "inline_keyboard": [
+                [{"text": f"🔮 Xem Tử Vi Cho {name} Ngay", "callback_data": f"tuvi_u_{idx}"}],
+                [{"text": "👥 Danh Sách Hồ Sơ", "callback_data": "tuvi_pick"}]
+            ]
+        }
+        self.client.send_message(chat_id, msg, reply_markup=markup)
+
+    def handle_tuvi_del_person(self, chat_id: int, content: str):
+        """Xóa hồ sơ người xem tử vi."""
+        name = content.strip()
+        if not name:
+            self.client.send_message(chat_id, "💡 Cú pháp: `/tuvi_del <Tên người cần xóa>`")
+            return
+
+        active_name, profiles = self._load_tuvi_profiles()
+        matched_key = None
+        for k in profiles.keys():
+            if k.lower() == name.lower() or name.lower() in k.lower():
+                matched_key = k
+                break
+
+        if not matched_key:
+            self.client.send_message(chat_id, f"⚠️ Không tìm thấy hồ sơ nào có tên: *{name}*.")
+            return
+
+        if matched_key in ("Kỹ sư Hiền", "Tôi"):
+            self.client.send_message(chat_id, "⚠️ Không thể xóa hồ sơ mặc định của Kỹ sư Hiền.")
+            return
+
+        del profiles[matched_key]
+        if active_name == matched_key:
+            active_name = list(profiles.keys())[0] if profiles else "Kỹ sư Hiền"
+
+        self._save_tuvi_profiles(active_name, profiles)
+        self.client.send_message(chat_id, f"✅ Đã xóa hồ sơ *{matched_key}* khỏi danh sách Tử Vi.")
 
     def handle_tasks(self, chat_id: int):
         """Xem danh sách công việc G-Tasks / Sổ tay chuẩn Desktop."""
@@ -1163,11 +1400,30 @@ class SuSuTelegramBot:
                     except ValueError:
                         self.handle_14_scenarios(chat_id, 0)
             elif cb_data.startswith("tuvi_"):
-                try:
-                    offset = int(cb_data[5:])
-                    self.handle_biorhythm_tuvi(chat_id, offset_days=offset)
-                except ValueError:
-                    self.handle_biorhythm_tuvi(chat_id, 0)
+                if cb_data == "tuvi_pick":
+                    self.handle_tuvi_pick_user(chat_id)
+                elif cb_data == "tuvi_add_help":
+                    self.handle_tuvi_add_help(chat_id)
+                elif cb_data.startswith("tuvi_u_"):
+                    try:
+                        u_idx = int(cb_data[7:])
+                        self.handle_biorhythm_tuvi(chat_id, offset_days=0, person_idx=u_idx)
+                    except ValueError:
+                        self.handle_biorhythm_tuvi(chat_id, 0)
+                elif cb_data.startswith("tuvi_d_"):
+                    parts = cb_data[7:].split("_")
+                    try:
+                        off = int(parts[0])
+                        p_idx = int(parts[1]) if len(parts) > 1 else None
+                        self.handle_biorhythm_tuvi(chat_id, offset_days=off, person_idx=p_idx)
+                    except ValueError:
+                        self.handle_biorhythm_tuvi(chat_id, 0)
+                else:
+                    try:
+                        offset = int(cb_data[5:])
+                        self.handle_biorhythm_tuvi(chat_id, offset_days=offset)
+                    except ValueError:
+                        self.handle_biorhythm_tuvi(chat_id, 0)
             elif cb_data == "tasks_list":
                 self.handle_tasks(chat_id)
             elif cb_data == "duan":
@@ -1192,6 +1448,10 @@ class SuSuTelegramBot:
                 self.handle_sync_outlook(chat_id)
             elif cb_data == "outlook_autosync_status":
                 self.handle_autosync(chat_id)
+            elif cb_data in ("main_menu", "start", "menu_chinh"):
+                self.handle_start(chat_id)
+            elif cb_data in ("help", "huong_dan"):
+                self.handle_help(chat_id)
             return
 
         # 2. Xử lý tin nhắn văn bản thông thường
@@ -1322,7 +1582,25 @@ class SuSuTelegramBot:
             self.handle_project_dossier(chat_id)
             return
 
-        # 6. Nhịp sinh học & Tử vi
+        # 6. Nhịp sinh học & Tử vi (Chọn người, thêm người mới, xem tử vi)
+        if t_lower.startswith("/tuvi_add ") or t_lower.startswith("/themtuvi ") or t_lower.startswith("/tuvi_them ") or t_lower.startswith("/add_person "):
+            content = t_clean.split(" ", 1)[1]
+            self.handle_tuvi_add_person(chat_id, content)
+            return
+
+        if t_lower in ("/tuvi_add", "/themtuvi", "/tuvi_them", "/add_person"):
+            self.handle_tuvi_add_help(chat_id)
+            return
+
+        if t_lower.startswith("/tuvi_del ") or t_lower.startswith("/xoatuvi ") or t_lower.startswith("/tuvi_xoa "):
+            content = t_clean.split(" ", 1)[1]
+            self.handle_tuvi_del_person(chat_id, content)
+            return
+
+        if t_lower in ("/tuvi_list", "/dstuvi", "/ds_tuvi", "danh sách người tử vi", "chọn người tử vi"):
+            self.handle_tuvi_pick_user(chat_id)
+            return
+
         if any(kw in t_lower for kw in ("tử vi", "tuvi", "nhịp sinh học", "nhip sinh hoc", "lịch & nhịp", "ngày hoàng đạo")) or t_lower.startswith("/tuvi") or t_lower.startswith("/nhipsinhhoc"):
             self.handle_biorhythm_tuvi(chat_id)
             return
