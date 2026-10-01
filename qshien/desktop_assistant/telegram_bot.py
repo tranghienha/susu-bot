@@ -339,8 +339,10 @@ class SuSuTelegramBot:
     # XỬ LÝ CÁC LỆNH
     # =========================================================================
 
-    def handle_start(self, chat_id: int, user_info: Dict[str, Any]):
+    def handle_start(self, chat_id: int, user_info: Optional[Dict[str, Any]] = None):
         """Xử lý lệnh /start."""
+        if not user_info:
+            user_info = {}
         first_name = user_info.get("first_name", "Hiền")
         msg = (
             f"🌸 *Xin chào {first_name}! Tôi là Su Su - Trợ lý Chiến Lược & Cố Vấn GĐDA.*\n"
