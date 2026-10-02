@@ -27,8 +27,11 @@ import sys
 import json
 import re
 import datetime
+import logging
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
+
+logger = logging.getLogger("OutlookSyncEngine")
 
 # Định vị thư mục
 CURRENT_DIR = Path(__file__).resolve().parent
@@ -77,7 +80,9 @@ CATEGORY_KEYWORDS = {
         "biểu đồ nhân lực", "tiến độ tổng thể", "ots-002", "đường găng", "kế hoạch nghiệm thu"
     ],
     "DE_TRINH_KY_THUAT": [
-        "ycpd", "đệ trình", "mas-", "mss-", "sds-", "shopdrawing", "biện pháp thi công",
+        "ycpd", "đệ trình", "mas-", "mss-", "sds-", "rfi", "rfi-", "rfa", "rfa-",
+        "yêu cầu thông tin", "làm rõ thông tin", "làm rõ thiết kế", "yêu cầu làm rõ",
+        "clarification", "shopdrawing", "biện pháp thi công",
         "mẫu thép", "bê tông thương phẩm", "coupler", "chống thấm", "hdpe", "phê duyệt"
     ],
     "VAT_TU_TO_DOI": [
@@ -100,8 +105,9 @@ def _safe_str(val: Any) -> str:
 def is_spam_or_irrelevant(subject: str, sender: str = "", body: str = "") -> bool:
     """Kiểm tra và lọc bỏ email spam, quảng cáo, OTP hoặc thông báo tự động vô nghĩa."""
     spam_keywords = [
-        "aliexpress", "grabxu", "khuyến mãi", "quảng cáo", "sổ ghi đồng bộ",
-        "test message", "flash sale", "one-time password", "otp", "ưu đãi", "giảm giá"
+        "aliexpress", "grab", "shopee", "lazada", "tiki", "khuyến mãi", "quảng cáo",
+        "sổ ghi đồng bộ", "test message", "flash sale", "one-time password", "otp",
+        "ưu đãi", "giảm giá", "voucher"
     ]
     full_check = f"{subject} {sender} {body}".lower()
     return any(k in full_check for k in spam_keywords)
@@ -215,6 +221,24 @@ def extract_email_core_content(text: str, max_chars: int = 1500) -> str:
     return text
 
 
+def extract_all_submittal_codes(text: str) -> List[str]:
+    """
+    Trích xuất toàn bộ các mã đệ trình, RFI, bản vẽ, vật liệu xuất hiện trong chuỗi văn bản.
+    Hỗ trợ nhận diện đồng thời nhiều mã hiệu (ví dụ: RFI-001, RFI-002, MSS-003, SDS-004, BCT-04, OTS-002...).
+    """
+    if not text:
+        return []
+    pattern = r'\b(RFI|RFA|MSS|SDS|MAS|OTS|NTP|BIM|BCT|BCN|DNTU|NTVL|CLM)[-.\s_]*(\d+[A-Za-z0-9_.]*)'
+    matches = re.findall(pattern, text, re.I)
+    codes = []
+    for prefix, num in matches:
+        clean_num = re.sub(r'^[._\s]+', '', num).split('.')[0].split('_')[0]
+        code = f"{prefix.upper()}-{clean_num}"
+        if code not in codes:
+            codes.append(code)
+    return codes
+
+
 class OutlookSyncEngine:
     """Động cơ kết nối Microsoft Outlook MAPI và xử lý tri thức email dự án."""
 
@@ -286,22 +310,40 @@ class OutlookSyncEngine:
         # Danh sách các hòm thư / thư mục cần quét
         target_sources = []
         for folder in self.mapi.Folders:
-            f_name = folder.Name
-            # 1. Hộp thư chính Ban Chỉ Huy Vietstar
-            if "BCHVIETSTAR" in f_name.upper():
-                for sub in folder.Folders:
-                    if sub.Name in ["Inbox", "Sent"]:
-                        target_sources.append((f"{f_name}/{sub.Name}", sub))
-            # 2. Thư mục dữ liệu VIETSTAR
-            elif f_name.upper() == "VIETSTAR":
-                for sub in folder.Folders:
-                    if sub.Items.Count > 0:
-                        target_sources.append((f"VIETSTAR/{sub.Name}", sub))
-            # 3. Hộp thư Kỹ sư Hiền (hienpv@novacons.com.vn) - Tiếp nhận toàn diện Inbox & Sent
-            elif "HIENPV" in f_name.upper():
-                for sub in folder.Folders:
-                    if sub.Name in ["Inbox", "Sent"]:
-                        target_sources.append((f"{f_name}/{sub.Name}", sub))
+            try:
+                f_name = folder.Name
+                # 1. Hộp thư chính Ban Chỉ Huy Vietstar
+                if "BCHVIETSTAR" in f_name.upper():
+                    try:
+                        for sub in folder.Folders:
+                            sub_n = sub.Name.lower()
+                            if any(k in sub_n for k in ["inbox", "sent", "hộp thư đến", "đã gửi", "thư đã gửi"]):
+                                target_sources.append((f"{f_name}/{sub.Name}", sub))
+                    except Exception as e:
+                        logger.warning(f"Lỗi đọc subfolder BCHVIETSTAR: {e}")
+                # 2. Thư mục dữ liệu VIETSTAR
+                elif f_name.upper() == "VIETSTAR":
+                    try:
+                        for sub in folder.Folders:
+                            try:
+                                if sub.Items.Count > 0:
+                                    target_sources.append((f"VIETSTAR/{sub.Name}", sub))
+                            except Exception:
+                                continue
+                    except Exception as e:
+                        logger.warning(f"Bỏ qua folder VIETSTAR do lỗi PST: {e}")
+                # 3. Hộp thư Kỹ sư Hiền (hienpv@novacons.com.vn) - Tiếp nhận toàn diện Inbox & Sent
+                elif "HIENPV" in f_name.upper():
+                    try:
+                        for sub in folder.Folders:
+                            sub_n = sub.Name.lower()
+                            if any(k in sub_n for k in ["inbox", "sent", "hộp thư đến", "đã gửi", "thư đã gửi"]):
+                                target_sources.append((f"{f_name}/{sub.Name}", sub))
+                    except Exception as e:
+                        logger.warning(f"Lỗi đọc subfolder HIENPV: {e}")
+            except Exception as e:
+                logger.warning(f"Bỏ qua thư mục lỗi khi quét MAPI: {e}")
+                continue
 
         for source_name, folder_obj in target_sources:
             try:
@@ -342,6 +384,7 @@ class OutlookSyncEngine:
                         recv_time_str = recv_time_raw.strftime("%Y-%m-%d %H:%M:%S") if recv_time_raw else datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
                         category = classify_email(subject, body)
+                        submittal_codes = extract_all_submittal_codes(f"{subject} {body}")
 
                         # Trích xuất và tải file đính kèm
                         attachments_meta = []
@@ -382,6 +425,7 @@ class OutlookSyncEngine:
                             "cc": cc_str,
                             "time": recv_time_str,
                             "category": category,
+                            "submittal_codes": submittal_codes,
                             "body_preview": body[:1500],
                             "core_content": extract_email_core_content(body),
                             "attachments": attachments_meta,
@@ -398,6 +442,15 @@ class OutlookSyncEngine:
 
         # Lưu lại vào cache
         all_emails = new_records + cached_emails
+        # Cập nhật và nâng cấp submittal_codes / category cho toàn bộ cache
+        for em in all_emails:
+            if not em.get("submittal_codes"):
+                em["submittal_codes"] = extract_all_submittal_codes(f"{em.get('subject', '')} {em.get('body_preview', '')}")
+            if em.get("category") == "THONG_TIN_CHUNG":
+                new_cat = classify_email(em.get("subject", ""), em.get("body_preview", ""))
+                if new_cat != "THONG_TIN_CHUNG":
+                    em["category"] = new_cat
+
         all_emails.sort(key=lambda x: x.get("time", ""), reverse=True)
         self.save_cached_emails(all_emails)
 
@@ -484,126 +537,142 @@ class OutlookSyncEngine:
         try:
             client = imaplib.IMAP4_SSL(host, port)
             client.login(user, password)
-            client.select("INBOX", readonly=True)
 
-            status, data = client.search(None, "ALL")
-            if status != "OK" or not data or not data[0]:
-                client.logout()
-                return {"success": True, "new_emails": 0, "total_cached": len(cached_emails), "downloaded_files": 0}
-
-            msg_ids = data[0].split()
-            target_ids = msg_ids[-limit:] if len(msg_ids) > limit else msg_ids
-            target_ids.reverse()
-
-            for mid in target_ids:
+            imap_boxes = ["INBOX", "Sent"]
+            for imap_box in imap_boxes:
                 try:
-                    res, mdata = client.fetch(mid, "(RFC822)")
-                    if res != "OK" or not mdata or not mdata[0]:
-                        continue
-                    raw_bytes = mdata[0][1]
-                    msg = email.message_from_bytes(raw_bytes)
-
-                    def _dec_hdr(h_val):
-                        if not h_val:
-                            return ""
-                        res_parts = []
-                        for frag, enc in decode_header(h_val):
-                            if isinstance(frag, bytes):
-                                res_parts.append(frag.decode(enc or "utf-8", errors="replace"))
-                            else:
-                                res_parts.append(str(frag))
-                        return "".join(res_parts)
-
-                    subject = _dec_hdr(msg.get("Subject", ""))
-                    sender_full = _dec_hdr(msg.get("From", ""))
-                    to_str = _dec_hdr(msg.get("To", ""))
-                    cc_str = _dec_hdr(msg.get("Cc", ""))
-                    date_raw = msg.get("Date", "")
-                    msg_id_hdr = msg.get("Message-ID", "") or f"IMAP_{mid.decode('ascii', errors='ignore')}"
-
-                    entry_id = msg_id_hdr.strip("<>")
-                    if entry_id in existing_ids:
+                    sel_res, _ = client.select(imap_box, readonly=True)
+                    if sel_res != "OK":
                         continue
 
-                    try:
-                        dt = parsedate_to_datetime(date_raw)
-                        recv_time_str = dt.strftime("%Y-%m-%d %H:%M:%S")
-                    except Exception:
-                        recv_time_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    status, data = client.search(None, "ALL")
+                    if status != "OK" or not data or not data[0]:
+                        continue
 
-                    body = ""
-                    attachments_meta = []
+                    msg_ids = data[0].split()
+                    target_ids = msg_ids[-limit:] if len(msg_ids) > limit else msg_ids
+                    target_ids.reverse()
 
-                    if msg.is_multipart():
-                        for part in msg.walk():
-                            ctype = part.get_content_type()
-                            cdisp = str(part.get("Content-Disposition", ""))
-                            fname = part.get_filename()
-                            if fname:
-                                fname = _dec_hdr(fname)
-                                ext = Path(fname).suffix.lower()
-                                save_path_str = ""
-                                payload = part.get_payload(decode=True)
-                                size = len(payload) if payload else 0
-                                if download_attachments and ext in [".pdf", ".docx", ".doc", ".xlsx", ".xls", ".dwg"] and payload:
-                                    safe_name = re.sub(r'[\\/*?:"<>|]', "_", fname)
-                                    target_file = ATTACHMENTS_DIR / f"{recv_time_str[:10]}_{safe_name}"
-                                    try:
-                                        target_file.write_bytes(payload)
-                                        save_path_str = str(target_file)
-                                        downloaded_count += 1
-                                    except Exception:
-                                        pass
-                                attachments_meta.append({
-                                    "filename": fname,
-                                    "size": size,
-                                    "local_path": save_path_str
-                                })
-                            elif ctype == "text/plain" and "attachment" not in cdisp:
-                                payload = part.get_payload(decode=True)
-                                if payload:
-                                    cset = part.get_content_charset() or "utf-8"
-                                    try:
-                                        body += payload.decode(cset, errors="replace") + "\n"
-                                    except Exception:
-                                        body += payload.decode("utf-8", errors="replace") + "\n"
-                    else:
-                        payload = msg.get_payload(decode=True)
-                        if payload:
-                            cset = msg.get_content_charset() or "utf-8"
+                    for mid in target_ids:
+                        try:
+                            res, mdata = client.fetch(mid, "(RFC822)")
+                            if res != "OK" or not mdata or not mdata[0]:
+                                continue
+                            raw_bytes = mdata[0][1]
+                            msg = email.message_from_bytes(raw_bytes)
+
+                            def _dec_hdr(h_val):
+                                if not h_val:
+                                    return ""
+                                res_parts = []
+                                for frag, enc in decode_header(h_val):
+                                    if isinstance(frag, bytes):
+                                        res_parts.append(frag.decode(enc or "utf-8", errors="replace"))
+                                    else:
+                                        res_parts.append(str(frag))
+                                return "".join(res_parts)
+
+                            subject = _dec_hdr(msg.get("Subject", ""))
+                            sender_full = _dec_hdr(msg.get("From", ""))
+                            to_str = _dec_hdr(msg.get("To", ""))
+                            cc_str = _dec_hdr(msg.get("Cc", ""))
+                            date_raw = msg.get("Date", "")
+                            msg_id_hdr = msg.get("Message-ID", "") or f"IMAP_{imap_box}_{mid.decode('ascii', errors='ignore')}"
+
+                            entry_id = msg_id_hdr.strip("<>")
+                            if entry_id in existing_ids:
+                                continue
+
                             try:
-                                body = payload.decode(cset, errors="replace")
+                                dt = parsedate_to_datetime(date_raw)
+                                recv_time_str = dt.strftime("%Y-%m-%d %H:%M:%S")
                             except Exception:
-                                body = payload.decode("utf-8", errors="replace")
+                                recv_time_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-                    if is_spam_or_irrelevant(subject, sender_full, body):
-                        continue
+                            body = ""
+                            attachments_meta = []
 
-                    category = classify_email(subject, body)
-                    record = {
-                        "entry_id": entry_id,
-                        "source_folder": f"IMAP_{user}_INBOX",
-                        "subject": subject,
-                        "sender_name": sender_full,
-                        "sender_email": sender_full,
-                        "to": to_str,
-                        "cc": cc_str,
-                        "time": recv_time_str,
-                        "category": category,
-                        "body_preview": body[:1500].strip(),
-                        "core_content": extract_email_core_content(body),
-                        "attachments": attachments_meta,
-                        "synced_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    }
-                    new_records.append(record)
-                    existing_ids.add(entry_id)
+                            if msg.is_multipart():
+                                for part in msg.walk():
+                                    ctype = part.get_content_type()
+                                    cdisp = str(part.get("Content-Disposition", ""))
+                                    fname = part.get_filename()
+                                    if fname:
+                                        fname = _dec_hdr(fname)
+                                        ext = Path(fname).suffix.lower()
+                                        save_path_str = ""
+                                        payload = part.get_payload(decode=True)
+                                        size = len(payload) if payload else 0
+                                        if download_attachments and ext in [".pdf", ".docx", ".doc", ".xlsx", ".xls", ".dwg"] and payload:
+                                            safe_name = re.sub(r'[\\/*?:"<>|]', "_", fname)
+                                            target_file = ATTACHMENTS_DIR / f"{recv_time_str[:10]}_{safe_name}"
+                                            try:
+                                                target_file.write_bytes(payload)
+                                                save_path_str = str(target_file)
+                                                downloaded_count += 1
+                                            except Exception:
+                                                pass
+                                        attachments_meta.append({
+                                            "filename": fname,
+                                            "size": size,
+                                            "local_path": save_path_str
+                                        })
+                                    elif ctype == "text/plain" and "attachment" not in cdisp:
+                                        payload = part.get_payload(decode=True)
+                                        if payload:
+                                            cset = part.get_content_charset() or "utf-8"
+                                            try:
+                                                body += payload.decode(cset, errors="replace") + "\n"
+                                            except Exception:
+                                                body += payload.decode("utf-8", errors="replace") + "\n"
+                            else:
+                                payload = msg.get_payload(decode=True)
+                                if payload:
+                                    cset = msg.get_content_charset() or "utf-8"
+                                    try:
+                                        body = payload.decode(cset, errors="replace")
+                                    except Exception:
+                                        body = payload.decode("utf-8", errors="replace")
 
+                            if is_spam_or_irrelevant(subject, sender_full, body):
+                                continue
+
+                            category = classify_email(subject, body)
+                            submittal_codes = extract_all_submittal_codes(f"{subject} {body}")
+                            record = {
+                                "entry_id": entry_id,
+                                "source_folder": f"IMAP_{user}_{imap_box.upper()}",
+                                "subject": subject,
+                                "sender_name": sender_full,
+                                "sender_email": sender_full,
+                                "to": to_str,
+                                "cc": cc_str,
+                                "time": recv_time_str,
+                                "category": category,
+                                "submittal_codes": submittal_codes,
+                                "body_preview": body[:1500].strip(),
+                                "core_content": extract_email_core_content(body),
+                                "attachments": attachments_meta,
+                                "synced_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                            }
+                            new_records.append(record)
+                            existing_ids.add(entry_id)
+
+                        except Exception:
+                            continue
                 except Exception:
                     continue
 
             client.logout()
 
             all_emails = new_records + cached_emails
+            for em in all_emails:
+                if not em.get("submittal_codes"):
+                    em["submittal_codes"] = extract_all_submittal_codes(f"{em.get('subject', '')} {em.get('body_preview', '')}")
+                if em.get("category") == "THONG_TIN_CHUNG":
+                    new_cat = classify_email(em.get("subject", ""), em.get("body_preview", ""))
+                    if new_cat != "THONG_TIN_CHUNG":
+                        em["category"] = new_cat
             all_emails.sort(key=lambda x: x.get("time", ""), reverse=True)
             self.save_cached_emails(all_emails)
             self._auto_update_project_dossiers(new_records)
@@ -837,22 +906,56 @@ class OutlookSyncEngine:
             lines.append("• _Chưa có cập nhật báo cáo tuần mới._")
         lines.append("")
 
-        # 4. Hồ sơ đệ trình kỹ thuật (YCPD/MAS/MSS)
-        lines.append("📑 *4. HỒ SƠ ĐỆ TRÌNH & PHÊ DUYỆT (TVGS/CĐT):*")
-        if submittal_list:
-            for s in submittal_list[:3]:
-                t = s.get("time", "")[:10]
-                sj = s.get("subject", "")
-                sn = s.get("sender_name", "")
-                core = s.get("core_content") or extract_email_core_content(s.get("body_preview", ""))
-                lines.append(f"• `[{t}]` {sj} (_{sn}_)")
+        # 4. Hồ sơ đệ trình kỹ thuật (YCPD/MAS/MSS) & Làm rõ thông tin (RFI)
+        rfi_list = [
+            e for e in recent_emails
+            if "rfi" in e.get("subject", "").lower()
+            or any("RFI" in str(c).upper() for c in e.get("submittal_codes", []))
+            or "làm rõ thông tin" in e.get("subject", "").lower()
+            or "yêu cầu thông tin" in e.get("subject", "").lower()
+        ]
+        other_submittals = [
+            e for e in submittal_list
+            if e not in rfi_list
+        ]
+
+        lines.append("📑 *4. ĐỆ TRÌNH KỸ THUẬT & YÊU CẦU LÀM RÕ (RFI / YCPD):*")
+        if rfi_list:
+            lines.append("  📌 *Yêu cầu làm rõ thông tin thiết kế (RFI):*")
+            for r in rfi_list[:6]:
+                t = r.get("time", "")[:10]
+                sj = r.get("subject", "")
+                sn = r.get("sender_name", "")
+                codes = r.get("submittal_codes") or extract_all_submittal_codes(sj + " " + (r.get("body_preview", "") or ""))
+                code_badge = f"`[{', '.join(codes)}]` " if codes else ""
+                core = r.get("core_content") or extract_email_core_content(r.get("body_preview", ""))
+                lines.append(f"  • `[{t}]` {code_badge}*{sj}*")
+                lines.append(f"    └ 👤 Người gửi: _{sn}_")
                 if core:
                     short_core = " ".join(core.split())
                     if len(short_core) > 130:
                         short_core = short_core[:127] + "..."
-                    lines.append(f"  └ 💬 _Nội dung:_ \"{short_core}\"")
+                    lines.append(f"    └ 💬 _Nội dung làm rõ:_ \"{short_core}\"")
         else:
-            lines.append("• _Không có đệ trình kỹ thuật mới._")
+            lines.append("  • _Không có RFI làm rõ kỹ thuật mới trong kỳ._")
+
+        if other_submittals:
+            lines.append("  📑 *Hồ sơ BPTC & Vật liệu (MSS / SDS / MAS):*")
+            for s in other_submittals[:5]:
+                t = s.get("time", "")[:10]
+                sj = s.get("subject", "")
+                sn = s.get("sender_name", "")
+                codes = s.get("submittal_codes") or extract_all_submittal_codes(sj + " " + (s.get("body_preview", "") or ""))
+                code_badge = f"`[{', '.join(codes)}]` " if codes else ""
+                core = s.get("core_content") or extract_email_core_content(s.get("body_preview", ""))
+                lines.append(f"  • `[{t}]` {code_badge}{sj} (_{sn}_)")
+                if core:
+                    short_core = " ".join(core.split())
+                    if len(short_core) > 130:
+                        short_core = short_core[:127] + "..."
+                    lines.append(f"    └ 💬 _Nội dung:_ \"{short_core}\"")
+        elif not rfi_list:
+            lines.append("  • _Không có đệ trình kỹ thuật mới trong kỳ._")
         lines.append("")
 
         # 5. Tạm ứng công trường & Đề nghị DNTU (Tác nghiệp Kỹ sư Hiền)
@@ -992,6 +1095,17 @@ class OutlookSyncEngine:
                                     "• Kiểm tra chứng chỉ xuất xưởng CO/CQ của PT. INDONESIA TSINGSHAN STAINLESS STEEL.\n"
                                     "• Nghiệm thu quy cách 4x300mm trước khi hàn lắp mạch ngừng đáy hố rác chống ăn mòn nước rỉ rác."
                                 )
+                            elif "rfi" in sj_low or "làm rõ thông tin" in sj_low or any("RFI" in str(c).upper() for c in em.get("submittal_codes", [])):
+                                codes = em.get("submittal_codes", []) or extract_all_submittal_codes(sj + " " + (core or ""))
+                                rfi_codes = [c for c in codes if "RFI" in c.upper()]
+                                code_str = ", ".join(rfi_codes) if rfi_codes else "RFI"
+                                advice = (
+                                    f"💡 *THAM MƯU HÀNH ĐỘNG GĐDA & GIAO VIỆC ({code_str}):*\n"
+                                    f"• Theo dõi sát phản hồi của TVGS VNCC / CĐT Vietstar cho văn bản {code_str}.\n"
+                                    f"• Hạn phản hồi tiêu chuẩn cho RFI là 03-05 ngày làm việc theo hợp đồng. "
+                                    f"Nếu quá hạn chưa có văn bản trả lời kỹ thuật, chỉ đạo QA/QC phát hành Thư nhắc nhở "
+                                    f"và ghi nhận mốc làm căn cứ gia hạn tiến độ (EOT) nếu ảnh hưởng đường găng thi công!"
+                                )
                             elif "phát sinh" in sj_low or cat == "CLAIMS_PHAT_SINH":
                                 advice = (
                                     "💰 *CẢNH BÁO CLAIM CHI PHÍ:*\n"
@@ -1013,6 +1127,9 @@ class OutlookSyncEngine:
                                 f"• 👤 *Từ:* `{sn}`",
                                 f"• 🕒 *Thời gian:* `{t}` | 🏷️ `{cat}`"
                             ]
+                            codes = em.get("submittal_codes", []) or extract_all_submittal_codes(sj + " " + (core or ""))
+                            if codes:
+                                alert_lines.append(f"• 🏷️ *Mã hồ sơ:* `{', '.join(codes)}`")
                             if atts:
                                 alert_lines.append(f"• 📎 *File đính kèm:* `{', '.join(atts[:3])}`")
 
