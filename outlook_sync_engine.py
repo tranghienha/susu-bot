@@ -248,6 +248,42 @@ class OutlookSyncEngine:
         self.mapi = None
         self.outlook_app = None
         self._is_connected = False
+        self._ensure_outlook_security_policies()
+
+    def _ensure_outlook_security_policies(self):
+        """
+        Tự động thiết lập Group Policy / Registry trong Windows HKCU để Outlook Desktop 
+        không bao giờ hiện cửa sổ popup bảo mật 'Một chương trình đang cố gắng truy nhập...' (Programmatic Access Guard).
+        """
+        if sys.platform != "win32":
+            return
+        try:
+            import winreg
+            keys_to_set = {
+                'AdminSecurityMode': (3, winreg.REG_DWORD),
+                'PromptOOMAddressInformationAccess': (2, winreg.REG_DWORD),
+                'PromptOOMAddressBookAccess': (2, winreg.REG_DWORD),
+                'PromptOOMSend': (2, winreg.REG_DWORD),
+                'PromptOOMSaveAs': (2, winreg.REG_DWORD),
+                'PromptSimpleMAPISend': (2, winreg.REG_DWORD),
+                'PromptSimpleMAPINameResolve': (2, winreg.REG_DWORD),
+                'PromptSimpleMAPIOpenMessage': (2, winreg.REG_DWORD),
+                'objectmodelguard': (2, winreg.REG_DWORD)
+            }
+            paths = [
+                r'Software\Policies\Microsoft\Office\16.0\Outlook\Security',
+                r'Software\Microsoft\Office\16.0\Outlook\Security'
+            ]
+            for p in paths:
+                try:
+                    k = winreg.CreateKey(winreg.HKEY_CURRENT_USER, p)
+                    for name, (val, reg_type) in keys_to_set.items():
+                        winreg.SetValueEx(k, name, 0, reg_type, val)
+                    winreg.CloseKey(k)
+                except Exception:
+                    pass
+        except Exception:
+            pass
 
     def connect(self) -> bool:
         """Kết nối tới Microsoft Outlook Desktop đang chạy hoặc khởi động MAPI."""
@@ -362,7 +398,10 @@ class OutlookSyncEngine:
                         subject = _safe_str(getattr(item, "Subject", ""))
                         body = _safe_str(getattr(item, "Body", ""))
                         sender_name = _safe_str(getattr(item, "SenderName", ""))
-                        sender_email = _safe_str(getattr(item, "SenderEmailAddress", ""))
+                        try:
+                            sender_email = _safe_str(getattr(item, "SenderEmailAddress", ""))
+                        except Exception:
+                            sender_email = sender_name
 
                         # Lọc bỏ thư rác / quảng cáo / thông báo đồng bộ hệ thống
                         if is_spam_or_irrelevant(subject, f"{sender_name} {sender_email}", body):
@@ -375,8 +414,14 @@ class OutlookSyncEngine:
                         if entry_id in existing_ids:
                             continue
 
-                        to_str = _safe_str(getattr(item, "To", ""))
-                        cc_str = _safe_str(getattr(item, "CC", ""))
+                        try:
+                            to_str = _safe_str(getattr(item, "To", ""))
+                        except Exception:
+                            to_str = ""
+                        try:
+                            cc_str = _safe_str(getattr(item, "CC", ""))
+                        except Exception:
+                            cc_str = ""
 
                         recv_time_raw = getattr(item, "ReceivedTime", None)
                         if not recv_time_raw and hasattr(item, "SentOn"):
