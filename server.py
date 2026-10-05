@@ -27,12 +27,22 @@ if str(ADDIN_DIR) not in sys.path:
     sys.path.insert(0, str(ADDIN_DIR))
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
+if str(CURRENT_DIR) not in sys.path:
+    sys.path.insert(0, str(CURRENT_DIR))
 
 try:
     from qshien.desktop_assistant.telegram_bot import SuSuTelegramBot, load_telegram_config
 except ImportError:
     # Trường hợp chạy độc lập trong Docker container
     from telegram_bot import SuSuTelegramBot, load_telegram_config
+
+try:
+    from qshien.desktop_assistant.zalo_bot_engine import get_zalo_bot_engine
+except ImportError:
+    try:
+        from zalo_bot_engine import get_zalo_bot_engine
+    except ImportError:
+        get_zalo_bot_engine = None
 
 app = FastAPI(title="Su Su Telegram Bot - Google Cloud Run", version="1.0.0")
 
@@ -76,6 +86,15 @@ def on_startup():
             print("[Startup] Webhook verified with callback_query.")
         except Exception as ex_wh:
             print(f"[Startup setWebhook Error] {ex_wh}")
+
+        # Tự động cấu hình Webhook với Zalo Bot Platform
+        try:
+            if get_zalo_bot_engine:
+                z_eng = get_zalo_bot_engine()
+                res_zwh = z_eng.client.set_webhook("https://qshien-susu.onrender.com/zalo_webhook", "qshien_zalo_secret_vst_2026")
+                print(f"[Startup] Zalo Webhook registered: {res_zwh}", flush=True)
+        except Exception as ex_z:
+            print(f"[Startup Zalo Webhook Error] {ex_z}", flush=True)
     except Exception as e:
         print(f"[Startup setMyCommands Error] {e}")
 
@@ -260,6 +279,36 @@ async def zalo_webhook(request: Request):
         return {"ok": True}
     except Exception as e:
         return {"ok": False, "error": str(e)}
+
+
+@app.get("/zalo_webhook")
+async def zalo_platform_webhook_verify(request: Request):
+    """Xác thực Webhook liveness và kiểm tra kết nối từ Zalo Bot Platform."""
+    params = dict(request.query_params)
+    challenge = params.get("challenge") or params.get("hub.challenge")
+    if challenge:
+        return Response(content=str(challenge), media_type="text/plain")
+    return {"ok": True, "status": "active", "service": "Zalo Bot Webhook"}
+
+
+@app.post("/zalo_webhook")
+async def zalo_platform_webhook(request: Request, background_tasks: BackgroundTasks):
+    """
+    Tiếp nhận sự kiện Webhook chính thức từ Zalo Bot Platform.
+    Tự động xử lý trong nền (background_tasks):
+    - Nhận diện thông báo họp & lưu vào Google Tasks (VST).
+    - Bắn cảnh báo tức thì sang Telegram cho Kỹ sư Hiền.
+    - Phản hồi các lệnh tra cứu: /thammuu, /outlook, /tasks, /rfi, /tiendo, /tuvi, /help.
+    """
+    try:
+        payload = await request.json()
+        print(f"[Zalo Webhook Received] {payload}", flush=True)
+        if get_zalo_bot_engine:
+            engine = get_zalo_bot_engine()
+            background_tasks.add_task(engine.handle_incoming_update, payload)
+    except Exception as e:
+        print(f"[Zalo Webhook Error] {e}", flush=True)
+    return {"ok": True}
 
 
 def _safe_process_update(update_data: Dict[str, Any]):
