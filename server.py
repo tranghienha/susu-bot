@@ -60,6 +60,7 @@ def on_startup():
     try:
         commands = [
             {"command": "start", "description": "🌸 Khởi động & Menu chính"},
+            {"command": "digest", "description": "⚡ Báo cáo tiêu điểm 17h30 (Daily)"},
             {"command": "thammuu", "description": "📊 Bản tin Tham mưu GĐDA"},
             {"command": "duan", "description": "🏢 Hồ sơ dự án Vietstar (344 Tỷ)"},
             {"command": "14bai", "description": "🌟 14 bài học hôm nay (Lật thẻ)"},
@@ -148,11 +149,46 @@ def on_startup():
             # Ping mỗi 8 phút (480s < 900s timeout của Render Free Tier)
             time.sleep(480)
 
+    # Khởi động luồng Báo Cáo Tiêu Điểm 17h30 Tự Động (Daily Construction Digest)
+    def _daily_digest_scheduler_worker():
+        import time
+        import datetime
+        print("[Daily Digest Scheduler] Khởi động luồng hẹn giờ Báo cáo Tiêu điểm 17h30...", flush=True)
+        last_sent_date = ""
+        time.sleep(30)
+        while True:
+            try:
+                # Tính giờ hiện tại theo múi giờ Việt Nam (UTC+7)
+                utc_now = datetime.datetime.now(datetime.timezone.utc)
+                vn_now = utc_now + datetime.timedelta(hours=7)
+                today_str = vn_now.strftime("%Y-%m-%d")
+
+                # Kích hoạt vào khoảng 17:30 đến 17:35 hàng ngày
+                if vn_now.hour == 17 and 30 <= vn_now.minute <= 35:
+                    if last_sent_date != today_str:
+                        print(f"[Daily Digest Scheduler] ⏰ Đã đến 17h30 ngày {today_str}! Bắt đầu tổng hợp và gửi Báo cáo Tiêu điểm...", flush=True)
+                        try:
+                            from daily_digest_engine import send_daily_digest_to_admin
+                        except ImportError:
+                            from qshien.desktop_assistant.daily_digest_engine import send_daily_digest_to_admin
+
+                        ok = send_daily_digest_to_admin(bot_token=bot.client.token, admin_chat_id=8249791298)
+                        if ok:
+                            last_sent_date = today_str
+                            print(f"[Daily Digest Scheduler] ✅ Đã gửi Báo cáo Tiêu điểm 17h30 thành công tới Telegram Admin!", flush=True)
+            except Exception as ex_dig:
+                print(f"[Daily Digest Scheduler Error] {ex_dig}", flush=True)
+
+            time.sleep(60)
+
     t_imap = threading.Thread(target=_cloud_imap_sync_worker, daemon=True)
     t_imap.start()
 
     t_ping = threading.Thread(target=_keep_alive_worker, daemon=True)
     t_ping.start()
+
+    t_digest = threading.Thread(target=_daily_digest_scheduler_worker, daemon=True)
+    t_digest.start()
 
 
 @app.get("/")
@@ -311,14 +347,43 @@ async def zalo_platform_webhook(request: Request, background_tasks: BackgroundTa
     return {"ok": True}
 
 
+@app.get("/api/daily-digest")
+@app.post("/api/daily-digest")
+def trigger_daily_digest_api(background_tasks: BackgroundTasks):
+    """Endpoint kích hoạt gửi Báo cáo Tiêu điểm 17h30 ngay lập tức tới Admin."""
+    def _do_send():
+        try:
+            try:
+                from daily_digest_engine import send_daily_digest_to_admin
+            except ImportError:
+                from qshien.desktop_assistant.daily_digest_engine import send_daily_digest_to_admin
+            send_daily_digest_to_admin(bot_token=bot.client.token, admin_chat_id=8249791298)
+        except Exception as e:
+            print(f"[API Daily Digest Error] {e}", flush=True)
+
+    background_tasks.add_task(_do_send)
+    return {
+        "ok": True,
+        "message": "Đã tiếp nhận yêu cầu gửi Báo cáo Tiêu điểm 17h30 tới Telegram cá nhân của GĐDA."
+    }
+
+
 def _safe_process_update(update_data: Dict[str, Any]):
     try:
-        msg = update_data.get("message", {})
-        txt = msg.get("text", "")
-        sender = msg.get("from", {}).get("username") or msg.get("from", {}).get("id")
-        print(f"[Webhook Process] From: {sender} | Text: {txt}", flush=True)
+        if "callback_query" in update_data:
+            cb = update_data["callback_query"]
+            sender = cb.get("from", {}).get("username") or cb.get("from", {}).get("id")
+            act = cb.get("data", "")
+            print(f"[Webhook Callback] From: {sender} | Action: {act}", flush=True)
+        else:
+            msg = update_data.get("message", {})
+            txt = msg.get("text", "")
+            sender = msg.get("from", {}).get("username") or msg.get("from", {}).get("id")
+            is_photo = bool(msg.get("photo"))
+            desc = f"[PHOTO caption: {msg.get('caption')}]" if is_photo else txt
+            print(f"[Webhook Process] From: {sender} | Content: {desc}", flush=True)
+
         bot.process_update(update_data)
-        print(f"[Webhook Success] Handled message: {txt}", flush=True)
     except Exception as e:
         import traceback
         print(f"[Webhook Process Error] {e}", flush=True)

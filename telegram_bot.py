@@ -260,6 +260,34 @@ class TelegramClient:
         except Exception:
             return False
 
+    def get_file(self, file_id: str) -> Optional[Dict[str, Any]]:
+        """Lấy thông tin file path từ Telegram API."""
+        if not self.token or not file_id:
+            return None
+        url = f"{self.api_url}/getFile"
+        try:
+            resp = requests.get(url, params={"file_id": file_id}, timeout=15)
+            if resp.status_code == 200:
+                data = resp.json()
+                if data.get("ok"):
+                    return data.get("result")
+        except Exception as e:
+            print(f"[Telegram getFile Error] {e}")
+        return None
+
+    def download_file(self, file_path: str) -> Optional[bytes]:
+        """Tải dữ liệu nhị phân của file từ Telegram."""
+        if not self.token or not file_path:
+            return None
+        url = f"https://api.telegram.org/file/bot{self.token}/{file_path}"
+        try:
+            resp = requests.get(url, timeout=35)
+            if resp.status_code == 200:
+                return resp.content
+        except Exception as e:
+            print(f"[Telegram download_file Error] {e}")
+        return None
+
 
 PILLAR_TAGS = {
     "KY_THUAT_HIEN_TRUONG": "🏗️ KỸ THUẬT HIỆN TRƯỜNG",
@@ -292,16 +320,39 @@ class SuSuTelegramBot:
 
 
     def get_main_keyboard(self) -> Dict[str, Any]:
-        """Bàn phím tương tác nhanh (Reply Keyboard) chuẩn 5 tab Desktop + Tham Mưu GĐDA + Outlook."""
+        """Bàn phím tương tác nhanh (Reply Keyboard) chuẩn 5 tab Desktop + Tham Mưu GĐDA + Outlook + Digest."""
         return {
             "keyboard": [
-                [{"text": "📊 THAM MƯU GĐDA"}, {"text": "📋 Giao Việc & Điều Phối"}],
-                [{"text": "📧 Hộp Thư Outlook"}, {"text": "🏢 Hồ Sơ Dự Án Vietstar"}],
-                [{"text": "🌟 14 Bài Học Hôm Nay"}, {"text": "📈 Lịch & Nhịp Tử Vi"}],
-                [{"text": "🔍 Tra Cứu Tình Huống"}, {"text": "❓ Hướng Dẫn & Trợ Giúp"}]
+                [{"text": "📊 THAM MƯU GĐDA"}, {"text": "⚡ Báo Cáo 17h30"}],
+                [{"text": "📧 Hộp Thư Outlook"}, {"text": "📋 Sổ Việc G-Tasks"}],
+                [{"text": "🏢 Hồ Sơ Dự Án Vietstar"}, {"text": "📈 Lịch & Nhịp Tử Vi"}],
+                [{"text": "🌟 14 Bài Học Hôm Nay"}, {"text": "🔍 Tra Cứu Tình Huống"}]
             ],
             "resize_keyboard": True,
             "is_persistent": True
+        }
+
+    def get_main_inline_card(self) -> Dict[str, Any]:
+        """Thẻ hành động thông minh 1 chạm (Interactive Action Card) cho GĐDA."""
+        return {
+            "inline_keyboard": [
+                [
+                    {"text": "⚡ Báo Cáo Tiêu Điểm 17h30", "callback_data": "digest_now"},
+                    {"text": "📩 Quét Hòm Thư Ngay", "callback_data": "outlook_sync"}
+                ],
+                [
+                    {"text": "📊 Bản Tin Tham Mưu GĐDA", "callback_data": "exec_summary"},
+                    {"text": "📋 Sổ Việc G-Tasks (VST)", "callback_data": "tasks_list"}
+                ],
+                [
+                    {"text": "🏢 Hồ Sơ Dự Án 344 Tỷ", "callback_data": "duan"},
+                    {"text": "🔮 Tử Vi & Giờ Đẹp Hôm Nay", "callback_data": "tuvi_0"}
+                ],
+                [
+                    {"text": "🌟 14 Bài Học Hôm Nay", "callback_data": "14bai"},
+                    {"text": "❓ Hướng Dẫn Sử Dụng", "callback_data": "help"}
+                ]
+            ]
         }
 
     def check_authorization(self, chat_id: int, user_info: Dict[str, Any]) -> bool:
@@ -347,17 +398,18 @@ class SuSuTelegramBot:
         msg = (
             f"🌸 *Xin chào {first_name}! Tôi là Su Su - Trợ lý Chiến Lược & Cố Vấn GĐDA.*\n"
             f"_(Phạm Hà Khánh Ngọc • 21/10/2019 • Đồng hành 24/7 trên mọi công trường)_\n\n"
-            f"✨ *HỆ SINH THÁI NÃO BỘ ĐƯỢC KẾ THỪA TỪ DESKTOP:*\n"
-            f"• 📊 *Tham Mưu Chiến Lược GĐDA:* Bản tin 1 trang, quản trị rủi ro hố sâu, hồ sơ Claim EOT, vũ khí đàm phán MOM & sức khỏe dòng tiền.\n"
+            f"✨ *HỆ SINH THÁI ĐIỀU HÀNH THỰC CHIẾN 2.0:*\n"
+            f"• ⚡ *Báo Cáo Tiêu Điểm 17h30:* Tự động tổng hợp thư từ, RFI còn treo, tiến độ việc ngày mai.\n"
+            f"• 📸 *Mắt Thần Vision AI:* Gửi ảnh chụp phiếu cân, biên bản nghiệm thu hoặc lỗi hiện trường để AI phân tích tức thì.\n"
+            f"• 📊 *Tham Mưu Chiến Lược GĐDA:* Bản tin 1 trang, quản trị rủi ro hố sâu, hồ sơ Claim EOT & sức khỏe dòng tiền.\n"
             f"• 📋 *Phân Công Giao Việc & Điều Phối:* Theo dõi mốc khẩn cấp, tháo gỡ điểm nghẽn kỹ thuật & phân nhiệm vụ từng kỹ sư.\n"
-            f"• 🌟 *14 Bài học thực chiến hôm nay:* Lật thẻ tình huống 8 Trụ Cột, kèm bối cảnh, rủi ro, chiến lược, thoại mẫu & đúc kết.\n"
-            f"• 📈 *Lịch Vạn Niên & Tử Vi Hiện Trường:* Can Chi, Trực, Sao, Giờ Hoàng Đạo đổ bê tông/cất nóc, Hỷ Thần, Tài Thần & Nhịp sinh học Biorhythm.\n"
-            f"• 📋 *Sổ tay G-Tasks:* Đồng bộ danh mục việc cần làm dự án VST, quản lý tiến độ thi công & nhắc việc.\n"
-            f"• 🏢 *Hồ sơ dự án Vietstar 344,89 Tỷ:* Chi tiết HĐ, 222 việc BOQ, tạm ứng 103,5 tỷ & 30 việc trên Đường Găng (Critical Path).\n"
-            f"• 🧠 *Não bộ Google Gemini AI:* Tham vấn pháp lý, claim bù giá & đối đáp tổ đội/TVGS tức thì.\n\n"
-            f"👉 *Bạn có thể chọn nhanh các nút menu bên dưới hoặc gõ thẳng bất kỳ câu hỏi nào!*"
+            f"• 🌟 *14 Bài học thực chiến hôm nay:* Lật thẻ tình huống 8 Trụ Cột, kèm bối cảnh, rủi ro, chiến lược & đúc kết.\n"
+            f"• 📈 *Lịch Vạn Niên & Tử Vi:* Can Chi, Trực, Sao, Giờ Hoàng Đạo đổ bê tông/cất nóc & Nhịp sinh học Biorhythm.\n"
+            f"• 🏢 *Hồ sơ dự án Vietstar 344,89 Tỷ:* Chi tiết HĐ, 222 việc BOQ, tạm ứng 103,5 tỷ & 30 việc trên Đường Găng.\n\n"
+            f"👉 *Bấm các nút thẻ tương tác bên dưới hoặc gửi ảnh/văn bản để Su Su phục vụ ngay!*"
         )
-        self.client.send_message(chat_id, msg, reply_markup=self.get_main_keyboard())
+        # Gửi kèm cả Reply Keyboard (cố định đáy màn hình) và Thẻ tương tác Inline
+        self.client.send_message(chat_id, msg, reply_markup=self.get_main_inline_card())
 
     def handle_help(self, chat_id: int):
         """Xử lý lệnh /help hoặc Hướng dẫn."""
@@ -1424,6 +1476,88 @@ class SuSuTelegramBot:
         }
         self.client.send_message(chat_id, msg, reply_markup=markup)
 
+    def handle_incoming_photo(self, chat_id: int, photo: List[Dict[str, Any]], caption: str = ""):
+        """Xử lý ảnh hiện trường / hồ sơ công trường bằng Mắt Thần Vision AI."""
+        try:
+            self.client.send_chat_action(chat_id, "typing")
+            best_photo = photo[-1]
+            file_id = best_photo.get("file_id")
+            if not file_id:
+                self.client.send_message(chat_id, "⚠️ Không tìm thấy mã file ảnh hợp lệ.")
+                return
+
+            self.client.send_message(
+                chat_id,
+                "📸 *Su Su đã nhận ảnh hiện trường / hồ sơ!*\n"
+                "⚙️ _Đang kích hoạt Mắt Thần Vision AI đối chiếu hồ sơ và tiêu chuẩn kỹ thuật..._"
+            )
+
+            file_info = self.client.get_file(file_id)
+            if not file_info or "file_path" not in file_info:
+                self.client.send_message(chat_id, "❌ Không thể lấy đường dẫn ảnh từ Telegram.")
+                return
+
+            file_path = file_info["file_path"]
+            img_bytes = self.client.download_file(file_path)
+            if not img_bytes:
+                self.client.send_message(chat_id, "❌ Tải dữ liệu ảnh từ Telegram thất bại.")
+                return
+
+            try:
+                from vision_inspector import analyze_construction_image
+            except ImportError:
+                try:
+                    from qshien.desktop_assistant.vision_inspector import analyze_construction_image
+                except ImportError:
+                    analyze_construction_image = None
+
+            if not analyze_construction_image:
+                self.client.send_message(chat_id, "⚠️ Module Mắt Thần Vision chưa sẵn sàng trên hệ thống.")
+                return
+
+            res = analyze_construction_image(img_bytes, caption=caption)
+            if not res.get("success"):
+                err_msg = res.get("error", "Không xác định")
+                self.client.send_message(chat_id, f"⚠️ *Phân tích ảnh chưa thành công:*\n{err_msg}")
+                return
+
+            msg_text = res.get("telegram_message") or res.get("summary") or "Đã phân tích ảnh thành công."
+            markup = res.get("inline_keyboard")
+            self.client.send_message(chat_id, msg_text, reply_markup=markup)
+
+        except Exception as e:
+            print(f"[Handle Photo Error] {e}")
+            self.client.send_message(chat_id, f"❌ Lỗi khi phân tích ảnh: {e}")
+
+    def handle_daily_digest(self, chat_id: int):
+        """Tạo và gửi Báo cáo Tiêu điểm Công trường Cuối ngày 17h30."""
+        self.client.send_chat_action(chat_id, "typing")
+        try:
+            try:
+                from daily_digest_engine import generate_daily_digest
+            except ImportError:
+                try:
+                    from qshien.desktop_assistant.daily_digest_engine import generate_daily_digest
+                except ImportError:
+                    generate_daily_digest = None
+
+            if not generate_daily_digest:
+                self.client.send_message(chat_id, "⚠️ Module Daily Digest chưa sẵn sàng trên hệ thống.")
+                return
+
+            digest = generate_daily_digest()
+            msg = digest.get("formatted_markdown", "")
+            markup = digest.get("inline_keyboard")
+            self.client.send_message(chat_id, msg, reply_markup=markup)
+        except Exception as e:
+            print(f"[Daily Digest Error] {e}")
+            self.client.send_message(chat_id, f"❌ Lỗi tạo Báo cáo Tiêu điểm 17h30: {e}")
+
+    def handle_add_task_from_vision(self, chat_id: int, cb_data: str):
+        """Tạo nhanh việc cần làm vào Sổ tay VST từ kết quả Mắt Thần Vision."""
+        now_str = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
+        task_title = f"Khắc phục sự vụ ảnh hiện trường ({now_str})"
+        self.handle_add_task(chat_id, task_title)
 
     # =========================================================================
     # VÒNG LẶP POLLING CHÍNH
@@ -1479,6 +1613,20 @@ class SuSuTelegramBot:
                         self.handle_biorhythm_tuvi(chat_id, offset_days=offset)
                     except ValueError:
                         self.handle_biorhythm_tuvi(chat_id, 0)
+            elif cb_data == "digest_now":
+                self.handle_daily_digest(chat_id)
+            elif cb_data.startswith("vis_task:"):
+                self.handle_add_task_from_vision(chat_id, cb_data)
+            elif cb_data.startswith("vis_ok:"):
+                self.client.send_message(chat_id, "✅ *Đã xác nhận ghi nhận nghiệm thu đạt vào nhật ký dự án!*")
+            elif cb_data.startswith("vis_mat:"):
+                self.client.send_message(chat_id, "📊 *Đã lưu thông số phiếu giao nhận vật tư vào sổ theo dõi khối lượng!*")
+            elif cb_data.startswith("vis_calc:"):
+                self.client.send_message(chat_id, "⚡ *Đang đối chiếu khối lượng giao với bảng tính BOQ dự án Vietstar 344 Tỷ...*")
+            elif cb_data.startswith("vis_cad:"):
+                self.client.send_message(chat_id, "📍 *Đã ghi nhận trục sự vụ! Kỹ sư có thể mở AutoCAD gõ lệnh QS_TIM_SUVU để zoom đến đúng vị trí.*")
+            elif cb_data.startswith("vis_ask:"):
+                self.client.send_message(chat_id, "💬 *Bạn muốn Su Su phân tích sâu hơn về khía cạnh nào của bức ảnh?* Hãy gõ câu hỏi cụ thể kèm theo.")
             elif cb_data == "tasks_list":
                 self.handle_tasks(chat_id)
             elif cb_data == "duan":
@@ -1509,7 +1657,7 @@ class SuSuTelegramBot:
                 self.handle_help(chat_id)
             return
 
-        # 2. Xử lý tin nhắn văn bản thông thường
+        # 2. Xử lý tin nhắn (Văn bản hoặc Hình ảnh)
         message = update.get("message")
         if not message:
             return
@@ -1517,10 +1665,6 @@ class SuSuTelegramBot:
         chat = message.get("chat", {})
         chat_id = chat.get("id")
         user_info = message.get("from", {})
-        text = (message.get("text") or "").strip()
-
-        if not text:
-            return
 
         # Kiểm tra bảo mật cá nhân
         if not self.check_authorization(chat_id, user_info):
@@ -1533,8 +1677,24 @@ class SuSuTelegramBot:
             self.client.send_message(chat_id, refuse_msg)
             return
 
+        # 2.1 XỬ LÝ ẢNH CÔNG TRƯỜNG / HỒ SƠ (MẮT THẦN VISION AI)
+        photo = message.get("photo")
+        caption = (message.get("caption") or "").strip()
+        if photo and isinstance(photo, list) and len(photo) > 0:
+            self.handle_incoming_photo(chat_id, photo, caption)
+            return
+
+        text = (message.get("text") or "").strip()
+        if not text:
+            return
+
         t_clean = text.strip()
         t_lower = t_clean.lower()
+
+        # 0.0 Báo Cáo Tiêu Điểm Công Trường Cuối Ngày 17h30 (Daily Construction Digest)
+        if any(kw in t_lower for kw in ("báo cáo 17h30", "bao cao 17h30", "daily digest", "báo cáo ngày", "bao cao ngay", "tổng hợp ngày", "tong hop ngay", "digest")) or t_lower in ("/digest", "/baocao", "/daily", "/summary"):
+            self.handle_daily_digest(chat_id)
+            return
 
         # 0. Tham Mưu Giám Đốc Dự Án (GĐDA) & Phân Công Giao Việc
         if any(kw in t_lower for kw in ("giao việc", "giao viec", "phan cong", "phân công", "điều phối", "dieu phoi", "ke hoach")) or t_lower in ("/giaoviec", "/kehoach", "/actions", "/phancong"):
