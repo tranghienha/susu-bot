@@ -635,5 +635,2702 @@
     "delayed_tasks": [],
     "overall_progress_pct": 0
   },
-  "executive_summary": "📌 TÊN DỰ ÁN: Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar\n• Giá trị HĐ: 344.886.779.000 VNĐ (Đã gồm 8% VAT - Trích xuất từ hàng Tổng Cộng BOQ) (Hợp đồng theo đơn giá cố định)\n• Thời gian thi công: Theo bảng tiến độ chi tiết (Phụ lục 05) (2011-08-17 -> 2027-03-30)\n• THỜI HẠN KHIẾU NẠI (TIME-BAR): 7 ngày (Nhà thầu thông báo cho Chủ đầu tư trước 07 ngày để tiến hành...); 7 ngày (Sau khi kiểm tra hồ sơ thanh toán của Nhà thầu, nếu có yêu c...); 7 ngày (Nhà thầu có trách nhiệm hoàn thiện trong thời hạn do Chủ đầu...); 7 ngày (Nếu Nhà thầu không thực hiện và/hoặc thực hiện không đúng, k...); 7 ngày (Chủ đầu tư có thể thông báo cho Nhà thầu trước 07 ngày chấm ...)\n• Phạt vi phạm tiến độ: Điều 21. Thưởng, phạt Hợp đồng 37\n• Điều khoản tạm ứng: Trong vòng 07 ngày kể từ ngày Chủ đầu tư nhận được hồ sơ tạm ứng hợp lệ của Nhà thầu theo quy định tại điểm (c) Khoản này, Chủ đầu tư sẽ tạm ứng cho Nhà thầu 30% giá trị Hợp đồng trước thuế.\n• Bảng BOQ Chi tiết: 222 đầu việc thực tế\n• Top 5 hạng mục chi phí lớn nhất (Pareto 80/20): Lợp mái tole dày 0,75mm, lớp bông cách nhiệt dày 100mm và các phụ kiện khác theo thiết kế. (Mái hố chứa rác-Roof 1) (5.52%); Bê tông khối móng B30(M400) phụ gia chống thấm W12 (4.6%); Chống ăn mòn nặng (Cấp 1) (Chi tiết theo bản vẽ thiết kế)\n- Sơn chủ chống ăn mòn vảy thủy tinh Epoxy, dạng lăn độ dày 0,2mm\n- Keo dán vảy thủy tinh Epoxy deo dày 0,8mm\n- Lăn phủ vảy thủy tinh Epoxy thànhi 2 lớp, trải lớp 2 vải sọi thủy tinh dày 0,3mm (2 lớp và 2 tấm vải sọi, tổng độ dày của lớp Epoxy và vải sọi thủy tinh)\n- Cạo và phủ 1 lớp vảy thủy tinh Epooxy (Trải thủ công 3 tấm vảy sọi thủy sinh\n- Chám vá, sửa lại các vị trí bị rỗ bằng epoxy\n- Lớp Epoxy thẩm thấu dày 1mm (4.36%); Gia công và lắp đặt Kết cấu dầm thép, dầm cẩu thép (bao gồm bu lông, bản mã,…) (4.28%); Gia công lắp dựng cốt thép móng đường kính cốt thép >18mm (3.43%)\n• Tiến độ tổng thể: 0% hoàn thành\n• Số công việc trên Đường Găng (Critical Path): 30 công việc"
+  "executive_summary": "📌 TÊN DỰ ÁN: Dự án Nhà máy tích hợp xử lý chất thải rắn Vietstar\n• Giá trị HĐ: 344.886.779.000 VNĐ (Đã gồm 8% VAT - Trích xuất từ hàng Tổng Cộng BOQ) (Hợp đồng theo đơn giá cố định)\n• Thời gian thi công: Theo bảng tiến độ chi tiết (Phụ lục 05) (2011-08-17 -> 2027-03-30)\n• THỜI HẠN KHIẾU NẠI (TIME-BAR): 7 ngày (Nhà thầu thông báo cho Chủ đầu tư trước 07 ngày để tiến hành...); 7 ngày (Sau khi kiểm tra hồ sơ thanh toán của Nhà thầu, nếu có yêu c...); 7 ngày (Nhà thầu có trách nhiệm hoàn thiện trong thời hạn do Chủ đầu...); 7 ngày (Nếu Nhà thầu không thực hiện và/hoặc thực hiện không đúng, k...); 7 ngày (Chủ đầu tư có thể thông báo cho Nhà thầu trước 07 ngày chấm ...)\n• Phạt vi phạm tiến độ: Điều 21. Thưởng, phạt Hợp đồng 37\n• Điều khoản tạm ứng: Trong vòng 07 ngày kể từ ngày Chủ đầu tư nhận được hồ sơ tạm ứng hợp lệ của Nhà thầu theo quy định tại điểm (c) Khoản này, Chủ đầu tư sẽ tạm ứng cho Nhà thầu 30% giá trị Hợp đồng trước thuế.\n• Bảng BOQ Chi tiết: 222 đầu việc thực tế\n• Top 5 hạng mục chi phí lớn nhất (Pareto 80/20): Lợp mái tole dày 0,75mm, lớp bông cách nhiệt dày 100mm và các phụ kiện khác theo thiết kế. (Mái hố chứa rác-Roof 1) (5.52%); Bê tông khối móng B30(M400) phụ gia chống thấm W12 (4.6%); Chống ăn mòn nặng (Cấp 1) (Chi tiết theo bản vẽ thiết kế)\n- Sơn chủ chống ăn mòn vảy thủy tinh Epoxy, dạng lăn độ dày 0,2mm\n- Keo dán vảy thủy tinh Epoxy deo dày 0,8mm\n- Lăn phủ vảy thủy tinh Epoxy thànhi 2 lớp, trải lớp 2 vải sọi thủy tinh dày 0,3mm (2 lớp và 2 tấm vải sọi, tổng độ dày của lớp Epoxy và vải sọi thủy tinh)\n- Cạo và phủ 1 lớp vảy thủy tinh Epooxy (Trải thủ công 3 tấm vảy sọi thủy sinh\n- Chám vá, sửa lại các vị trí bị rỗ bằng epoxy\n- Lớp Epoxy thẩm thấu dày 1mm (4.36%); Gia công và lắp đặt Kết cấu dầm thép, dầm cẩu thép (bao gồm bu lông, bản mã,…) (4.28%); Gia công lắp dựng cốt thép móng đường kính cốt thép >18mm (3.43%)\n• Tiến độ tổng thể: 0% hoàn thành\n• Số công việc trên Đường Găng (Critical Path): 30 công việc",
+  "document_management_system": {
+    "summary": "Hệ thống Quản lý Danh mục Hồ sơ Tổng thể (43 sheets)",
+    "source_file": "VST.THNMC-NVC-QUAN LY DANH MUC HO SO TONG THE.xlsx",
+    "counts": {
+      "contacts": 32,
+      "legal": 49,
+      "rfi": 1,
+      "mas_materials": 9,
+      "sds_shop_drawings": 38,
+      "mss_method_statements": 19,
+      "concrete_pour_logs": 60,
+      "work_inspections": 20
+    },
+    "key_data": {
+      "contacts": [
+        {
+          "stt": "",
+          "company": "STT",
+          "person": "Địa chỉ",
+          "role": "Người phụ trách",
+          "email": "Chức vụ",
+          "phone": "Email"
+        },
+        {
+          "stt": "",
+          "company": "1.0",
+          "person": "Khu liên hợp xử lý chất thải rắn Tây Bắc, xã Thái Mỹ, TP. Hồ Chí Minh.",
+          "role": "LÊ THỊ THỦY HẠNH",
+          "email": "GĐ TÀI CHÍNH - QLDA",
+          "phone": "hanh.le@vietstarlemna.com"
+        },
+        {
+          "stt": "",
+          "company": "2.0",
+          "person": "",
+          "role": "LÊ HÙNG VINH",
+          "email": "QUẢN LÝ THANH QUYẾT TOÁN",
+          "phone": "vinh.le@vietstarlemna.com"
+        },
+        {
+          "stt": "",
+          "company": "3.0",
+          "person": "",
+          "role": "MAI ANH TUẤN",
+          "email": "KS QLDA",
+          "phone": "tuan.mai@vietstarlemna.com"
+        },
+        {
+          "stt": "",
+          "company": "4.0",
+          "person": "",
+          "role": "NGUYỄN TẤN PHÁP",
+          "email": "KS QLDA",
+          "phone": "phap.nguyen@vietstarlemna.com"
+        },
+        {
+          "stt": "",
+          "company": "5.0",
+          "person": "",
+          "role": "LƯƠNG CHÂU",
+          "email": "PHIÊN DỊCH TIẾNG TRUNG",
+          "phone": "chau.luong@vietstarlemna.com"
+        },
+        {
+          "stt": "",
+          "company": "6.0",
+          "person": "",
+          "role": "NGUYỄN VĂN TRỌNG",
+          "email": "KS QLDA (CƠ ĐIỆN)",
+          "phone": "trong.nguyen@vietstarlemna.com"
+        },
+        {
+          "stt": "",
+          "company": "7.0",
+          "person": "",
+          "role": "PHẠM NGỌC KHÔI",
+          "email": "KS QLDA (HSE)",
+          "phone": "khoi.pham@vietstarlemna.com"
+        },
+        {
+          "stt": "",
+          "company": "8.0",
+          "person": "",
+          "role": "NGUYỄN ĐÌNH HIẾU",
+          "email": "KS QLDA (CÔNG NGHỆ)",
+          "phone": "hieu.nguyen@vietstarlemna.com"
+        },
+        {
+          "stt": "",
+          "company": "9.0",
+          "person": "",
+          "role": "LÊ MINH CẨM",
+          "email": "KS QLDA (CƠ ĐIỆN)",
+          "phone": "cam.le@vietstarlemna.com"
+        },
+        {
+          "stt": "",
+          "company": "10.0",
+          "person": "",
+          "role": "PHAN THỊ THẢO LY",
+          "email": "ADMIN",
+          "phone": "admin.vietstarwte@vietstarlemna.com"
+        },
+        {
+          "stt": "",
+          "company": "11.0",
+          "person": "",
+          "role": "LÊ ĐẶNG HÀ YÊN",
+          "email": "ADMIN",
+          "phone": "yen.le@vietstarlemna.com"
+        },
+        {
+          "stt": "",
+          "company": "1.0",
+          "person": "",
+          "role": "NGUYỄN KHẮC VĂN",
+          "email": "TRƯỞNG ĐOÀN GIÁM SÁT",
+          "phone": "tuanvan.vcc@gmail.com"
+        },
+        {
+          "stt": "",
+          "company": "2.0",
+          "person": "",
+          "role": "VÕ ĐÔN KHẢI",
+          "email": "TVGS",
+          "phone": "khaivd.vcc@gmail.com"
+        },
+        {
+          "stt": "",
+          "company": "3.0",
+          "person": "",
+          "role": "PHẠM HOÀNG HUYNH",
+          "email": "TVGS",
+          "phone": "huynhpham.vcc@gmail.com"
+        },
+        {
+          "stt": "",
+          "company": "4.0",
+          "person": "",
+          "role": "HUỲNH NGỌC TRÂN",
+          "email": "TVGS",
+          "phone": "tranksgiamsat@gmail.com"
+        },
+        {
+          "stt": "",
+          "company": "1.0",
+          "person": "",
+          "role": "ĐẶNG XUÂN ĐĂNG",
+          "email": "GĐ QLDA",
+          "phone": "tuvanvncc@gmail.com"
+        },
+        {
+          "stt": "",
+          "company": "2.0",
+          "person": "",
+          "role": "NGUYỄN SỸ QUANG HOÀI",
+          "email": "QLDA",
+          "phone": "tuvanvnccvcc@gmail.com"
+        },
+        {
+          "stt": "",
+          "company": "DANH SÁCH LIÊN HỆ NHÀ THẦU THI CÔNG",
+          "person": "",
+          "role": "",
+          "email": "",
+          "phone": ""
+        },
+        {
+          "stt": "",
+          "company": "STT",
+          "person": "Địa chỉ",
+          "role": "Người phụ trách",
+          "email": "Chức vụ",
+          "phone": "Email"
+        },
+        {
+          "stt": "",
+          "company": "1.0",
+          "person": "Số 100A Cao Thắng, Phường Bàn Cờ, TP.HCM",
+          "role": "Mai Đức Thuận",
+          "email": "Tổng giám đốc",
+          "phone": "thuanmd@novacons.com.vn"
+        },
+        {
+          "stt": "",
+          "company": "2.0",
+          "person": "",
+          "role": "Phạm Ngọc Vinh",
+          "email": "Giám đốc dự án",
+          "phone": "vinhpn@novacons.com.vn"
+        },
+        {
+          "stt": "",
+          "company": "3.0",
+          "person": "",
+          "role": "Phan Phương Phi",
+          "email": "Phó Giám đốc dự án",
+          "phone": "phiphan@novacons.com.vn"
+        },
+        {
+          "stt": "",
+          "company": "4.0",
+          "person": "",
+          "role": "Lương Phi Long",
+          "email": "Chỉ huy trưởng",
+          "phone": "longlp@novacons.com.vn"
+        },
+        {
+          "stt": "",
+          "company": "5.0",
+          "person": "",
+          "role": "Võ Văn Chương",
+          "email": "QA-QC",
+          "phone": "chuongvv@novacons.com.vn"
+        },
+        {
+          "stt": "",
+          "company": "6.0",
+          "person": "",
+          "role": "Phạm Văn Hiền",
+          "email": "QS - Shopdrawing",
+          "phone": "hienpv@novacons.com.vn"
+        },
+        {
+          "stt": "",
+          "company": "7.0",
+          "person": "",
+          "role": "Nguyễn Văn Trung",
+          "email": "Hiện trường",
+          "phone": "trungnv@novacons.com.vn"
+        },
+        {
+          "stt": "",
+          "company": "8.0",
+          "person": "",
+          "role": "Nguyễn Văn Đạt",
+          "email": "Hiện trường",
+          "phone": "tungnt@novacons.com.vn"
+        },
+        {
+          "stt": "",
+          "company": "9.0",
+          "person": "",
+          "role": "Châu Thế Bảo",
+          "email": "Hiện trường",
+          "phone": "baoct@novacons.com.vn"
+        },
+        {
+          "stt": "",
+          "company": "10.0",
+          "person": "",
+          "role": "Nguyễn Hữu Vỹ",
+          "email": "An toàn lao động",
+          "phone": "vynh@novacons.com.vn"
+        },
+        {
+          "stt": "",
+          "company": "11.0",
+          "person": "",
+          "role": "Võ Minh Tân",
+          "email": "Ql vật tư & thiết bị",
+          "phone": "tanvm@novacons.com.vn"
+        },
+        {
+          "stt": "",
+          "company": "12.0",
+          "person": "",
+          "role": "Mai Tuấn Đạt",
+          "email": "Admin",
+          "phone": "maituandat0704@gmail.com"
+        }
+      ],
+      "legal_documents": [
+        {
+          "stt": "STT",
+          "name": "Hồ sơ pháp lý",
+          "issuer": "Đơn vị cấp",
+          "issue_date": "Ngày cung cấp",
+          "status": "Tình trạng hồ sơ",
+          "note": ""
+        },
+        {
+          "stt": "1.0",
+          "name": "Bản vẽ thẩm định PCCC",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "2.0",
+          "name": "Bản vẽ thẩm định phần Kiến Trúc",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "3.0",
+          "name": "Bản vẽ thẩm định Phần Kết Cấu",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "3.0",
+          "name": "Bản vẽ thẩm định Điện, Nước",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "4.0",
+          "name": "Báo cáo Khảo sát địa chất",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "5.0",
+          "name": "Quyết định bổ nhiệm của Ban QL CDT",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "6.0",
+          "name": "Bản đồ hiện trạng vị trí công trình",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "7.0",
+          "name": "Giấy Phép Xây Dựng",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "8.0",
+          "name": "Chứng nhận thẩm duyệt PCCC",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "9.0",
+          "name": "Xác nhận đăng ký kế hoạch bảo vệ môi trường",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "10.0",
+          "name": "Biên bản bàn giao tim mốc, hiện trạng",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "11.0",
+          "name": "Thông Báo Khởi công",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "12.0",
+          "name": "Hợp đồng TVGS",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "13.0",
+          "name": "Hồ sơ năng lực",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "14.0",
+          "name": "Chứng chỉ năng lực HĐXD",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "15.0",
+          "name": "Quyết định thành lập tổ TVGS",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "16.0",
+          "name": "Sơ đồ tổ chức TVGS",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "17.0",
+          "name": "Quyết định bổ nhiệm các thành viên tổ TVGS",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "18.0",
+          "name": "Lý lịch chuyên gia và Bằng cấp Chứng chỉ của các thành viên tổ TVGS",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "19.0",
+          "name": "Đề cương Giám sát được CDT phê duyệt",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "20.0",
+          "name": "Quy trình phối hợp",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "21.0",
+          "name": "Bảo hiểm trách nhiệm nghề nghiệp của TVGS",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "22.0",
+          "name": "Biên Bản kiểm tra điều kiện khởi công",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "23.0",
+          "name": "Hợp đồng thi công xây dựng",
+          "issuer": "Nova",
+          "issue_date": "",
+          "status": "x",
+          "note": "x"
+        },
+        {
+          "stt": "24.0",
+          "name": "Hồ sơ Năng lực Nhà Thầu Nova",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "25.0",
+          "name": "Chứng chỉ năng lực HĐXD",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "26.0",
+          "name": "Quyết định thành lập Ban chỉ huy công trình",
+          "issuer": "Nova",
+          "issue_date": "",
+          "status": "x",
+          "note": "x"
+        },
+        {
+          "stt": "27.0",
+          "name": "Sơ đồ tổ chức Nhà thầu Nova",
+          "issuer": "Nova",
+          "issue_date": "",
+          "status": "x",
+          "note": "x"
+        },
+        {
+          "stt": "28.0",
+          "name": "Quyết định bổ nhiệm các thành viên",
+          "issuer": "Nova",
+          "issue_date": "",
+          "status": "x",
+          "note": "x"
+        },
+        {
+          "stt": "29.0",
+          "name": "Lý lịch chuyên gia và Bằng cấp Chứng chỉ của các thành viên Ban chỉ huy công trình",
+          "issuer": "Nova",
+          "issue_date": "",
+          "status": "x",
+          "note": "x"
+        },
+        {
+          "stt": "30.0",
+          "name": "Quy trình quản lý chất lượng của nhà thầu",
+          "issuer": "Nova",
+          "issue_date": "",
+          "status": "x",
+          "note": ""
+        },
+        {
+          "stt": "31.0",
+          "name": "Quy trình đảm bảo ATLĐ, VSMT, PCCC, an ninh của nhà thầu",
+          "issuer": "Nova",
+          "issue_date": "",
+          "status": "x",
+          "note": ""
+        },
+        {
+          "stt": "32.0",
+          "name": "Nhật ký thi công",
+          "issuer": "Nova",
+          "issue_date": "",
+          "status": "x",
+          "note": ""
+        },
+        {
+          "stt": "33.0",
+          "name": "Bảo hiểm công trình và Bảo hiểm bên thứ 3",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "34.0",
+          "name": "Hợp đồng TV Thiết Kế",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "35.0",
+          "name": "Hồ sơ năng lực TV Thiết Kế",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "36.0",
+          "name": "Chứng chỉ năng lực HĐXD TV Thiết Kế",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "37.0",
+          "name": "Chứng chỉ hành nghề của các cá nhân tham gia thiết kế",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "38.0",
+          "name": "Lý lịch chuyên gia của chủ trì thiết kế",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "39.0",
+          "name": "Quyết định bổ nhiệm của Chủ trì thiết kế",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "40.0",
+          "name": "Bảo hiểm trách nhiệm nghề nghiệp của TVTK",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "41.0",
+          "name": "Quyết định bổ nhiệm giám sát tác giả",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "42.0",
+          "name": "Hợp đồng TV Thẩm tra",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "43.0",
+          "name": "Hồ sơ năng lực TV Thẩm tra",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "44.0",
+          "name": "Chứng chỉ năng lực HĐXD TV Thiết Kế, Thẩm tra",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "45.0",
+          "name": "Chứng chỉ hành nghề của các cá nhân tham gia thẩm tra",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "46.0",
+          "name": "Lý lịch chuyên gia của chủ trì thẩm tra",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        },
+        {
+          "stt": "47.0",
+          "name": "Quyết định bổ nhiệm của Chủ trì thẩm tra",
+          "issuer": "",
+          "issue_date": "",
+          "status": "",
+          "note": ""
+        }
+      ],
+      "rfi": [
+        {
+          "stt": "1.0",
+          "contractor": "NVC",
+          "discipline": "",
+          "doc_no": "VST.THNMC-NVC-RFA-001.R01",
+          "description": "Đề trình phương án thi công chia móng lò đốt khu B: MN-01 và MN-03 trục (3-J) đến trục (3-Q) làm 2 lần đổ bê tông để đảm bảo kế hoạch thi công",
+          "date_sent": "2026-09-16",
+          "status": "",
+          "details": [
+            "",
+            "",
+            "Đóng",
+            "C2-1",
+            "",
+            "",
+            ""
+          ]
+        }
+      ],
+      "materials_mas": [
+        {
+          "stt": "1.0",
+          "contractor": "NVC",
+          "doc_no": "VST.THNMC-NVC-MAS-001.R001",
+          "material_description": "Đơn vị cung cấp bê tông Công ty bê tông SMC (Trạm Tân Đức)",
+          "status": "",
+          "raw": [
+            "1.0",
+            "NVC",
+            "",
+            "VST.THNMC-NVC-MAS-001.R001",
+            "1.0",
+            "Đơn vị cung cấp bê tông Công ty bê tông SMC (Trạm Tân Đức)",
+            "",
+            ""
+          ]
+        },
+        {
+          "stt": "2",
+          "contractor": "NVC",
+          "doc_no": "MAS-002",
+          "material_description": "Đơn vị cung cấp bê tông Công ty bê tông TGN (Trạm Đức Hòa)",
+          "status": "",
+          "raw": [
+            "",
+            "",
+            "",
+            "",
+            "1.0",
+            "Đơn vị cung cấp bê tông Công ty bê tông TGN (Trạm Đức Hòa)",
+            "",
+            ""
+          ]
+        },
+        {
+          "stt": "2.0",
+          "contractor": "NVC",
+          "doc_no": "VST.THNMC-NVC-MAS-002.R001",
+          "material_description": "Màng chống thấm HDPE dày 1,2mm (Thương hiệu TECHNONICO -ULTRABASE PA sand finish)",
+          "status": "2026-09-18",
+          "raw": [
+            "2.0",
+            "NVC",
+            "",
+            "VST.THNMC-NVC-MAS-002.R001",
+            "",
+            "Màng chống thấm HDPE dày 1,2mm (Thương hiệu TECHNONICO -ULTRABASE PA sand finish)",
+            "9/18/2026",
+            "2026-09-18"
+          ]
+        },
+        {
+          "stt": "3.0",
+          "contractor": "NVC",
+          "doc_no": "VST.THNMC-NVC-MAS-003.R00",
+          "material_description": "Cốt thép sử dụng trong bê tông xây dựng",
+          "status": "2026-09-21",
+          "raw": [
+            "3.0",
+            "NVC",
+            "",
+            "VST.THNMC-NVC-MAS-003.R00",
+            "",
+            "Cốt thép sử dụng trong bê tông xây dựng",
+            "9/21/2026",
+            "2026-09-21"
+          ]
+        },
+        {
+          "stt": "4.0",
+          "contractor": "NVC",
+          "doc_no": "VST.THNMC-NVC-MAS-004.R00",
+          "material_description": "Vữa không co ngót cường độ cao - THƯƠNG HIỆU HI-CRETE GROUT M65 (CÔNG TY TNHH HÓA CHẤT XD HI-CRETE)",
+          "status": "2006-09-21",
+          "raw": [
+            "4.0",
+            "NVC",
+            "",
+            "VST.THNMC-NVC-MAS-004.R00",
+            "",
+            "Vữa không co ngót cường độ cao - THƯƠNG HIỆU HI-CRETE GROUT M65 (CÔNG TY TNHH HÓA CHẤT XD HI-CRETE)",
+            "9/21/2026",
+            "2006-09-21"
+          ]
+        },
+        {
+          "stt": "5.0",
+          "contractor": "NVC",
+          "doc_no": "VST.THNMC-NVC-MAS-005.R00",
+          "material_description": "ĐƠN VỊ GIA CÔNG VÀ CUNG CẤP COUPLER SỬ DỤNG NỐI THÉP MÓNG LÒ ĐỐT- (CÔNG TY TNHH TM-XD TAM LONG)",
+          "status": "2006-09-22",
+          "raw": [
+            "5.0",
+            "NVC",
+            "",
+            "VST.THNMC-NVC-MAS-005.R00",
+            "",
+            "ĐƠN VỊ GIA CÔNG VÀ CUNG CẤP COUPLER SỬ DỤNG NỐI THÉP MÓNG LÒ ĐỐT- (CÔNG TY TNHH TM-XD TAM LONG)",
+            "9/21/2026",
+            "2006-09-22"
+          ]
+        },
+        {
+          "stt": "6.0",
+          "contractor": "NVC",
+          "doc_no": "VST.THNMC-NVC-MAS-006.R00",
+          "material_description": "Băng cản nước INOX DÀY 4x300mm (Thương hiệu PT. INDONESIA TSINGSHAN STAINLESS STEEL)",
+          "status": "9/27/2026",
+          "raw": [
+            "6.0",
+            "NVC",
+            "",
+            "VST.THNMC-NVC-MAS-006.R00",
+            "",
+            "Băng cản nước INOX DÀY 4x300mm (Thương hiệu PT. INDONESIA TSINGSHAN STAINLESS STEEL)",
+            "9/27/2026",
+            "9/27/2026"
+          ]
+        },
+        {
+          "stt": "7.0",
+          "contractor": "NVC",
+          "doc_no": "VST.THNMC-NVC-MAS-007.R00",
+          "material_description": "ĐỆ TRÌNH ĐƠN VỊ CUNG CẤP BÊ TÔNG THƯƠNG PHẨM TASAGO (BÊ TÔNG SAIGON XANH)",
+          "status": "9/29/2026",
+          "raw": [
+            "7.0",
+            "NVC",
+            "",
+            "VST.THNMC-NVC-MAS-007.R00",
+            "",
+            "ĐỆ TRÌNH ĐƠN VỊ CUNG CẤP BÊ TÔNG THƯƠNG PHẨM TASAGO (BÊ TÔNG SAIGON XANH)",
+            "9/29/2026",
+            "9/29/2026"
+          ]
+        },
+        {
+          "stt": "8.0",
+          "contractor": "NVC",
+          "doc_no": "VST.THNMC-NVC-MAS-008.R00",
+          "material_description": "ĐỆ TRÌNH VẬT TƯ CÁT SAN LẤP - CAMPUCHIA",
+          "status": "2026-05-10",
+          "raw": [
+            "8.0",
+            "NVC",
+            "",
+            "VST.THNMC-NVC-MAS-008.R00",
+            "",
+            "ĐỆ TRÌNH VẬT TƯ CÁT SAN LẤP - CAMPUCHIA",
+            "2026-05-10",
+            "2026-05-10"
+          ]
+        }
+      ],
+      "shop_drawings_sds": [
+        {
+          "stt": "1",
+          "contractor": "NVC",
+          "discipline": "Công tác tạm",
+          "doc_no": "VST.THNMC-NVC-SDS-001.R01",
+          "drawing_name": "Bản vẽ thi công công tác tạm",
+          "status": "2026-09-13",
+          "raw": [
+            "1",
+            "NVC",
+            "Công tác tạm",
+            "VST.THNMC-NVC-SDS-001.R01",
+            "R00",
+            "Bản vẽ thi công công tác tạm",
+            "",
+            "2026-09-13"
+          ]
+        },
+        {
+          "stt": "2",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-SDS-002.R01",
+          "drawing_name": "Shop drawing thép phạm vi móng lò đốt",
+          "status": "2026-09-22",
+          "raw": [
+            "2",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-SDS-002.R01",
+            "R00",
+            "Shop drawing thép phạm vi móng lò đốt",
+            "",
+            "2026-09-22"
+          ]
+        },
+        {
+          "stt": "3",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-SDS-003.R01",
+          "drawing_name": "Shop drawing thép móng hố rác, hố rỉ",
+          "status": "9/23/2026",
+          "raw": [
+            "3",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-SDS-003.R01",
+            "R00",
+            "Shop drawing thép móng hố rác, hố rỉ",
+            "",
+            "9/23/2026"
+          ]
+        },
+        {
+          "stt": "4",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-SDS.004.R00",
+          "drawing_name": "ĐỆ TRÌNH BẢN VẼ THÉP DẦM MÓNG LÒ ĐỐT - GĐ1 - NHÀ THẦU NOVACONS",
+          "status": "9/28/2026",
+          "raw": [
+            "4",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-SDS.004.R00",
+            "R00",
+            "ĐỆ TRÌNH BẢN VẼ THÉP DẦM MÓNG LÒ ĐỐT - GĐ1 - NHÀ THẦU NOVACONS",
+            "",
+            "9/28/2026"
+          ]
+        },
+        {
+          "stt": "5",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-SDS.005.R00",
+          "drawing_name": "ĐỆ TRÌNH BẢN VẼ TRIỂN KHAI THI CÔNG THÉP VÁCH W1 KHU LÒ ĐỐT (PHÂN ĐOẠN 1) - NHÀ THẦU NOVACONS",
+          "status": "9/29/2026",
+          "raw": [
+            "5",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-SDS.005.R00",
+            "R00",
+            "ĐỆ TRÌNH BẢN VẼ TRIỂN KHAI THI CÔNG THÉP VÁCH W1 KHU LÒ ĐỐT (PHÂN ĐOẠN 1) - NHÀ THẦU NOVACONS",
+            "",
+            "9/29/2026"
+          ]
+        },
+        {
+          "stt": "6",
+          "contractor": "NVC",
+          "discipline": "",
+          "doc_no": "",
+          "drawing_name": "Trình vật tư chống thấm đáy hố , đầu cọc vị trí  hố rác",
+          "status": "",
+          "raw": [
+            "6",
+            "",
+            "",
+            "",
+            "R00",
+            "Trình vật tư chống thấm đáy hố , đầu cọc vị trí  hố rác",
+            "",
+            ""
+          ]
+        },
+        {
+          "stt": "7",
+          "contractor": "NVC",
+          "discipline": "Công tác tạm",
+          "doc_no": "VST.THNMC-NVC-SDS.006.R00",
+          "drawing_name": "BẢN VẼ ĐỊNH VỊ CẨU THÁP VÀ PHẠM VI CẨU THÁP NHÀ THẦU NOVACONS",
+          "status": "2026-04-10",
+          "raw": [
+            "7",
+            "NVC",
+            "Công tác tạm",
+            "VST.THNMC-NVC-SDS.006.R00",
+            "R00",
+            "BẢN VẼ ĐỊNH VỊ CẨU THÁP VÀ PHẠM VI CẨU THÁP NHÀ THẦU NOVACONS",
+            "",
+            "2026-04-10"
+          ]
+        },
+        {
+          "stt": "8",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-SDS-007.R00",
+          "drawing_name": "Bản vẽ shop drawing thép vách , cột hố rỉ",
+          "status": "",
+          "raw": [
+            "8",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-SDS-007.R00",
+            "R00",
+            "Bản vẽ shop drawing thép vách , cột hố rỉ",
+            "2026-10-08",
+            ""
+          ]
+        },
+        {
+          "stt": "9",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-SDS-008.R00",
+          "drawing_name": "Bản vẽ shop drawing thép vách, cột hố rác",
+          "status": "",
+          "raw": [
+            "9",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-SDS-008.R00",
+            "R00",
+            "Bản vẽ shop drawing thép vách, cột hố rác",
+            "2026-10-10",
+            ""
+          ]
+        },
+        {
+          "stt": "10",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-SDS-009.R00",
+          "drawing_name": "Bản vẽ shop drawing chi tiết dải đổ sau hố rác & lò đốt",
+          "status": "",
+          "raw": [
+            "10",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-SDS-009.R00",
+            "R00",
+            "Bản vẽ shop drawing chi tiết dải đổ sau hố rác & lò đốt",
+            "2026-10-12",
+            ""
+          ]
+        },
+        {
+          "stt": "11",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-SDS-010.R00",
+          "drawing_name": "Bản vẽ shop drawing vị trí mạch ngừng vách hố rỉ, hố rác",
+          "status": "",
+          "raw": [
+            "11",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-SDS-010.R00",
+            "R00",
+            "Bản vẽ shop drawing vị trí mạch ngừng vách hố rỉ, hố rác",
+            "2026-10-14",
+            ""
+          ]
+        },
+        {
+          "stt": "12",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-SDS-011.R00",
+          "drawing_name": "Bản vẽ shop drawing hệ dầm, sàn móng hố rỉ cao độ -4.00m",
+          "status": "",
+          "raw": [
+            "12",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-SDS-011.R00",
+            "R00",
+            "Bản vẽ shop drawing hệ dầm, sàn móng hố rỉ cao độ -4.00m",
+            "2026-10-16",
+            ""
+          ]
+        },
+        {
+          "stt": "13",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-SDS-012.R00",
+          "drawing_name": "Bản vẽ shop drawing chi tiết bệ mương đổ sau",
+          "status": "",
+          "raw": [
+            "13",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-SDS-012.R00",
+            "R00",
+            "Bản vẽ shop drawing chi tiết bệ mương đổ sau",
+            "2026-10-20",
+            ""
+          ]
+        },
+        {
+          "stt": "14",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-013.R00",
+          "drawing_name": "Bản vẽ shop drawing dầm tầng 1 cote +0.00",
+          "status": "",
+          "raw": [
+            "14",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-013.R00",
+            "R00",
+            "Bản vẽ shop drawing dầm tầng 1 cote +0.00",
+            "2026-10-22",
+            ""
+          ]
+        },
+        {
+          "stt": "15",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-014.R00",
+          "drawing_name": "Bản vẽ shop drawing sàn tầng 1 cote +0.00",
+          "status": "",
+          "raw": [
+            "15",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-014.R00",
+            "R00",
+            "Bản vẽ shop drawing sàn tầng 1 cote +0.00",
+            "2026-10-24",
+            ""
+          ]
+        },
+        {
+          "stt": "16",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-015.R00",
+          "drawing_name": "Bản vẽ shop drawing dầm tầng 2 cote +4.200",
+          "status": "",
+          "raw": [
+            "16",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-015.R00",
+            "R00",
+            "Bản vẽ shop drawing dầm tầng 2 cote +4.200",
+            "2026-10-26",
+            ""
+          ]
+        },
+        {
+          "stt": "17",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-016.R00",
+          "drawing_name": "Bản vẽ shop drawing sàn tầng 2 cote +4.200",
+          "status": "",
+          "raw": [
+            "17",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-016.R00",
+            "R00",
+            "Bản vẽ shop drawing sàn tầng 2 cote +4.200",
+            "2026-10-28",
+            ""
+          ]
+        },
+        {
+          "stt": "18",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-017.R00",
+          "drawing_name": "Bản vẽ shop drawing dầm tầng 3 cote +8.00",
+          "status": "",
+          "raw": [
+            "18",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-017.R00",
+            "R00",
+            "Bản vẽ shop drawing dầm tầng 3 cote +8.00",
+            "2026-10-30",
+            ""
+          ]
+        },
+        {
+          "stt": "19",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-018.R00",
+          "drawing_name": "Bản vẽ shop drawing sàn tầng 3 cote +8.00",
+          "status": "",
+          "raw": [
+            "19",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-018.R00",
+            "R00",
+            "Bản vẽ shop drawing sàn tầng 3 cote +8.00",
+            "2026-11-02",
+            ""
+          ]
+        },
+        {
+          "stt": "20",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-019.R00",
+          "drawing_name": "Bản vẽ shop drawing dầm tầng 4 cote +13.1 (PĐ1)",
+          "status": "",
+          "raw": [
+            "20",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-019.R00",
+            "R00",
+            "Bản vẽ shop drawing dầm tầng 4 cote +13.1 (PĐ1)",
+            "2026-11-05",
+            ""
+          ]
+        },
+        {
+          "stt": "21",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-020.R00",
+          "drawing_name": "Bản vẽ shop drawing sàn tầng 4 cote +13.1 (PĐ1)",
+          "status": "",
+          "raw": [
+            "21",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-020.R00",
+            "R00",
+            "Bản vẽ shop drawing sàn tầng 4 cote +13.1 (PĐ1)",
+            "2026-11-08",
+            ""
+          ]
+        },
+        {
+          "stt": "22",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-021.R00",
+          "drawing_name": "Bản vẽ shop drawing dầm tầng 4 cote +13.1 (PĐ2)",
+          "status": "",
+          "raw": [
+            "22",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-021.R00",
+            "R00",
+            "Bản vẽ shop drawing dầm tầng 4 cote +13.1 (PĐ2)",
+            "2026-11-11",
+            ""
+          ]
+        },
+        {
+          "stt": "23",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-022.R00",
+          "drawing_name": "Bản vẽ shop drawing dầm tầng 5 cote +18.27",
+          "status": "",
+          "raw": [
+            "23",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-022.R00",
+            "R00",
+            "Bản vẽ shop drawing dầm tầng 5 cote +18.27",
+            "2026-11-14",
+            ""
+          ]
+        },
+        {
+          "stt": "24",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-023.R00",
+          "drawing_name": "Bản vẽ shop drawing sàn tầng 5 cote +18.27",
+          "status": "",
+          "raw": [
+            "24",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-023.R00",
+            "R00",
+            "Bản vẽ shop drawing sàn tầng 5 cote +18.27",
+            "2026-11-17",
+            ""
+          ]
+        },
+        {
+          "stt": "25",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-024.R00",
+          "drawing_name": "Bản vẽ shop drawing dầm tầng 6 cote +22.0",
+          "status": "",
+          "raw": [
+            "25",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-024.R00",
+            "R00",
+            "Bản vẽ shop drawing dầm tầng 6 cote +22.0",
+            "2026-11-20",
+            ""
+          ]
+        },
+        {
+          "stt": "26",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-025.R00",
+          "drawing_name": "Bản vẽ shop drawing sàn tầng 6 cote +22.0",
+          "status": "",
+          "raw": [
+            "26",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-025.R00",
+            "R00",
+            "Bản vẽ shop drawing sàn tầng 6 cote +22.0",
+            "2026-11-23",
+            ""
+          ]
+        },
+        {
+          "stt": "27",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-026.R00",
+          "drawing_name": "Bản vẽ shop drawing dầm tầng 7 cote +26.5",
+          "status": "",
+          "raw": [
+            "27",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-026.R00",
+            "R00",
+            "Bản vẽ shop drawing dầm tầng 7 cote +26.5",
+            "2026-11-26",
+            ""
+          ]
+        },
+        {
+          "stt": "28",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-027.R00",
+          "drawing_name": "Bản vẽ shop drawing sàn tầng 7 cote +26.5",
+          "status": "",
+          "raw": [
+            "28",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-027.R00",
+            "R00",
+            "Bản vẽ shop drawing sàn tầng 7 cote +26.5",
+            "2026-11-29",
+            ""
+          ]
+        },
+        {
+          "stt": "29",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-028.R00",
+          "drawing_name": "Bản vẽ shop drawing dầm tầng 8 cote +30.6",
+          "status": "",
+          "raw": [
+            "29",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-028.R00",
+            "R00",
+            "Bản vẽ shop drawing dầm tầng 8 cote +30.6",
+            "2026-12-02",
+            ""
+          ]
+        },
+        {
+          "stt": "30",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-029.R00",
+          "drawing_name": "Bản vẽ shop drawing sàn tầng 8 cote +30.6",
+          "status": "",
+          "raw": [
+            "30",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-029.R00",
+            "R00",
+            "Bản vẽ shop drawing sàn tầng 8 cote +30.6",
+            "2026-12-05",
+            ""
+          ]
+        },
+        {
+          "stt": "31",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-030.R00",
+          "drawing_name": "Bản vẽ shop drawing dầm tầng 9 cote +35.0",
+          "status": "",
+          "raw": [
+            "31",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-030.R00",
+            "R00",
+            "Bản vẽ shop drawing dầm tầng 9 cote +35.0",
+            "2026-12-08",
+            ""
+          ]
+        },
+        {
+          "stt": "32",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-031.R00",
+          "drawing_name": "Bản vẽ shop drawing sàn tầng 9 cote +35.0",
+          "status": "",
+          "raw": [
+            "32",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-031.R00",
+            "R00",
+            "Bản vẽ shop drawing sàn tầng 9 cote +35.0",
+            "2026-12-11",
+            ""
+          ]
+        },
+        {
+          "stt": "33",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-032.R00",
+          "drawing_name": "Bản vẽ shop drawing dầm tầng 10 cote +39.03",
+          "status": "",
+          "raw": [
+            "33",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-032.R00",
+            "R00",
+            "Bản vẽ shop drawing dầm tầng 10 cote +39.03",
+            "2026-12-14",
+            ""
+          ]
+        },
+        {
+          "stt": "34",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-033.R00",
+          "drawing_name": "Bản vẽ shop drawing sàn tầng 10 cote +39.03",
+          "status": "",
+          "raw": [
+            "34",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-033.R00",
+            "R00",
+            "Bản vẽ shop drawing sàn tầng 10 cote +39.03",
+            "2026-12-17",
+            ""
+          ]
+        },
+        {
+          "stt": "35",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-034.R00",
+          "drawing_name": "Bản vẽ shop drawing dầm tầng 11 cote +42.07",
+          "status": "",
+          "raw": [
+            "35",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-034.R00",
+            "R00",
+            "Bản vẽ shop drawing dầm tầng 11 cote +42.07",
+            "2026-12-20",
+            ""
+          ]
+        },
+        {
+          "stt": "36",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "VST.THNMC-NVC-SDS-035.R00",
+          "drawing_name": "Bản vẽ shop drawing sàn tầng 11 cote +42.07",
+          "status": "",
+          "raw": [
+            "36",
+            "NVC",
+            "Kết cấu (Thân)",
+            "VST.THNMC-NVC-SDS-035.R00",
+            "R00",
+            "Bản vẽ shop drawing sàn tầng 11 cote +42.07",
+            "2026-12-23",
+            ""
+          ]
+        },
+        {
+          "stt": "37",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-SDS-036.R00",
+          "drawing_name": "Bản vẽ shop drawing dưỡng định vị Cụm Bulông móng máy (Anchor Bolts) và Chi tiết đặt sẵn (Embedment Plates)",
+          "status": "",
+          "raw": [
+            "37",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-SDS-036.R00",
+            "R00",
+            "Bản vẽ shop drawing dưỡng định vị Cụm Bulông móng máy (Anchor Bolts) và Chi tiết đặt sẵn (Embedment Plates)",
+            "2026-10-15",
+            ""
+          ]
+        },
+        {
+          "stt": "38",
+          "contractor": "NVC",
+          "discipline": "",
+          "doc_no": "VST.THNMC-NVC-SDS-049.R00",
+          "drawing_name": "",
+          "status": "",
+          "raw": [
+            "38",
+            "NVC",
+            "",
+            "VST.THNMC-NVC-SDS-049.R00",
+            "R00",
+            "",
+            "",
+            ""
+          ]
+        }
+      ],
+      "method_statements_mss": [
+        {
+          "stt": "1",
+          "contractor": "NVC",
+          "discipline": "Công tác tạm",
+          "doc_no": "VST.THNMC-NVC-MSS-002.R01",
+          "method_statement": "Biện pháp thi công tổng thể",
+          "status": "2026-09-16",
+          "raw": [
+            "1",
+            "NVC",
+            "Công tác tạm",
+            "VST.THNMC-NVC-MSS-002.R01",
+            "R00",
+            "Biện pháp thi công tổng thể",
+            "",
+            "2026-09-16"
+          ]
+        },
+        {
+          "stt": "2",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-MSS-003.R01",
+          "method_statement": "Biện pháp thi công đào đất móng lò đốt, hố rác",
+          "status": "2026-09-16",
+          "raw": [
+            "2",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-MSS-003.R01",
+            "R00",
+            "Biện pháp thi công đào đất móng lò đốt, hố rác",
+            "",
+            "2026-09-16"
+          ]
+        },
+        {
+          "stt": "3",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-MSS-004.R01",
+          "method_statement": "Biện pháp thi công cắt đầu cọc khu vực phân khu 1 móng lò đốt",
+          "status": "2026-09-22",
+          "raw": [
+            "3",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-MSS-004.R01",
+            "R00",
+            "Biện pháp thi công cắt đầu cọc khu vực phân khu 1 móng lò đốt",
+            "",
+            "2026-09-22"
+          ]
+        },
+        {
+          "stt": "4",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-MSS-005.R01",
+          "method_statement": "Biện pháp thi công chống thấm đầu cọc móng hố rác",
+          "status": "",
+          "raw": [
+            "4",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-MSS-005.R01",
+            "R00",
+            "Biện pháp thi công chống thấm đầu cọc móng hố rác",
+            "",
+            ""
+          ]
+        },
+        {
+          "stt": "5",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-MSS-006.R01",
+          "method_statement": "Biện pháp thi công cắt đầu cọc khu vực móng hố rác, hố xỉ, lò đốt.",
+          "status": "2026-09-22",
+          "raw": [
+            "5",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-MSS-006.R01",
+            "R00",
+            "Biện pháp thi công cắt đầu cọc khu vực móng hố rác, hố xỉ, lò đốt.",
+            "",
+            "2026-09-22"
+          ]
+        },
+        {
+          "stt": "6",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-MSS-007.R00",
+          "method_statement": "Biện pháp thi công đào đất khu vực móng hố rác, hố xỉ, lò đốt.",
+          "status": "2026-09-29",
+          "raw": [
+            "6",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-MSS-007.R00",
+            "R00",
+            "Biện pháp thi công đào đất khu vực móng hố rác, hố xỉ, lò đốt.",
+            "",
+            "2026-09-29"
+          ]
+        },
+        {
+          "stt": "7",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-MSS-008.R00",
+          "method_statement": "Biện pháp thi công ván khuôn móng lò đốt",
+          "status": "2026-10-05",
+          "raw": [
+            "7",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-MSS-008.R00",
+            "R00",
+            "Biện pháp thi công ván khuôn móng lò đốt",
+            "",
+            "2026-10-05"
+          ]
+        },
+        {
+          "stt": "8",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "VST.THNMC-NVC-MSS-009.R00",
+          "method_statement": "Biện pháp thi công lắp đặt cẩu tháp CT2",
+          "status": "",
+          "raw": [
+            "8",
+            "NVC",
+            "Nền móng",
+            "VST.THNMC-NVC-MSS-009.R00",
+            "R00",
+            "Biện pháp thi công lắp đặt cẩu tháp CT2",
+            "",
+            ""
+          ]
+        },
+        {
+          "stt": "9",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "",
+          "method_statement": "Biện pháp thi công mạch ngừng vách",
+          "status": "",
+          "raw": [
+            "9",
+            "NVC",
+            "Nền móng",
+            "",
+            "R00",
+            "Biện pháp thi công mạch ngừng vách",
+            "",
+            ""
+          ]
+        },
+        {
+          "stt": "10",
+          "contractor": "NVC",
+          "discipline": "Công tác tạm",
+          "doc_no": "",
+          "method_statement": "Biện pháp thi công Tổng thể & Bố trí Tổng mặt bằng thi công (TMB)",
+          "status": "",
+          "raw": [
+            "10",
+            "NVC",
+            "Công tác tạm",
+            "",
+            "R00",
+            "Biện pháp thi công Tổng thể & Bố trí Tổng mặt bằng thi công (TMB)",
+            "2026-09-10",
+            ""
+          ]
+        },
+        {
+          "stt": "11",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "",
+          "method_statement": "BPTC Thi công ép/nhổ cừ Larsen & Hệ văng chống Shoring hố móng sâu",
+          "status": "2026-09-15",
+          "raw": [
+            "",
+            "NVC",
+            "Nền móng",
+            "",
+            "R00",
+            "BPTC Thi công ép/nhổ cừ Larsen & Hệ văng chống Shoring hố móng sâu",
+            "",
+            "2026-09-15"
+          ]
+        },
+        {
+          "stt": "12",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "",
+          "method_statement": "BPTC Đào đất, sửa đáy hố móng và vận chuyển đất đá hố rác, lò đốt",
+          "status": "2026-09-15",
+          "raw": [
+            "",
+            "NVC",
+            "Nền móng",
+            "",
+            "R00",
+            "BPTC Đào đất, sửa đáy hố móng và vận chuyển đất đá hố rác, lò đốt",
+            "",
+            "2026-09-15"
+          ]
+        },
+        {
+          "stt": "13",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "",
+          "method_statement": "BPTC Cắt đầu cọc, đổ bê tông đầu cọc và xử lý chống thấm đầu cọc",
+          "status": "2026-09-18",
+          "raw": [
+            "",
+            "NVC",
+            "Nền móng",
+            "",
+            "R00",
+            "BPTC Cắt đầu cọc, đổ bê tông đầu cọc và xử lý chống thấm đầu cọc",
+            "",
+            "2026-09-18"
+          ]
+        },
+        {
+          "stt": "14",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "",
+          "method_statement": "BPTC Thi công lớp lót và Màng chống thấm tổng thể đáy móng (HDPE / Bentonite)",
+          "status": "2026-09-20",
+          "raw": [
+            "",
+            "NVC",
+            "Nền móng",
+            "",
+            "R00",
+            "BPTC Thi công lớp lót và Màng chống thấm tổng thể đáy móng (HDPE / Bentonite)",
+            "",
+            "2026-09-20"
+          ]
+        },
+        {
+          "stt": "15",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "",
+          "method_statement": "BPTC Thi công Ván khuôn, Cốt thép và Đổ BÊ TÔNG VÁCH Hố rác & Bể nước rỉ rác (-6.5m đến +0.00m)",
+          "status": "2026-10-01",
+          "raw": [
+            "",
+            "NVC",
+            "Nền móng",
+            "",
+            "R00",
+            "BPTC Thi công Ván khuôn, Cốt thép và Đổ BÊ TÔNG VÁCH Hố rác & Bể nước rỉ rác (-6.5m đến +0.00m)",
+            "",
+            "2026-10-01"
+          ]
+        },
+        {
+          "stt": "16",
+          "contractor": "NVC",
+          "discipline": "Nền móng",
+          "doc_no": "",
+          "method_statement": "BPTC Xử lý Mạch ngừng thi công, Băng cản nước Waterstop và Dải đổ sau (Late pour strip)",
+          "status": "2026-10-02",
+          "raw": [
+            "",
+            "NVC",
+            "Nền móng",
+            "",
+            "R00",
+            "BPTC Xử lý Mạch ngừng thi công, Băng cản nước Waterstop và Dải đổ sau (Late pour strip)",
+            "",
+            "2026-10-02"
+          ]
+        },
+        {
+          "stt": "17",
+          "contractor": "NVC",
+          "discipline": "Kết cấu (Thân)",
+          "doc_no": "",
+          "method_statement": "BPTC Hệ Bao che An toàn ngoài nhà (Safety Screen / Lưới hứng rơi) thi công tầng cao",
+          "status": "2026-11-05",
+          "raw": [
+            "",
+            "NVC",
+            "Kết cấu (Thân)",
+            "",
+            "R00",
+            "BPTC Hệ Bao che An toàn ngoài nhà (Safety Screen / Lưới hứng rơi) thi công tầng cao",
+            "",
+            "2026-11-05"
+          ]
+        },
+        {
+          "stt": "18",
+          "contractor": "NVC",
+          "discipline": "An toàn (HSE)",
+          "doc_no": "",
+          "method_statement": "Biện pháp đảm bảo An toàn làm việc trong hố sâu (-6.5m) và Không gian kín (Confined Space)",
+          "status": "2026-09-15",
+          "raw": [
+            "",
+            "NVC",
+            "An toàn (HSE)",
+            "",
+            "R00",
+            "Biện pháp đảm bảo An toàn làm việc trong hố sâu (-6.5m) và Không gian kín (Confined Space)",
+            "",
+            "2026-09-15"
+          ]
+        },
+        {
+          "stt": "19",
+          "contractor": "NVC",
+          "discipline": "An toàn (HSE)",
+          "doc_no": "",
+          "method_statement": "Biện pháp An toàn làm việc trên cao (Working at Height) & An toàn Điện thi công ban đêm",
+          "status": "2026-09-20",
+          "raw": [
+            "",
+            "NVC",
+            "An toàn (HSE)",
+            "",
+            "R00",
+            "Biện pháp An toàn làm việc trên cao (Working at Height) & An toàn Điện thi công ban đêm",
+            "",
+            "2026-09-20"
+          ]
+        }
+      ],
+      "concrete_pour_logs": [
+        {
+          "stt": "1.0",
+          "contractor": "NVC",
+          "supplier": "SMC",
+          "location": "VST",
+          "volume_m3": "4.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "250R3",
+          "pour_date": "2026-08-31"
+        },
+        {
+          "stt": "2",
+          "contractor": "NVC",
+          "supplier": "TGN",
+          "location": "VST",
+          "volume_m3": "2026-05-07",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "250R3",
+          "pour_date": "2026-09-08"
+        },
+        {
+          "stt": "3",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "2026-05-09",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "250/B20R3",
+          "pour_date": "2026-09-16"
+        },
+        {
+          "stt": "4",
+          "contractor": "NVC",
+          "supplier": "SMC",
+          "location": "VST",
+          "volume_m3": "2026-03-06",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "B20R3",
+          "pour_date": "2026-09-24"
+        },
+        {
+          "stt": "5",
+          "contractor": "NVC",
+          "supplier": "SMC",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "B20R3",
+          "pour_date": "2026-09-25"
+        },
+        {
+          "stt": "6",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "2026-05-02",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "B20R3",
+          "pour_date": "2026-09-28"
+        },
+        {
+          "stt": "7",
+          "contractor": "",
+          "supplier": "SMC",
+          "location": "",
+          "volume_m3": "2026-05-02",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "B20R3",
+          "pour_date": ""
+        },
+        {
+          "stt": "8",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "4.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "B20R3",
+          "pour_date": "2026-10-02"
+        },
+        {
+          "stt": "9",
+          "contractor": "NVC",
+          "supplier": "TGN",
+          "location": "VST",
+          "volume_m3": "6.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "100R28",
+          "pour_date": "2026-10-04"
+        },
+        {
+          "stt": "10",
+          "contractor": "",
+          "supplier": "",
+          "location": "",
+          "volume_m3": "6.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "100R28",
+          "pour_date": "2026-10-04"
+        },
+        {
+          "stt": "11",
+          "contractor": "NVC",
+          "supplier": "TGN",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "400R7",
+          "pour_date": "2026-10-05"
+        },
+        {
+          "stt": "12",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M250/B20R3",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "13",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "14",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "15",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "16",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "17",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "18",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "19",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "20",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "21",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "22",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "23",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "24",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-09"
+        },
+        {
+          "stt": "25",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-10"
+        },
+        {
+          "stt": "26",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-10"
+        },
+        {
+          "stt": "27",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-10"
+        },
+        {
+          "stt": "28",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-10"
+        },
+        {
+          "stt": "29",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-10"
+        },
+        {
+          "stt": "30",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-10"
+        },
+        {
+          "stt": "31",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-10"
+        },
+        {
+          "stt": "32",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-10"
+        },
+        {
+          "stt": "33",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M100/B7.5R28",
+          "pour_date": "2026-10-13"
+        },
+        {
+          "stt": "34",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M100/B7.5R28",
+          "pour_date": "2026-10-13"
+        },
+        {
+          "stt": "35",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M100/B7.5R28",
+          "pour_date": "2026-10-13"
+        },
+        {
+          "stt": "36",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M100/B7.5R28",
+          "pour_date": "2026-10-13"
+        },
+        {
+          "stt": "37",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M100/B7.5R28",
+          "pour_date": "2026-10-13"
+        },
+        {
+          "stt": "38",
+          "contractor": "NVC",
+          "supplier": "TGN",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R7",
+          "pour_date": "2026-10-14"
+        },
+        {
+          "stt": "39",
+          "contractor": "NVC",
+          "supplier": "TGN",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-15"
+        },
+        {
+          "stt": "40",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M150/B12.5R28",
+          "pour_date": "2026-10-17"
+        },
+        {
+          "stt": "41",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M150/B12.5R28",
+          "pour_date": "2026-10-17"
+        },
+        {
+          "stt": "42",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M150/B12.5R28",
+          "pour_date": "2026-10-17"
+        },
+        {
+          "stt": "43",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M150/B12.5R28",
+          "pour_date": "2026-10-17"
+        },
+        {
+          "stt": "44",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M150/B12.5R28",
+          "pour_date": "2026-10-17"
+        },
+        {
+          "stt": "45",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M150/B12.5R28",
+          "pour_date": "2026-10-17"
+        },
+        {
+          "stt": "46",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M150/B12.5R28",
+          "pour_date": "2026-10-17"
+        },
+        {
+          "stt": "47",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-18"
+        },
+        {
+          "stt": "48",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-18"
+        },
+        {
+          "stt": "49",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-18"
+        },
+        {
+          "stt": "50",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-18"
+        },
+        {
+          "stt": "51",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-18"
+        },
+        {
+          "stt": "52",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-18"
+        },
+        {
+          "stt": "53",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-18"
+        },
+        {
+          "stt": "54",
+          "contractor": "NVC",
+          "supplier": "TSG-TNT",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "M400/B30R28",
+          "pour_date": "2026-10-18"
+        },
+        {
+          "stt": "55",
+          "contractor": "NVC",
+          "supplier": "",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "",
+          "pour_date": ""
+        },
+        {
+          "stt": "56",
+          "contractor": "NVC",
+          "supplier": "",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "",
+          "pour_date": ""
+        },
+        {
+          "stt": "57",
+          "contractor": "NVC",
+          "supplier": "",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "",
+          "pour_date": ""
+        },
+        {
+          "stt": "58",
+          "contractor": "NVC",
+          "supplier": "",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "",
+          "pour_date": ""
+        },
+        {
+          "stt": "59",
+          "contractor": "NVC",
+          "supplier": "",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "",
+          "pour_date": ""
+        },
+        {
+          "stt": "60",
+          "contractor": "NVC",
+          "supplier": "",
+          "location": "VST",
+          "volume_m3": "3.0",
+          "sample_sets": "01",
+          "slump": "12±2",
+          "grade": "",
+          "pour_date": ""
+        }
+      ],
+      "work_inspections": [
+        {
+          "stt": "1.0",
+          "contractor": "PG",
+          "work_name": "EPCOC",
+          "doc_no": "PG/WA/B1/CWI/001",
+          "description": "Thi công ép cọc thử P1, P2",
+          "date": "2019-12-16"
+        },
+        {
+          "stt": "2.0",
+          "contractor": "PG",
+          "work_name": "EPCOC",
+          "doc_no": "PG/WA/B1/CWI/002",
+          "description": "Thi công ép cọc thử P3",
+          "date": "2019-12-30"
+        },
+        {
+          "stt": "BUILDER",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "PILING",
+          "description": "B1",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "SUBSTRUCTURE",
+          "description": "B2",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "STRUCTURE",
+          "description": "B3",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "FINISHING",
+          "description": "B4",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "FIT OUT",
+          "description": "B5",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "LANDSCAPE",
+          "description": "B6",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "FAÇADE",
+          "description": "B7",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "INFRASTRUCTURE",
+          "description": "B8",
+          "date": ""
+        },
+        {
+          "stt": "SYSTEM",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "HVAC",
+          "description": "S1",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "PLUMBING",
+          "description": "S2",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "DRAINAGE",
+          "description": "S3",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "BOILER",
+          "description": "S4",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "FIRE FIGHTING",
+          "description": "S5",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "ELECTRICAL",
+          "description": "S6",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "ELV",
+          "description": "S7",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "GAS",
+          "description": "S8",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "STP",
+          "description": "S9",
+          "date": ""
+        },
+        {
+          "stt": "",
+          "contractor": "",
+          "work_name": "",
+          "doc_no": "LIFT",
+          "description": "S10",
+          "date": ""
+        }
+      ]
+    }
+  }
 }
